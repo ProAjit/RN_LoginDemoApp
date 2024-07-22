@@ -22,6 +22,7 @@ target 'LoginDemoApp' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
   target 'LoginDemoAppTests' do
     inherit! :complete
