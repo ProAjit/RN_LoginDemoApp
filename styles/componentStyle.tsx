@@ -28,7 +28,7 @@ const componentStyle = StyleSheet.create({
       flexGrow: 1,
       paddingLeft: 30,
       paddingRight: 30,
-      marginTop: 200,
+      marginTop: 50,
       width: width,
       height: height,
       backgroundColor: '#fff',
@@ -80,10 +80,10 @@ const componentStyle = StyleSheet.create({
     },
     forgotButtonText: {
       color: 'rgba(2, 28, 52, 1.0)',  // Text color
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: 'regular',
       textAlign: 'right',
-    }
+    },
   });
 
   const cameraStyles = StyleSheet.create({
