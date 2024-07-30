@@ -17,9 +17,9 @@ const StackNavigator: React.FC = () => {
       <Stack.Navigator initialRouteName="Login" 
       screenOptions={{
         title:"Safety Management",
-        headerTintColor: 'rgba(157, 251, 54, 1.0)',
+        headerTintColor: '#fff',
         headerStyle: {
-          backgroundColor: 'rgba(13, 103, 184, 1.0)'
+          backgroundColor: 'rgba(2, 28, 52, 1.0)'
         },
         headerTitleStyle: {
           fontSize: 20

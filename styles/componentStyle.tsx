@@ -22,18 +22,20 @@ const componentStyle = StyleSheet.create({
       marginTop: 0, // Adjust this value according to the height of your navigation bar  
     },
     innerView: {
-      backgroundColor: 'white',
-      padding: 10, 
-      paddingTop: 30,
-      width: width * 0.8,  // 80% of screen width
-      height: height * 0.25,
+      flexGrow: 1,
+      paddingLeft: 30,
+      paddingRight: 30,
+      marginTop: 150,
+      width: width,
+      height: height,
     },
     inputText: {
       height: 40,
-      borderColor: 'gray',
-      borderWidth: 1,
+      borderColor: 'rgba(2, 28, 52, 0.1)',
+      borderWidth: 0.5,
       marginBottom: 10,
       paddingHorizontal: 10,
+      borderRadius: 10,  // Rounded corners
     },
     text: {
       height: 40,
@@ -41,17 +43,13 @@ const componentStyle = StyleSheet.create({
       fontSize: 15,
     },
     button: {
-      marginTop: 10,
-      width: width * 0.8,  // 80% of screen width
-      backgroundColor: 'rgb(50, 130, 130)',  // Button color
+      backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
       padding: 15,
-      marginLeft: 30,
-      marginRight: 30,
-      borderRadius: 0,  // Rounded corners
+      borderRadius: 10,  // Rounded corners
       alignItems: 'center',  // Center text horizontally
     },
     buttonText: {
-      color: '#FFFFFF',  // Text color
+      color: '#fff',  // Text color
       fontSize: 16,
       fontWeight: 'bold',
     },

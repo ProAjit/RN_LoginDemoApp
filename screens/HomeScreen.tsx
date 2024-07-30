@@ -31,7 +31,7 @@ const PressableButton = ()=> {
     <View style={buttonStyles.container}>
       <Pressable style={buttonStyles.button} onPress={openCamera}>
         <ImageBackground
-          source={require('/Users/ajitsatarkar/Documents/Study/Demo/LoginDemoApp/images/camera.png')}
+          source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/camera.png')}
           style={buttonStyles.image}
           imageStyle={{ borderRadius: 10 }} // Optional: round the corners of the image
         >
