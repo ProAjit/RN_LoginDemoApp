@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity,  } from 'react-native';
+import { SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import componentStyle from '../styles/componentStyle';
 import { Pressable, ImageBackground } from 'react-native';
 import buttonStyles from '../styles/buttonStyle';
@@ -30,12 +31,12 @@ const PressableButton = ()=> {
   return (
     <View style={buttonStyles.container}>
       <Pressable style={buttonStyles.button} onPress={openCamera}>
-        <ImageBackground
+        {/* <ImageBackground
           source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/camera.png')}
           style={buttonStyles.image}
           imageStyle={{ borderRadius: 10 }} // Optional: round the corners of the image
         >
-        </ImageBackground>
+        </ImageBackground> */}
         <Text style={buttonStyles.buttonText}>Take A Picture</Text>
       </Pressable>
       <BottomButtonComponent />

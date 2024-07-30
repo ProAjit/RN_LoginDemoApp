@@ -25,7 +25,7 @@ const componentStyle = StyleSheet.create({
       flexGrow: 1,
       paddingLeft: 30,
       paddingRight: 30,
-      marginTop: 150,
+      marginTop: 200,
       width: width,
       height: height,
     },
@@ -41,6 +41,13 @@ const componentStyle = StyleSheet.create({
       height: 40,
       paddingTop: 10,
       fontSize: 15,
+    },
+    loginButton: {
+      backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+      padding: 15,
+      borderRadius: 10,  // Rounded corners
+      alignItems: 'center',  // Center text horizontally
+      marginTop: 20,
     },
     button: {
       backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color

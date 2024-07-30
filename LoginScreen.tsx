@@ -9,9 +9,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, ScrollView, Platform} from 'react-native';
 import { TouchableOpacity, ActivityIndicator} from 'react-native';
 import componentStyle from './styles/componentStyle';
-import { ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { red } from 'react-native-reanimated/lib/typescript/Colors';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 
 const NetworkComponent: React.FC = () => {
@@ -25,7 +23,7 @@ const NetworkComponent: React.FC = () => {
 };
 
 
-const LoginScreen = (props) => {
+const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { name: string; }) => void; }; }) => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
@@ -39,11 +37,13 @@ const LoginScreen = (props) => {
   }
 
   return (
+    // <SafeAreaView>
     <KeyboardAvoidingView >
     <ScrollView contentContainerStyle={componentStyle.scrollView}>
     <NetworkStatusProvider>
     <NetworkComponent/>
     <View style={componentStyle.container}>
+    <ActivityIndicator size={60} color={"red"} animating={show}/>
     <View style={componentStyle.innerView}>
       <Text style={componentStyle.text}> Username </Text>
       <TextInput
@@ -58,8 +58,7 @@ const LoginScreen = (props) => {
       placeholder="Enter your password"
       onChangeText={setPassword}
       />
-     <ActivityIndicator size={60} color={"red"} animating={show} />
-     <TouchableOpacity style={componentStyle.button} onPress={()=> displayLoader()}>
+     <TouchableOpacity style={componentStyle.loginButton} onPress={()=> displayLoader()}>
         <Text style={componentStyle.buttonText}>Login</Text>
      </TouchableOpacity>
      </View>
@@ -67,6 +66,7 @@ const LoginScreen = (props) => {
     </NetworkStatusProvider>
     </ScrollView>
    </KeyboardAvoidingView>
+  //  </SafeAreaView>
   );
 };
 
