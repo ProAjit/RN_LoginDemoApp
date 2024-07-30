@@ -36,15 +36,23 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
     }, 3000)
   }
 
+  const forgotPasswordPressed = () => {
+    setShow(true)
+    setTimeout(()=> {
+      setShow(false)
+    }, 3000)
+  }
+
   return (
     // <SafeAreaView>
-    <KeyboardAvoidingView >
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={componentStyle.container}>
     <ScrollView contentContainerStyle={componentStyle.scrollView}>
     <NetworkStatusProvider>
     <NetworkComponent/>
     <View style={componentStyle.container}>
-    <ActivityIndicator size={60} color={"red"} animating={show}/>
     <View style={componentStyle.innerView}>
+      <Text style={componentStyle.textHeader}> MNG-HA Employee Self-Service </Text>
       <Text style={componentStyle.text}> Username </Text>
       <TextInput
       style={componentStyle.inputText}
@@ -58,8 +66,12 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
       placeholder="Enter your password"
       onChangeText={setPassword}
       />
+     <ActivityIndicator size={'large'} color={"darkgray"} animating={show}/>
      <TouchableOpacity style={componentStyle.loginButton} onPress={()=> displayLoader()}>
         <Text style={componentStyle.buttonText}>Login</Text>
+     </TouchableOpacity>
+     <TouchableOpacity style={componentStyle.forgotButton} onPress={()=> forgotPasswordPressed()}>
+        <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>
      </TouchableOpacity>
      </View>
      </View>

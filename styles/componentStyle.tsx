@@ -9,9 +9,12 @@ const componentStyle = StyleSheet.create({
     },
     container: {
      flex: 1,
+     backgroundColor: '#fff',
     },
     scrollView: {
       flexGrow: 1,
+      width: width,
+      height: height,
     },
     backgroundImage: {
       alignItems: 'center',
@@ -28,6 +31,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 200,
       width: width,
       height: height,
+      backgroundColor: '#fff',
     },
     inputText: {
       height: 40,
@@ -42,24 +46,44 @@ const componentStyle = StyleSheet.create({
       paddingTop: 10,
       fontSize: 15,
     },
+    textHeader: {
+      padding: 10,
+      fontSize: 13,
+      fontWeight: 'bold',
+      tintColor: 'rgba(2, 28, 52, 1.0)', 
+      textAlign: 'center',  // Center text horizontally
+      marginBottom: 20,
+    },
     loginButton: {
       backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
-      padding: 15,
+      padding: 10,
       borderRadius: 10,  // Rounded corners
       alignItems: 'center',  // Center text horizontally
       marginTop: 20,
     },
+    forgotButton: {
+      backgroundColor: 'white',  // Button color
+      padding: 10,
+      borderRadius: 10,  // Rounded corners
+      marginTop: 20,
+    },
     button: {
       backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
-      padding: 15,
+      padding: 10,
       borderRadius: 10,  // Rounded corners
       alignItems: 'center',  // Center text horizontally
     },
     buttonText: {
       color: '#fff',  // Text color
-      fontSize: 16,
-      fontWeight: 'bold',
+      fontSize: 20,
+      fontWeight: 'regular',
     },
+    forgotButtonText: {
+      color: 'rgba(2, 28, 52, 1.0)',  // Text color
+      fontSize: 12,
+      fontWeight: 'regular',
+      textAlign: 'right',
+    }
   });
 
   const cameraStyles = StyleSheet.create({

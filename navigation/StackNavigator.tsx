@@ -15,17 +15,11 @@ const StackNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login" 
-      screenOptions={{
-        title:"Safety Management",
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: 'rgba(2, 28, 52, 1.0)'
-        },
-        headerTitleStyle: {
-          fontSize: 20
-        }
-      }}
-      >
+        screenOptions={{
+          title:"",
+          headerTintColor: '#fff',
+        }}
+        >
         <Stack.Screen 
         name="Login" 
         component={LoginScreen} 
@@ -35,7 +29,14 @@ const StackNavigator: React.FC = () => {
         component={HomeScreen} 
         options={{
           title: "Endorse Safety Issue",
+          headerStyle: {
+          backgroundColor: 'rgba(2, 28, 52, 1.0)'
+         },
+          headerTintColor: '#fff',
           headerBackTitleVisible: false, // Hides the back button text
+          headerTitleStyle: {
+            fontSize: 20
+          }
           }}
         />
       </Stack.Navigator>

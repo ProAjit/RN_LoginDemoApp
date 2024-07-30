@@ -98,16 +98,23 @@ const BottomButtonStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'rgb(50, 130, 130)',
-    //backgroundColor: '#841584',
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
     margin: 1, // Small margin between buttons
+    tintColor: 'white',
+    borderRadius: 10,
+    marginRight: 10,
   },
   cancelButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'rgb(50, 130, 130)',
+    backgroundColor:'white',
     margin: 1, // Small margin between buttons
+    borderColor: 'rgba(2, 28, 52, 1.0)',
+    borderWidth: 0.5,
+    tintColor: 'rgba(2, 28, 52, 1.0)',
+    borderRadius: 10,
+    marginLeft: 10,
   },
   buttonText: {
     color: 'white',
