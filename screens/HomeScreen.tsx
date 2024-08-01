@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
       style={componentStyle.container}
     >
     <View style={{alignItems: 'center', marginTop: 10}}>
-    <Text style={{fontSize: 20}}> 
+    <Text style={{fontSize: 18}}> 
       Welcome : {name}
     </Text>
     <PressableButton />
@@ -30,15 +30,9 @@ const HomeScreen = (props) => {
 const PressableButton = ()=> {
   return (
     <View style={buttonStyles.container}>
-      <Pressable style={buttonStyles.button} onPress={openCamera}>
-        {/* <ImageBackground
-          source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/camera.png')}
-          style={buttonStyles.image}
-          imageStyle={{ borderRadius: 10 }} // Optional: round the corners of the image
-        >
-        </ImageBackground> */}
+      {/* <Pressable style={buttonStyles.button} onPress={openCamera}>
         <Text style={buttonStyles.buttonText}>Take A Picture</Text>
-      </Pressable>
+      </Pressable> */}
       <BottomButtonComponent />
     </View>
   )
@@ -70,11 +64,14 @@ const BottomButtonComponent = () => {
   return (
     <View style={BottomButtonStyles.container}>
       <View style={BottomButtonStyles.buttonContainer}>
-        <TouchableOpacity style={BottomButtonStyles.submitButton} onPress={() => Alert.alert('Submit Button Pressed!')}>
-          <Text style={BottomButtonStyles.buttonText}>Submit</Text>
+        <TouchableOpacity style={BottomButtonStyles.homeButton} onPress={() => Alert.alert('Home Button Pressed!')}>
+          <Text style={BottomButtonStyles.buttonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={BottomButtonStyles.cancelButton} onPress={() => Alert.alert('Cancel Button Pressed!')}>
-          <Text style={BottomButtonStyles.buttonText}>Cancel</Text>
+        <TouchableOpacity style={BottomButtonStyles.feedbackButton} onPress={() => Alert.alert('Feedback Button Pressed!')}>
+          <Text style={BottomButtonStyles.buttonText}>Feedback</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={BottomButtonStyles.aboutButton} onPress={() => Alert.alert('About Button Pressed!')}>
+          <Text style={BottomButtonStyles.buttonText}>About</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -87,34 +84,39 @@ const BottomButtonStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 100,
-    margin: 10
   },
   buttonContainer: {
-    width: '100%',
-    height: 50,
-    flexDirection: 'row'
+    height: 40,
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginRight: 10,
   },
-  submitButton: {
+  homeButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
-    margin: 1, // Small margin between buttons
     tintColor: 'white',
     borderRadius: 10,
     marginRight: 10,
   },
-  cancelButton: {
+  feedbackButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'white',
-    margin: 1, // Small margin between buttons
-    borderColor: 'rgba(2, 28, 52, 1.0)',
-    borderWidth: 0.5,
-    tintColor: 'rgba(2, 28, 52, 1.0)',
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+    tintColor: 'white',
     borderRadius: 10,
-    marginLeft: 10,
+    marginRight: 10,
+  },
+  aboutButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+    tintColor: 'white',
+    borderRadius: 10,
+    marginRight: 10,
   },
   buttonText: {
     color: 'white',

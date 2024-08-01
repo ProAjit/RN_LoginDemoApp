@@ -28,7 +28,7 @@ const StackNavigator: React.FC = () => {
         name="Home" 
         component={HomeScreen} 
         options={{
-          title: "Endorse Safety Issue",
+          title: "Safety 24/7",
           headerStyle: {
           backgroundColor: 'rgba(2, 28, 52, 1.0)'
          },
