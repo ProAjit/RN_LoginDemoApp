@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity,  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,  } from 'react-native';
 import { SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import componentStyle from '../styles/componentStyle';
-import { Pressable, ImageBackground } from 'react-native';
-import buttonStyles from '../styles/buttonStyle';
-import { launchCamera, CameraOptions, Asset } from 'react-native-image-picker';
-
+import { launchCamera, CameraOptions } from 'react-native-image-picker';
+import CollectionView from './CollectionView';
 
 const HomeScreen = (props) => {
   console.warn(props.route.params);
@@ -16,27 +14,22 @@ const HomeScreen = (props) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={componentStyle.container}
     >
+      
     <View style={{alignItems: 'center', marginTop: 10}}>
     <Text style={{fontSize: 18}}> 
       Welcome : {name}
     </Text>
-    <PressableButton />
+    <View style={homeStyles.collectionContainer}>
+     <CollectionView />
     </View>
+    <BottomButtonComponent />
+    </View>
+
    </KeyboardAvoidingView>
    </SafeAreaView>
-  );;
+  );
 };
 
-const PressableButton = ()=> {
-  return (
-    <View style={buttonStyles.container}>
-      {/* <Pressable style={buttonStyles.button} onPress={openCamera}>
-        <Text style={buttonStyles.buttonText}>Take A Picture</Text>
-      </Pressable> */}
-      <BottomButtonComponent />
-    </View>
-  )
-}
 //   <Button title="Open Camera" onPress={() => Alert.alert('Camera Button Pressed!')} />
 
 const openCamera = () => {
@@ -62,28 +55,30 @@ const openCamera = () => {
 
 const BottomButtonComponent = () => {
   return (
-    <View style={BottomButtonStyles.container}>
-      <View style={BottomButtonStyles.buttonContainer}>
-        <TouchableOpacity style={BottomButtonStyles.homeButton} onPress={() => Alert.alert('Home Button Pressed!')}>
-          <Text style={BottomButtonStyles.buttonText}>Home</Text>
+    <View style={homeStyles.container}>
+      <View style={homeStyles.buttonContainer}>
+        <TouchableOpacity style={homeStyles.homeButton} onPress={() => Alert.alert('Home Button Pressed!')}>
+          <Text style={homeStyles.buttonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={BottomButtonStyles.feedbackButton} onPress={() => Alert.alert('Feedback Button Pressed!')}>
-          <Text style={BottomButtonStyles.buttonText}>Feedback</Text>
+        <TouchableOpacity style={homeStyles.feedbackButton} onPress={() => Alert.alert('Feedback Button Pressed!')}>
+          <Text style={homeStyles.buttonText}>Feedback</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={BottomButtonStyles.aboutButton} onPress={() => Alert.alert('About Button Pressed!')}>
-          <Text style={BottomButtonStyles.buttonText}>About</Text>
+        <TouchableOpacity style={homeStyles.aboutButton} onPress={() => Alert.alert('About Button Pressed!')}>
+          <Text style={homeStyles.buttonText}>About</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const BottomButtonStyles = StyleSheet.create({
+const homeStyles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: 10,
+    height: 40,
+    backgroundColor: 'white',
+    marginBottom: 10
   },
   buttonContainer: {
     height: 40,
@@ -120,8 +115,11 @@ const BottomButtonStyles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
+  },
+  collectionContainer: {
+    height: '85%',
   },
 });
 
