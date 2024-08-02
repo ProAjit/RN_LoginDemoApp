@@ -26,8 +26,8 @@ const HomeScreen = (props) => {
   const {name} = props.route.params;
 
   const handleItemPress = (title: string) => {
-    Alert.alert(`Item pressed: ${title}`);
-    console.log(`Item pressed: ${title}`);
+    //Alert.alert(`Item pressed: ${title}`);
+    console.warn(`Selected Item: ${title}`);
   };
 
   return (
