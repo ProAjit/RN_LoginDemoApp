@@ -25,9 +25,9 @@ const HomeScreen = (props) => {
   console.warn(props.route.params);
   const {name} = props.route.params;
 
-  const handleItemPress = (id: string) => {
-    Alert.alert(`Item pressed: ${id}`);
-    console.log(`Item pressed: ${id}`);
+  const handleItemPress = (title: string) => {
+    Alert.alert(`Item pressed: ${title}`);
+    console.log(`Item pressed: ${title}`);
   };
 
   return (
@@ -50,8 +50,6 @@ const HomeScreen = (props) => {
    </SafeAreaView>
   );
 };
-
-//   <Button title="Open Camera" onPress={() => Alert.alert('Camera Button Pressed!')} />
 
 const openCamera = () => {
   const options: CameraOptions = {

@@ -8,7 +8,7 @@ interface Item {
 
 interface CollectionViewProps {
   data: Item[];
-  onItemPress: (id: string) => void;
+  onItemPress: (title: string) => void;
 }
 
 const numColumns = 2;
@@ -16,8 +16,9 @@ const { width } = Dimensions.get('window');
 const itemWidth = width / numColumns;
 
 const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) => {
+
   const renderItem = ({ item }: { item: Item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.id)}>
+    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
       <Image source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/logo.png')} 
       style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
@@ -28,7 +29,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) =>
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.title}
       numColumns={numColumns}
       columnWrapperStyle={styles.row}
     />
