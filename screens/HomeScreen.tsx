@@ -5,22 +5,43 @@ import componentStyle from '../styles/componentStyle';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import CollectionView from './CollectionView';
 
+interface Item {
+  id: string;
+  title: string;
+}
+
+const data: Item[] = [
+  { id: '1', title: 'TOP MANAGEMENT MESSAGES' },
+  { id: '2', title: 'ENDORSE YOUR SAFETY ISSUE' },
+  { id: '3', title: 'SCHEDULE IN CLASS TRAINING' },
+  { id: '4', title: 'QUERIES' },
+  { id: '5', title: 'E-TRAINING' },
+  { id: '6', title: 'LINKS' },
+  { id: '6', title: 'SAFETY ALERTS' },
+  { id: '6', title: 'SAFETY NEWS' },
+];
+
 const HomeScreen = (props) => {
   console.warn(props.route.params);
   const {name} = props.route.params;
+
+  const handleItemPress = (id: string) => {
+    Alert.alert(`Item pressed: ${id}`);
+    console.log(`Item pressed: ${id}`);
+  };
+
   return (
     <SafeAreaView style={componentStyle.safeArea}>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={componentStyle.container}
     >
-      
+
     <View style={{alignItems: 'center', marginTop: 10}}>
-    <Text style={{fontSize: 18}}> 
-      Welcome : {name}
-    </Text>
+    <Text style={{fontSize: 18}}>  Welcome : {name} </Text>
+    
     <View style={homeStyles.collectionContainer}>
-     <CollectionView />
+    <CollectionView data={data} onItemPress={handleItemPress} />
     </View>
     <BottomButtonComponent />
     </View>
@@ -78,7 +99,8 @@ const homeStyles = StyleSheet.create({
     marginTop: 10,
     height: 40,
     backgroundColor: 'white',
-    marginBottom: 10
+    marginBottom: 10,
+    paddingBottom: 10,
   },
   buttonContainer: {
     height: 40,

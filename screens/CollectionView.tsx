@@ -1,33 +1,27 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 
 interface Item {
   id: string;
   title: string;
 }
 
-const data: Item[] = [
-  { id: '1', title: 'TOP MANAGEMENT MESSAGES' },
-  { id: '2', title: 'ENDORSE YOUR SAFETY ISSUE' },
-  { id: '3', title: 'SCHEDULE IN CLASS TRAINING' },
-  { id: '4', title: 'QUERIES' },
-  { id: '5', title: 'E-TRAINING' },
-  { id: '6', title: 'LINKS' },
-  { id: '6', title: 'SAFETY ALERTS' },
-  { id: '6', title: 'SAFETY NEWS' },
-];
+interface CollectionViewProps {
+  data: Item[];
+  onItemPress: (id: string) => void;
+}
 
 const numColumns = 2;
 const { width } = Dimensions.get('window');
 const itemWidth = width / numColumns;
 
-const CollectionView = () => {
+const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) => {
   const renderItem = ({ item }: { item: Item }) => (
-    <View style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.id)}>
       <Image source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/logo.png')} 
       style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
