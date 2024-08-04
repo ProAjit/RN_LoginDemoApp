@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
+import ListViewScreen from '../screens/TopManagementMessages/ManagementMessages';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,21 @@ const StackNavigator: React.FC = () => {
         component={HomeScreen} 
         options={{
           title: "Safety 24/7",
+          headerStyle: {
+          backgroundColor: 'rgba(2, 28, 52, 1.0)'
+         },
+          headerTintColor: '#fff',
+          headerBackTitleVisible: false, // Hides the back button text
+          headerTitleStyle: {
+            fontSize: 20
+          }
+          }}
+        />
+        <Stack.Screen 
+        name="ListViewScreen" 
+        component={ListViewScreen} 
+        options={{
+          title: "Top Management Messages",
           headerStyle: {
           backgroundColor: 'rgba(2, 28, 52, 1.0)'
          },

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,  } from 'react-native';
 import { SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import componentStyle from '../../styles/componentStyle';
-import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import CollectionView from './CollectionView';
 
 interface Item {
@@ -21,13 +20,17 @@ const data: Item[] = [
   { id: '6', title: 'SAFETY NEWS' },
 ];
 
-const HomeScreen = (props) => {
+const HomeScreen = (props: { route: any; navigation: { navigate: (arg0: string, arg1: { name: string; }) => void; }; }) => 
+  {
   console.warn(props.route.params);
   const {name} = props.route.params;
 
-  const handleItemPress = (title: string) => {
-    //Alert.alert(`Item pressed: ${title}`);
-    console.warn(`Selected Item: ${title}`);
+  const handleItemPress = (id: string, title: string) => {
+    console.warn(`Selected Item: ${id}`);
+    props.navigation.navigate('ListViewScreen', { name: title });
+    if (id === '1') {
+      props.navigation.navigate('ListViewScreen', { name: title });
+    }
   };
 
   return (
@@ -41,7 +44,7 @@ const HomeScreen = (props) => {
     <Text style={{fontSize: 18}}>  Welcome : {name} </Text>
     
     <View style={homeStyles.collectionContainer}>
-    <CollectionView data={data} onItemPress={handleItemPress} />
+    <CollectionView data={data} onItemPress={(id: string) => handleItemPress(id, data.find(item => item.id === id)?.title ?? '')} />
     </View>
     <BottomButtonComponent />
     </View>
@@ -49,27 +52,6 @@ const HomeScreen = (props) => {
    </KeyboardAvoidingView>
    </SafeAreaView>
   );
-};
-
-const openCamera = () => {
-  const options: CameraOptions = {
-    mediaType: 'photo',
-    cameraType: 'back',
-    saveToPhotos: true,
-  };
-
-  launchCamera(options, (response) => {
-    if (response.didCancel) {
-      Alert.alert('User cancelled image picker');
-    } else if (response.errorCode) {
-      //console.log('ImagePicker Error: ', response.errorCode);
-      Alert.alert('ImagePicker Error:  camera_unavailable');
-    } else if (response.assets) {
-      const source = { uri: response.assets[0].uri };
-      console.log('Image URI: ', source.uri);
-      Alert.alert('Photo taken!', source.uri);
-    }
-  });
 };
 
 const BottomButtonComponent = () => {

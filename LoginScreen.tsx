@@ -76,7 +76,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
       />
      <ActivityIndicator size={'large'} color={"darkgray"} animating={show}/>
      <TouchableOpacity style={componentStyle.loginButton} onPress={()=> displayLoader()}>
-        <Text style={componentStyle.buttonText}>Login</Text>
+      <Text style={componentStyle.buttonText}>Login</Text>
      </TouchableOpacity>
      <TouchableOpacity style={componentStyle.forgotButton} onPress={()=> forgotPasswordPressed()}>
         <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>
