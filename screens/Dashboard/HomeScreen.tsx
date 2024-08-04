@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,  } from 'react-native';
 import { SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import componentStyle from '../styles/componentStyle';
+import componentStyle from '../../styles/componentStyle';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import CollectionView from './CollectionView';
 
