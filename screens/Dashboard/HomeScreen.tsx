@@ -28,8 +28,15 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (arg0: string, 
   const handleItemPress = (id: string, title: string) => {
     console.warn(`Selected Item: ${id}`);
     props.navigation.navigate('ListViewScreen', { name: title });
-    if (id === '1') {
-      props.navigation.navigate('ListViewScreen', { name: title });
+    switch (id) {
+      case 'TOP MANAGEMENT MESSAGES':
+        props.navigation.navigate('ListViewScreen', { name: title });
+        break;
+      case 'QUERIES':
+        props.navigation.navigate('QueriesScreen', { name: title });
+        break;
+      default:
+        break;
     }
   };
 

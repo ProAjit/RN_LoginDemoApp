@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
 import ListViewScreen from '../screens/TopManagementMessages/ManagementMessages';
+import QueriesScreen from '../screens/Queries/Queris';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,21 @@ const StackNavigator: React.FC = () => {
         component={ListViewScreen} 
         options={{
           title: "Top Management Messages",
+          headerStyle: {
+          backgroundColor: 'rgba(2, 28, 52, 1.0)'
+         },
+          headerTintColor: '#fff',
+          headerBackTitleVisible: false, // Hides the back button text
+          headerTitleStyle: {
+            fontSize: 20
+          }
+          }}
+        />
+        <Stack.Screen 
+        name="QueriesScreen" 
+        component={QueriesScreen} 
+        options={{
+          title: "Queries",
           headerStyle: {
           backgroundColor: 'rgba(2, 28, 52, 1.0)'
          },

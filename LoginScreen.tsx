@@ -94,12 +94,7 @@ const logoStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff', // Background color for inner container
-    // borderRadius: 10, // Optional: for rounded corners
-    // shadowColor: '#000', // Optional: for shadow effect
-    // shadowOpacity: 0.25,
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowRadius: 4,
-    // elevation: 5, // For shadow on Android
+
   },
   logo: {
     width: 80,

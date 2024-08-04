@@ -5,7 +5,7 @@ const OverlayActivityIndicator = ({ show }) => {
   return (
     show && (
       <View style={styles.overlay}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color='red' />
       </View>
     )
   );
