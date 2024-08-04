@@ -9,7 +9,7 @@ const data = [
   { id: '4', title: 'DED SS Message' },
 ];
 
-const ListViewScreen = (props) => {
+const ListViewScreen = () => {
   const handleRowPress = (title: string) => {
     Alert.alert(`Tapped on ${title}`);
     console.log(`Tapped on ${title}`);
