@@ -31,7 +31,7 @@ const QueriesScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Name</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} />
+          <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false}/>
         </View>
 
         <View style={styles.inputGroup}>
@@ -42,6 +42,7 @@ const QueriesScreen: React.FC = () => {
             onChangeText={setEmail}
             keyboardType="email-address"
             maxLength={15}
+            autoCorrect={false}
           />
         </View>
 
@@ -53,22 +54,23 @@ const QueriesScreen: React.FC = () => {
             onChangeText={setPhone}
             keyboardType="numeric"
             maxLength={15}
+            autoCorrect={false}
           />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Title</Text>
-          <TextInput style={styles.input} value={title} onChangeText={setTitle} />
+          <TextInput style={styles.input} value={title} onChangeText={setTitle} autoCorrect={false}/>
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Type</Text>
-          <TextInput style={styles.input} value={type} onChangeText={setType} />
+          <TextInput style={styles.input} value={type} onChangeText={setType} autoCorrect={false}/>
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Description</Text>
-          <TextInput style={styles.input} value={description} onChangeText={setDescription} multiline />
+          <TextInput style={styles.input} value={description} autoCorrect={false} onChangeText={setDescription} multiline />
         </View>
 
         <View style={styles.buttonContainer}>
