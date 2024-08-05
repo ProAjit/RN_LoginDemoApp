@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const QueriesScreen: React.FC = () => {
@@ -83,8 +83,12 @@ const QueriesScreen: React.FC = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button title="Submit" onPress={handleSubmit} />
-        <Button title="Cancel" onPress={handleCancel} />
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel}>
+          <Text style={styles.whiteButtonText}>Cancel</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -116,7 +120,36 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 24,
+    marginTop: 20,
+    height: 40,
+    margin: 10,
+  },
+  button: {
+    flex: 1,
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',
+    padding: 12,
+    borderRadius: 4,
+    alignItems: 'center',
+    marginHorizontal: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  whiteButton: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 4,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(2, 28, 52, 1.0)',
+  },
+  whiteButtonText: {
+    color: 'rgba(2, 28, 52, 1.0)',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
