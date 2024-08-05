@@ -6,15 +6,22 @@ const { width, height } = Dimensions.get('window');
 const componentStyle = StyleSheet.create({
     safeArea: {
       flex: 1,
+      backgroundColor: '#fff',
     },
     container: {
      flex: 1,
      backgroundColor: '#fff',
     },
+    keyboardScrollContainer: {
+       flexGrow: 1,
+       padding: 16,
+       backgroundColor: '#fff',
+    },
     scrollView: {
       flexGrow: 1,
       width: width,
       height: height,
+      backgroundColor: '#fff',
     },
     backgroundImage: {
       alignItems: 'center',
@@ -22,7 +29,6 @@ const componentStyle = StyleSheet.create({
       height: '100%',
       flex: 1,
       resizeMode: 'cover',
-      marginTop: 0, // Adjust this value according to the height of your navigation bar  
     },
     innerView: {
       flexGrow: 1,

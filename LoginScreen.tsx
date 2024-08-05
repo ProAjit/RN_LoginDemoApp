@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { View, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { TouchableOpacity, Image, StyleSheet } from 'react-native';
-import componentStyle from './styles/componentStyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import componentStyle from './styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -37,9 +38,9 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={componentStyle.container}>
-      <ScrollView contentContainerStyle={componentStyle.scrollView}>
-        <NetworkStatusProvider>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+      <NetworkStatusProvider>
+        <KeyboardAwareScrollView contentContainerStyle={componentStyle.scrollView}>
           <NetworkComponent />
           <View style={componentStyle.container}>
             <View style={logoStyles.outerContainer}>
@@ -73,8 +74,8 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
               </TouchableOpacity>
             </View>
           </View>
-        </NetworkStatusProvider>
-      </ScrollView>
+        </KeyboardAwareScrollView>
+      </NetworkStatusProvider>
       <OverlayActivityIndicator show={show} />
     </KeyboardAvoidingView>
   );
