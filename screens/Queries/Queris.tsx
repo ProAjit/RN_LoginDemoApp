@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const QueriesScreen: React.FC = () => {
   const [name, setName] = useState('');
@@ -23,62 +24,69 @@ const QueriesScreen: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={150}
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled
     >
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false}/>
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false} spellCheck={false}/>
+      </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            maxLength={15}
-            autoCorrect={false}
-          />
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          maxLength={15}
+          autoCorrect={false}
+          spellCheck={false}
+        />
+      </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Phone number</Text>
-          <TextInput
-            style={styles.input}
-            value={phone}
-            onChangeText={setPhone}
-            keyboardType="numeric"
-            maxLength={15}
-            autoCorrect={false}
-          />
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Phone number</Text>
+        <TextInput
+          style={styles.input}
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="numeric"
+          maxLength={15}
+          autoCorrect={false}
+          spellCheck={false}
+        />
+      </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Title</Text>
-          <TextInput style={styles.input} value={title} onChangeText={setTitle} autoCorrect={false}/>
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Title</Text>
+        <TextInput style={styles.input} value={title} onChangeText={setTitle} autoCorrect={false} spellCheck={false}/>
+      </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Type</Text>
-          <TextInput style={styles.input} value={type} onChangeText={setType} autoCorrect={false}/>
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Type</Text>
+        <TextInput style={styles.input} value={type} onChangeText={setType} autoCorrect={false} spellCheck={false}/>
+      </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Description</Text>
-          <TextInput style={styles.input} value={description} autoCorrect={false} onChangeText={setDescription} multiline />
-        </View>
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Description</Text>
+        <TextInput
+          style={[styles.input, styles.multilineInput]}
+          value={description}
+          onChangeText={setDescription}
+          autoCorrect={false}
+          spellCheck={false}
+          multiline
+        />
+      </View>
 
-        <View style={styles.buttonContainer}>
-          <Button title="Submit" onPress={handleSubmit} />
-          <Button title="Cancel" onPress={handleCancel} />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      <View style={styles.buttonContainer}>
+        <Button title="Submit" onPress={handleSubmit} />
+        <Button title="Cancel" onPress={handleCancel} />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -101,6 +109,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingLeft: 8,
+  },
+  multilineInput: {
+    height: 80,
   },
   buttonContainer: {
     flexDirection: 'row',
