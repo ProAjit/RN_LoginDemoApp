@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   multilineInput: {
-    height: 80,
+    height: 60,
   },
   buttonContainer: {
     flexDirection: 'row',
