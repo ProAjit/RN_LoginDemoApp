@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
-import { TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import componentStyle from './styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
@@ -17,7 +16,7 @@ const NetworkComponent: React.FC = () => {
   );
 };
 
-const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { name: string; }) => void; }; }) => {
+const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any) => void; }; }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
@@ -26,7 +25,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1: { nam
     setShow(true);
     setTimeout(() => {
       setShow(false);
-      props.navigation.navigate("Home", { name });
+      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
     }, 3000);
   };
 

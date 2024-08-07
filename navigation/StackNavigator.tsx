@@ -1,75 +1,57 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import HomeScreen from '../screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
-import ListViewScreen from '../screens/TopManagementMessages/ManagementMessages';
-import QueriesScreen from '../screens/Queries/Queris';
+import FeedbackScreen from '../screens/FeedbackScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => (
+  <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ color, size }) => {
+        let iconName: string;
+        if (route.name === 'Home') {
+          iconName = 'home-outline';
+        } else if (route.name === 'Feedback') {
+          iconName = 'chatbubble-ellipses-outline';
+        } else if (route.name === 'About') {
+          iconName = 'information-circle-outline';
+        } else {
+          iconName = 'alert-circle-outline'; // Fallback icon
+        }
+        return <Icon name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'gray',
+    })}
+  >
+    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Feedback" component={FeedbackScreen} />
+    <Tab.Screen name="About" component={AboutScreen} />
+  </Tab.Navigator>
+);
 
 const StackNavigator: React.FC = () => {
-
-  function rgba(arg0: number, arg1: number, arg2: number, arg3: number): string | import("react-native").Animated.Value | import("react-native").Animated.AnimatedInterpolation<string | number> | import("react-native").OpaqueColorValue | undefined {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" 
-        screenOptions={{
-          title:"",
-          headerTintColor: '#fff',
-        }}
-        >
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen 
-        name="Login" 
-        component={LoginScreen} 
+          name="Login" 
+          component={LoginScreen} 
         />
         <Stack.Screen 
-        name="Home" 
-        component={HomeScreen} 
-        options={{
-          title: "Safety 24/7",
-          headerStyle: {
-          backgroundColor: 'rgba(2, 28, 52, 1.0)'
-         },
-          headerTintColor: '#fff',
-          headerBackTitleVisible: false, // Hides the back button text
-          headerTitleStyle: {
-            fontSize: 20
-          }
-          }}
-        />
-        <Stack.Screen 
-        name="ListViewScreen" 
-        component={ListViewScreen} 
-        options={{
-          title: "Top Management Messages",
-          headerStyle: {
-          backgroundColor: 'rgba(2, 28, 52, 1.0)'
-         },
-          headerTintColor: '#fff',
-          headerBackTitleVisible: false, // Hides the back button text
-          headerTitleStyle: {
-            fontSize: 20
-          }
-          }}
-        />
-        <Stack.Screen 
-        name="QueriesScreen" 
-        component={QueriesScreen} 
-        options={{
-          title: "Queries",
-          headerStyle: {
-          backgroundColor: 'rgba(2, 28, 52, 1.0)'
-         },
-          headerTintColor: '#fff',
-          headerBackTitleVisible: false, // Hides the back button text
-          headerTitleStyle: {
-            fontSize: 20
-          }
-          }}
+          name="Main" 
+          component={TabNavigator} 
+          options={{
+            headerShown: false,
+          }} 
         />
       </Stack.Navigator>
     </NavigationContainer>
