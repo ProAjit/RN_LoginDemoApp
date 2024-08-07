@@ -55,7 +55,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
 
 const homeStyles = StyleSheet.create({
   collectionContainer: {
-    height: '85%',
+    height: '95%',
   },
 });
 
