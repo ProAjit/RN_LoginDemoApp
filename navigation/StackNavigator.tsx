@@ -4,13 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from '../screens/Dashboard/HomeScreen';
+import HomeScreen from '../Screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
-import FeedbackScreen from '../screens/FeedbackScreen';
-import AboutScreen from '../screens/AboutScreen';
-import QueriesScreen from '../screens/Queries/Queris';
-import ManagementMessagesScreen from '../screens/TopManagementMessages/ManagementMessages';
-import EndorseSafetyScreen from '../screens/EndorseSafetyScreen';
+import FeedbackScreen from '../Screens/FeedbackScreen';
+import AboutScreen from '../Screens/AboutScreen';
+import QueriesScreen from '../Screens/Queries/Queris';
+import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
+import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
