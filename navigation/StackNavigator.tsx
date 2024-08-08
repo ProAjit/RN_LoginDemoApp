@@ -47,13 +47,14 @@ const TabNavigator = () => (
       headerBackTitleVisible: false, // Hides the back button text
       headerTitleStyle: {
         fontSize: 20
-      }
+      },
+      headerShown: true,
     })}
   >
     {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-    <Tab.Screen name="Home" component={HomeStack}/>
-    <Tab.Screen name="Feedback" component={QueriesScreen} />
-    <Tab.Screen name="About" component={ListViewScreen} />
+    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+    <Tab.Screen name="Feedback" component={FeedbackScreen} />
+    <Tab.Screen name="About" component={AboutScreen} />
     {/* // <Tab.Screen name="Endorse Safety Issue" component={EndorseSafetyScreen}/> */}
   </Tab.Navigator>
 );
