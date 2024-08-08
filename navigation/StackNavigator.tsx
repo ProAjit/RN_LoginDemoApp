@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="QUERIES" component={QueriesScreen} />
     <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} />
@@ -53,11 +53,9 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+    <Tab.Screen name="Home" component={HomeStack} />
     <Tab.Screen name="Feedback" component={FeedbackScreen} />
     <Tab.Screen name="About" component={AboutScreen} />
-    {/* // <Tab.Screen name="Endorse Safety Issue" component={EndorseSafetyScreen}/> */}
   </Tab.Navigator>
 );
 
