@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import componentStyle from '../../styles/componentStyle';
 import CollectionView from './CollectionView';
 import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
@@ -28,15 +28,16 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
   const name = shareInstance.getUserName();
 
   const handleItemPress = (id: string, title: string) => {
-    console.log('title:', title); 
-    
+    console.log('id:', id); 
+
     switch (id) {
       case 'TOP MANAGEMENT MESSAGES':
         props.navigation.navigate('TOP MANAGEMENT MESSAGES', { ManagementMessagesScreen });
+        break;
       case 'ENDORSE YOUR SAFETY ISSUE':
         props.navigation.navigate('ENDORSE YOUR SAFETY ISSUE', { EndorseSafetyScreen });
+        break;
       case 'QUERIES':
-        console.log('id:', id); 
         props.navigation.navigate('QUERIES', { QueriesScreen });
         break;
       default:

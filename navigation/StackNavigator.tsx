@@ -18,9 +18,9 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} />
-    <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} />
     <Stack.Screen name="QUERIES" component={QueriesScreen} />
+    <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} />
+    <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} />
   </Stack.Navigator>
 );
 
