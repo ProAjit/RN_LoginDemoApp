@@ -28,6 +28,8 @@ const EndorseSafetyScreen = () => {
 
   const handleCancel = () => {
     setName('');
+    setBadgeNumber('');
+    setLocation('');
     setDescription('');
   };
 
@@ -44,13 +46,13 @@ const EndorseSafetyScreen = () => {
       </View>
       <View style={styles.bottomView}>
         <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input}  onChangeText={setName} value={name} placeholder="Name" maxLength={255} autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input}  onChangeText={setName} value={name} placeholder="Employee Name" maxLength={50} autoCorrect={false} spellCheck={false}/>
         <Text style={styles.label}>Badge Number</Text>
-        <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} placeholder="Badge Number" maxLength={255}  autoCorrect={false} spellCheck={false}/>
-        <Text style={styles.label}>Locations</Text>
-        <TextInput style={styles.input}  onChangeText={setLocation} value={location} placeholder="Locations" maxLength={255}  autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} placeholder="#000000" maxLength={7}  autoCorrect={false} spellCheck={false}/>
+        <Text style={styles.label}>Location</Text>
+        <TextInput style={styles.input}  onChangeText={setLocation} value={location} placeholder="Issue Location" maxLength={255}  autoCorrect={false} spellCheck={false}/>
         <Text style={styles.label}>Description</Text>
-        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Description"  autoCorrect={false} spellCheck={false} maxLength={255} multiline />
+        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Enter Description"  autoCorrect={false} spellCheck={false} maxLength={255} multiline />
       </View>
     </View>
     <View style={styles.buttonContainer}>
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: 'yellow'
+    backgroundColor: '#fff'
   },
   bottomView: {
     height: height * 0.65,
