@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import componentStyle from '../../styles/componentStyle';
 import CollectionView from './CollectionView';
-import ListViewScreen from '../TopManagementMessages/ManagementMessages';
+import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
+import EndorseSafetyScreen from '../EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
+import QueriesScreen from '../Queries/Queris';
 
 interface Item {
   id: string;
@@ -27,13 +29,15 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
 
   const handleItemPress = (id: string, title: string) => {
     console.log('title:', title); 
-    console.log('id:', id.toUpperCase); 
-    props.navigation.navigate('Queries', { ListViewScreen });
-
+    
     switch (id) {
       case 'TOP MANAGEMENT MESSAGES':
+        props.navigation.navigate('TOP MANAGEMENT MESSAGES', { ManagementMessagesScreen });
+      case 'ENDORSE YOUR SAFETY ISSUE':
+        props.navigation.navigate('ENDORSE YOUR SAFETY ISSUE', { EndorseSafetyScreen });
       case 'QUERIES':
-        console.log('q found:', id); 
+        console.log('id:', id); 
+        props.navigation.navigate('QUERIES', { QueriesScreen });
         break;
       default:
         break;

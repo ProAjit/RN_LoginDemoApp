@@ -9,7 +9,7 @@ const data = [
   { id: '4', title: 'DED SS Message' },
 ];
 
-const ListViewScreen = () => {
+const ManagementMessagesScreen = () => {
   const handleRowPress = (title: string) => {
     Alert.alert(`Tapped on ${title}`);
     console.log(`Tapped on ${title}`);
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListViewScreen;
+export default ManagementMessagesScreen;

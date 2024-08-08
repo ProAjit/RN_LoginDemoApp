@@ -93,7 +93,7 @@ const logoStyles = StyleSheet.create({
     justifyContent: 'center', // Center vertically
     alignItems: 'center', // Center horizontally
     backgroundColor: '#f0f0f0', // Background color for outer container
-    marginTop: 100,
+    marginTop: 150,
   },
   innerContainer: {
     width: 100,

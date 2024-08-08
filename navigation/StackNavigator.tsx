@@ -9,7 +9,7 @@ import LoginScreen from '../LoginScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import AboutScreen from '../screens/AboutScreen';
 import QueriesScreen from '../screens/Queries/Queris';
-import ListViewScreen from '../screens/TopManagementMessages/ManagementMessages';
+import ManagementMessagesScreen from '../screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../screens/EndorseSafetyScreen';
 
 const Stack = createStackNavigator();
@@ -18,7 +18,9 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Queries" component={ListViewScreen} />
+    <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} />
+    <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} />
+    <Stack.Screen name="QUERIES" component={QueriesScreen} />
   </Stack.Navigator>
 );
 
