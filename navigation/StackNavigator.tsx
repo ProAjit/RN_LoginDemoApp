@@ -6,8 +6,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../Screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
-import FeedbackScreen from '../Screens/FeedbackScreen';
-import AboutScreen from '../Screens/AboutScreen';
+import FeedbackScreen from '../Screens/Dashboard/FeedbackScreen';
+import AboutScreen from '../Screens/Dashboard/AboutScreen';
 import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
