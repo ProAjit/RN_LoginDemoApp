@@ -23,6 +23,10 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
   const { name } = props.route.params;
 
   const handleItemPress = (id: string, title: string) => {
+    console.log('title:', title); 
+    console.log('id:', id); 
+    props.navigation.navigate('ListViewScreen', { name: title });
+
     switch (title) {
       case 'TOP MANAGEMENT MESSAGES':
       case 'QUERIES':

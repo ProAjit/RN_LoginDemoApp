@@ -8,6 +8,9 @@ import HomeScreen from '../screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import AboutScreen from '../screens/AboutScreen';
+import QueriesScreen from '../screens/Queries/Queris';
+import ListViewScreen from '../screens/TopManagementMessages/ManagementMessages';
+import EndorseSafetyScreen from '../screens/EndorseSafetyScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,11 +33,20 @@ const TabNavigator = () => (
       },
       tabBarActiveTintColor: 'tomato',
       tabBarInactiveTintColor: 'gray',
+      headerStyle: {
+         backgroundColor: 'rgba(2, 28, 52, 1.0)'
+      },
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false, // Hides the back button text
+      headerTitleStyle: {
+        fontSize: 20
+      }
     })}
   >
     <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Feedback" component={FeedbackScreen} />
-    <Tab.Screen name="About" component={AboutScreen} />
+    <Tab.Screen name="Queries" component={QueriesScreen} />
+    <Tab.Screen name="List" component={ListViewScreen} />
+    <Tab.Screen name="Endorse Safety Issue" component={EndorseSafetyScreen}/>
   </Tab.Navigator>
 );
 

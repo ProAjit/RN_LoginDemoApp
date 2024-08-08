@@ -31,7 +31,7 @@ const QueriesScreen: React.FC = () => {
     >
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false} spellCheck={false} placeholder="Enter Name" maxLength={255}/>
       </View>
 
       <View style={styles.inputGroup}>
@@ -41,7 +41,8 @@ const QueriesScreen: React.FC = () => {
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
-          maxLength={15}
+          placeholder="Enter Email" 
+          maxLength={255}
           autoCorrect={false}
           spellCheck={false}
         />
@@ -55,6 +56,7 @@ const QueriesScreen: React.FC = () => {
           onChangeText={setPhone}
           keyboardType="numeric"
           maxLength={15}
+          placeholder='Enter Phone number'
           autoCorrect={false}
           spellCheck={false}
         />
@@ -62,12 +64,27 @@ const QueriesScreen: React.FC = () => {
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Title</Text>
-        <TextInput style={styles.input} value={title} onChangeText={setTitle} autoCorrect={false} spellCheck={false}/>
+        <TextInput 
+        style={styles.input} 
+        value={title} 
+        onChangeText={setTitle} 
+        placeholder="Enter Title" 
+        maxLength={255}
+        autoCorrect={false} 
+        spellCheck={false}
+        />
       </View>
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Type</Text>
-        <TextInput style={styles.input} value={type} onChangeText={setType} autoCorrect={false} spellCheck={false}/>
+        <TextInput 
+        style={styles.input} 
+        value={type} 
+        onChangeText={setType} 
+        autoCorrect={false} 
+        spellCheck={false} 
+        placeholder="Enter Type" 
+        maxLength={255}/>
       </View>
 
       <View style={styles.inputGroup}>
@@ -78,6 +95,8 @@ const QueriesScreen: React.FC = () => {
           onChangeText={setDescription}
           autoCorrect={false}
           spellCheck={false}
+          placeholder="Enter Description" 
+          maxLength={255}
           multiline
         />
       </View>
