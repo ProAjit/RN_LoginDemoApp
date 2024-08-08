@@ -43,14 +43,14 @@ const EndorseSafetyScreen = () => {
         <Button title="Take A Picture" onPress={takePicture} />
       </View>
       <View style={styles.bottomView}>
-        <Text>Name</Text>
-        <TextInput style={styles.input} onChangeText={setName} value={name} placeholder="Name" maxLength={255} autoCorrect={false} spellCheck={false}/>
-        <Text>Badge Number</Text>
+        <Text style={styles.label}>Name</Text>
+        <TextInput style={styles.input}  onChangeText={setName} value={name} placeholder="Name" maxLength={255} autoCorrect={false} spellCheck={false}/>
+        <Text style={styles.label}>Badge Number</Text>
         <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} placeholder="Badge Number" maxLength={255}  autoCorrect={false} spellCheck={false}/>
-        <Text>Locations</Text>
-        <TextInput style={styles.input} onChangeText={setLocation} value={location} placeholder="Locations" maxLength={255}  autoCorrect={false} spellCheck={false}/>
-        <Text>Description</Text>
-        <TextInput style={[styles.input, styles.description]} onChangeText={setDescription} value={description} placeholder="Description"  autoCorrect={false} spellCheck={false} maxLength={255} multiline />
+        <Text style={styles.label}>Locations</Text>
+        <TextInput style={styles.input}  onChangeText={setLocation} value={location} placeholder="Locations" maxLength={255}  autoCorrect={false} spellCheck={false}/>
+        <Text style={styles.label}>Description</Text>
+        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Description"  autoCorrect={false} spellCheck={false} maxLength={255} multiline />
       </View>
     </View>
     <View style={styles.buttonContainer}>
@@ -68,6 +68,8 @@ const EndorseSafetyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
   },
   topView: {
     height: height * 0.15,
@@ -78,21 +80,25 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     height: height * 0.65,
-    padding: 15,
-    backgroundColor: 'lightgray'
   },
   imageView: {
     width: 100,
     height: 100,
   },
+  label: {
+    fontSize: 16,
+    marginTop: 15,
+    marginBottom: 5,
+  },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
+    borderRadius: 4,
+    paddingLeft: 8,
   },
-  description: {
-    height: 100,
+  multilineInput: {
+    height: 60,
   },
   buttonContainer: {
     flexDirection: 'row',
