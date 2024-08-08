@@ -5,6 +5,7 @@ import componentStyle from './styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import AppSingleton from './AppSingleton/AppSingleton';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -21,8 +22,14 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
+  const setUserNameValue = () => {
+    const singleton = AppSingleton.getInstance();
+    singleton.setUserName(name);
+  };
+
   const displayLoader = () => {
     setShow(true);
+    setUserNameValue()
     setTimeout(() => {
       setShow(false);
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });

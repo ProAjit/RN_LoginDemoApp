@@ -15,6 +15,13 @@ import EndorseSafetyScreen from '../screens/EndorseSafetyScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const HomeStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Queries" component={ListViewScreen} />
+  </Stack.Navigator>
+);
+
 const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
@@ -43,10 +50,11 @@ const TabNavigator = () => (
       }
     })}
   >
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Queries" component={QueriesScreen} />
-    <Tab.Screen name="List" component={ListViewScreen} />
-    <Tab.Screen name="Endorse Safety Issue" component={EndorseSafetyScreen}/>
+    {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
+    <Tab.Screen name="Home" component={HomeStack}/>
+    <Tab.Screen name="Feedback" component={QueriesScreen} />
+    <Tab.Screen name="About" component={ListViewScreen} />
+    {/* // <Tab.Screen name="Endorse Safety Issue" component={EndorseSafetyScreen}/> */}
   </Tab.Navigator>
 );
 
@@ -57,6 +65,7 @@ const StackNavigator: React.FC = () => {
         <Stack.Screen 
           name="Login" 
           component={LoginScreen} 
+          options={{ headerShown: false }} 
         />
         <Stack.Screen 
           name="Main" 

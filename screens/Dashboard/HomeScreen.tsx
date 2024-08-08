@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import componentStyle from '../../styles/componentStyle';
 import CollectionView from './CollectionView';
+import ListViewScreen from '../TopManagementMessages/ManagementMessages';
+import AppSingleton from '../../AppSingleton/AppSingleton';
 
 interface Item {
   id: string;
@@ -20,17 +22,18 @@ const data: Item[] = [
 ];
 
 const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string, params?: any) => void }; }) => {
-  const { name } = props.route.params;
+  const shareInstance = AppSingleton.getInstance();
+  const name = shareInstance.getUserName();
 
   const handleItemPress = (id: string, title: string) => {
     console.log('title:', title); 
-    console.log('id:', id); 
-    props.navigation.navigate('ListViewScreen', { name: title });
+    console.log('id:', id.toUpperCase); 
+    props.navigation.navigate('Queries', { ListViewScreen });
 
-    switch (title) {
+    switch (id) {
       case 'TOP MANAGEMENT MESSAGES':
       case 'QUERIES':
-        props.navigation.navigate('ListViewScreen', { name: title });
+        console.log('q found:', id); 
         break;
       default:
         break;
@@ -44,7 +47,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         style={componentStyle.container}
       >
         <View style={{ alignItems: 'center', marginTop: 10 }}>
-          <Text style={{ fontSize: 18 }}>Welcome: {name}</Text>
+          <Text style={{ fontSize: 18 }}> Welcome: {name} </Text> 
           <View style={homeStyles.collectionContainer}>
             <CollectionView 
               data={data} 
