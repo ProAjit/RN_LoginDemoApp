@@ -6,6 +6,7 @@ import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessage
 import EndorseSafetyScreen from '../EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
+import LinksScreen from '../LinksScreen';
 
 interface Item {
   id: string;
@@ -39,6 +40,8 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         break;
       case 'QUERIES':
         props.navigation.navigate('QUERIES', { QueriesScreen });
+      case 'LINKS':
+        props.navigation.navigate('LINKS', { LinksScreen });
         break;
       default:
         break;

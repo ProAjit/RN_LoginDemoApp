@@ -11,6 +11,7 @@ import AboutScreen from '../Screens/Dashboard/AboutScreen';
 import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
+import LinksScreen from '../Screens/LinksScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,6 +44,14 @@ const HomeStack = () => (
       }}}/>
 
     <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 20
+      }}}/>
+
+    <Stack.Screen name="LINKS" component={LinksScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
