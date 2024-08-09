@@ -16,11 +16,40 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
-  <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="QUERIES" component={QueriesScreen} />
-    <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} />
-    <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} />
+  <Stack.Navigator>
+
+    <Stack.Screen name="Home" component={HomeScreen} 
+      options={{ headerLeft: () => null , 
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 20
+      }}}/>
+      
+    <Stack.Screen name="QUERIES" component={QueriesScreen} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 20
+      }}}/>
+
+    <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} 
+     options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 20
+      }}}/>
+
+    <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontSize: 20
+      }}}/>
+
   </Stack.Navigator>
 );
 
@@ -53,7 +82,7 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    <Tab.Screen name="Home" component={HomeStack} />
+    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
     <Tab.Screen name="Feedback" component={FeedbackScreen} />
     <Tab.Screen name="About" component={AboutScreen} />
   </Tab.Navigator>
