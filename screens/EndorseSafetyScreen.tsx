@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
-import { RNCamera } from 'react-native-camera';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { launchCamera, CameraOptions, Asset } from 'react-native-image-picker';
 
 const { height } = Dimensions.get('window');
 
@@ -12,18 +12,36 @@ const EndorseSafetyScreen = () => {
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
 
-  const cameraRef = useRef<RNCamera | null>(null);
-
-  const takePicture = async () => {
-    if (cameraRef.current) {
-      const options = { quality: 0.5, base64: true };
-      const data = await cameraRef.current.takePictureAsync(options);
-      setImage(data.uri);
-    }
+  const openCamera = () => {
+    const options: CameraOptions = {
+      mediaType: 'photo',
+      cameraType: 'back',
+      quality: 1,
+      includeBase64: true,
+      saveToPhotos: false,
+    };
+  
+    launchCamera(options, (response) => {
+      if (response.didCancel) {
+        Alert.alert('User cancelled image picker');
+      } else if (response.errorCode) {
+        //console.log('ImagePicker Error: ', response.errorCode);
+        Alert.alert('ImagePicker Error:  camera_unavailable');
+      } else if (response.assets) {
+        const source = { uri: response.assets[0].uri };
+        console.log('Image URI: ', source.uri);
+        Alert.alert('Photo taken!', source.uri);
+        //setImage();
+      }
+    });
   };
 
   const handleSubmit = () => {
-    Alert.alert('Submitted', `Name: ${name}, Badge: ${badgeNumber}, Description: ${description}`);
+    if (name.trim() === '' || badgeNumber.trim() === '' || location.trim() === '' || description.trim() === '') {
+      Alert.alert('Error', 'Please enter values in all fields.');
+    } else {
+      Alert.alert('Submitted', `Name: ${name}, Badge: ${badgeNumber}, Description: ${description}`);
+    }
   };
 
   const handleCancel = () => {
@@ -42,7 +60,7 @@ const EndorseSafetyScreen = () => {
     <View style={styles.container}>
       <View style={styles.topView}>
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
-        <Button title="Take A Picture" onPress={takePicture} />
+        <Button title="Take A Picture" onPress={openCamera} />
       </View>
       <View style={styles.bottomView}>
         <Text style={styles.label}>Name</Text>

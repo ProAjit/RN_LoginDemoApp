@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, Image, StyleSheet, Alert} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import componentStyle from './styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
@@ -28,12 +28,16 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   };
 
   const displayLoader = () => {
-    setShow(true);
-    setUserNameValue()
-    setTimeout(() => {
+    if (name.trim() === '' || password.trim() === '') {
+      Alert.alert('Error', 'Please enter both username and password.');
+    } else {
+      setShow(true);
+      setUserNameValue()
+      setTimeout(() => {
       setShow(false);
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-    }, 3000);
+     }, 3000);
+    }
   };
 
   const forgotPasswordPressed = () => {

@@ -40,6 +40,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         break;
       case 'QUERIES':
         props.navigation.navigate('QUERIES', { QueriesScreen });
+        break;
       case 'LINKS':
         props.navigation.navigate('LINKS', { LinksScreen });
         break;
