@@ -12,6 +12,7 @@ import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
 import LinksScreen from '../Screens/LinksScreen';
+import ScheduleClassTraining from '../Screens/ScheduleClassTraining';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,44 +20,58 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => (
   <Stack.Navigator>
 
-    <Stack.Screen name="Home" component={HomeScreen} 
+    <Stack.Screen name="HOME" component={HomeScreen} 
       options={{ headerLeft: () => null , 
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
+      headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
       }}}/>
       
     <Stack.Screen name="QUERIES" component={QueriesScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
+      headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
       }}}/>
 
     <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} 
      options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
+      headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
       }}}/>
 
     <Stack.Screen name="ENDORSE YOUR SAFETY ISSUE" component={EndorseSafetyScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
+      headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
+      }}}/>
+
+    <Stack.Screen name="SCHEDULE IN CLASS TRAINING" component={ScheduleClassTraining} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
       }}}/>
 
     <Stack.Screen name="LINKS" component={LinksScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
+      headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
       }}}/>
 
   </Stack.Navigator>
@@ -67,11 +82,11 @@ const TabNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let iconName: string;
-        if (route.name === 'Home') {
+        if (route.name === 'HOME') {
           iconName = 'home-outline';
-        } else if (route.name === 'Feedback') {
+        } else if (route.name === 'FEEDBACK') {
           iconName = 'chatbubble-ellipses-outline';
-        } else if (route.name === 'About') {
+        } else if (route.name === 'ABOUT') {
           iconName = 'information-circle-outline';
         } else {
           iconName = 'alert-circle-outline'; // Fallback icon
@@ -86,7 +101,7 @@ const TabNavigator = () => (
       headerTintColor: '#fff',
       headerBackTitleVisible: false, // Hides the back button text
       headerTitleStyle: {
-        fontSize: 20
+        fontSize: 16
       },
       headerShown: true,
     })}

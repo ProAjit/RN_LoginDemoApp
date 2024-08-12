@@ -7,6 +7,7 @@ import EndorseSafetyScreen from '../EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import LinksScreen from '../LinksScreen';
+import ScheduleClassTraining from '../ScheduleClassTraining';
 
 interface Item {
   id: string;
@@ -37,6 +38,9 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         break;
       case 'ENDORSE YOUR SAFETY ISSUE':
         props.navigation.navigate('ENDORSE YOUR SAFETY ISSUE', { EndorseSafetyScreen });
+        break;
+      case 'SCHEDULE IN CLASS TRAINING':
+        props.navigation.navigate('SCHEDULE IN CLASS TRAINING', { ScheduleClassTraining });
         break;
       case 'QUERIES':
         props.navigation.navigate('QUERIES', { QueriesScreen });
