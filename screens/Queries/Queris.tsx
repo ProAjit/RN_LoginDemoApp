@@ -12,7 +12,7 @@ const QueriesScreen = () => {
 
   const handleSubmit = () => {
     if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || title.trim() === '' || type.trim() === '') {
-      Alert.alert('Error', 'Please enter all fields.');
+      Alert.alert('Error', 'Please enter values in all fields.');
     } else {
       Alert.alert('Submitted', `Name: ${name}, Email: ${email}, Phone: ${phone}, Title: ${title}, Type: ${type}, Description: ${description}`);
     }
