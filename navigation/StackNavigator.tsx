@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => (
   <Stack.Navigator>
 
-    <Stack.Screen name="HOME" component={HomeScreen} 
+    <Stack.Screen name="Safety 24/7" component={HomeScreen} 
       options={{ headerLeft: () => null , 
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
@@ -82,7 +82,7 @@ const TabNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let iconName: string;
-        if (route.name === 'HOME') {
+        if (route.name === 'Safety 24/7') {
           iconName = 'home-outline';
         } else if (route.name === 'FEEDBACK') {
           iconName = 'chatbubble-ellipses-outline';
@@ -106,7 +106,7 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
+    <Tab.Screen name="Safety 24/7" component={HomeStack} options={{ headerShown: false }}/>
     <Tab.Screen name="Feedback" component={FeedbackScreen} />
     <Tab.Screen name="About" component={AboutScreen} />
   </Tab.Navigator>

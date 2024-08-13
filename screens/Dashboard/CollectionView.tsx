@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   title: {
-    fontSize: 10,
+    fontSize: 12,
     textAlign: 'center',
     color:'white',
-    fontWeight: 'semibold',
+    fontWeight: 'bold',
   },
   image: {
     width: 60,
