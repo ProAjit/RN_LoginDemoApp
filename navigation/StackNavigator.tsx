@@ -93,8 +93,8 @@ const TabNavigator = () => (
         }
         return <Icon name={iconName} size={size} color={color} />;
       },
-      tabBarActiveTintColor: 'tomato',
-      tabBarInactiveTintColor: 'gray',
+      tabBarActiveTintColor: 'rgba(2, 28, 52, 1.0)',
+      tabBarInactiveTintColor: 'tomato',
       headerStyle: {
          backgroundColor: 'rgba(2, 28, 52, 1.0)'
       },
