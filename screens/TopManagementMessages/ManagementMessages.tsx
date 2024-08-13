@@ -11,7 +11,7 @@ const data = [
 
 const ManagementMessagesScreen = () => {
   const handleRowPress = (title: string) => {
-    Alert.alert(`Tapped on ${title}`);
+    Alert.alert(`Actual message to be shown for ${title}`);
     console.log(`Tapped on ${title}`);
   };
 

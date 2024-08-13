@@ -26,7 +26,7 @@ const HomeStack = () => (
       headerTintColor: '#fff',
       headerBackTitleVisible: false,
       headerTitleStyle: {
-        fontSize: 16
+        fontSize: 18
       }}}/>
       
     <Stack.Screen name="QUERIES" component={QueriesScreen} 
@@ -106,9 +106,9 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    <Tab.Screen name="Safety 24/7" component={HomeStack} options={{ headerShown: false }}/>
-    <Tab.Screen name="Feedback" component={FeedbackScreen} />
-    <Tab.Screen name="About" component={AboutScreen} />
+    <Tab.Screen name="Safety 24/7" component={HomeStack} options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="Feedback" component={FeedbackScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="About" component={AboutScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
   </Tab.Navigator>
 );
 
