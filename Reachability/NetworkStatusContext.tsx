@@ -17,7 +17,9 @@ export const NetworkStatusProvider: React.FC<{ children: ReactNode }> = ({ child
       setIsConnected(state.isConnected);
       console.log('Network state changed:', state.isConnected); // Debugging/logging
       if (state.isConnected == false) {
-        Alert.alert('Unable to connect internet')
+        console.warn('Unable to connect internet')
+      } else {
+        console.warn('Internet connection resumed')
       }
     });
 
