@@ -6,8 +6,8 @@ import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessage
 import EndorseSafetyScreen from '../EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
-import LinksScreen from '../LinksScreen';
 import ScheduleClassTraining from '../ScheduleClassTraining';
+import E_TrainingScreen from '../E_TrainingScreen';
 
 interface Item {
   id: string;
@@ -45,8 +45,8 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
       case 'QUERIES':
         props.navigation.navigate('QUERIES', { QueriesScreen });
         break;
-      case 'LINKS':
-        props.navigation.navigate('LINKS', { LinksScreen });
+    case 'E-TRAINING':
+          props.navigation.navigate('E-TRAINING', { E_TrainingScreen });
         break;
       default:
         break;

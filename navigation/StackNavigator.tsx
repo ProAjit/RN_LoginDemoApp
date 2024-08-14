@@ -11,7 +11,7 @@ import AboutScreen from '../Screens/Dashboard/AboutScreen';
 import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
-import LinksScreen from '../Screens/LinksScreen';
+import E_TrainingScreen from '../Screens/E_TrainingScreen';
 import ScheduleClassTraining from '../Screens/ScheduleClassTraining';
 
 const Stack = createStackNavigator();
@@ -29,15 +29,6 @@ const HomeStack = () => (
         fontSize: 18
       }}}/>
       
-    <Stack.Screen name="QUERIES" component={QueriesScreen} 
-      options={{  
-      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
-      headerTintColor: '#fff',
-      headerBackTitleVisible: false,
-      headerTitleStyle: {
-        fontSize: 16
-      }}}/>
-
     <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} 
      options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
@@ -65,7 +56,16 @@ const HomeStack = () => (
         fontSize: 16
       }}}/>
 
-    <Stack.Screen name="LINKS" component={LinksScreen} 
+    <Stack.Screen name="QUERIES" component={QueriesScreen} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
+      }}}/>
+
+    <Stack.Screen name="E-TRAINING" component={E_TrainingScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',

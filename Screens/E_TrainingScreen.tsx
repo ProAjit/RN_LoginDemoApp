@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const LinksScreen = () => {
+const E_TrainingScreen = () => {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LinksScreen;
+export default E_TrainingScreen;
