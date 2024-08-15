@@ -82,7 +82,7 @@ const TabNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let iconName: string;
-        if (route.name === 'Safety 24/7') {
+        if (route.name === 'Home') {
           iconName = 'home-outline';
         } else if (route.name === 'FEEDBACK') {
           iconName = 'chatbubble-ellipses-outline';
@@ -106,7 +106,7 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    <Tab.Screen name="Safety 24/7" component={HomeStack} options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
     <Tab.Screen name="Feedback" component={FeedbackScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
     <Tab.Screen name="About" component={AboutScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
   </Tab.Navigator>
