@@ -35,10 +35,10 @@ const ScheduleClassTraining = () => {
   };
 
   const handleSubmit = () => {
-    if (department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '') {
+    if (department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '') {
       Alert.alert('Error', 'Please enter values in all fields.');
     } else {
-      Alert.alert('Submitted', `Department: ${department}, Supervisor: ${supervisor}, NoOfTrainees: ${noOfTrainees}`);
+      Alert.alert('Submitted', `Department: ${department}, Supervisor: ${supervisor}, NoOfTrainees: ${noOfTrainees}, Location: ${location}`);
     }
   };
 
@@ -47,6 +47,20 @@ const ScheduleClassTraining = () => {
     setNoOfTrainees('');
     setSupervisor('');
     setLocation('');
+    setFromDate(undefined);
+    setToDate(undefined);
+  };
+
+  const handleNoOfTraineesChange = (text: string) => {
+    setNoOfTrainees(text);
+  };
+
+  const handleNoOfTraineesEndEditing = () => {
+    const num = parseInt(noOfTrainees);
+    if (isNaN(num) || num < 5 || num > 30) {
+      Alert.alert('No. Of Trainees', 'Invalid input please enter a number between 5 and 30.');
+      setNoOfTrainees(''); // Optionally clear the input if the value is invalid
+    }
   };
 
   return (
@@ -92,7 +106,8 @@ const ScheduleClassTraining = () => {
         style={styles.input}
         keyboardType="numeric"
         value={noOfTrainees}
-        onChangeText={setNoOfTrainees}
+        onChangeText={handleNoOfTraineesChange}
+        onEndEditing={handleNoOfTraineesEndEditing} // Validate when user finishes editing
       />
 
       <Text style={styles.label}>Location</Text>
@@ -106,7 +121,6 @@ const ScheduleClassTraining = () => {
           <Text style={styles.whiteButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
