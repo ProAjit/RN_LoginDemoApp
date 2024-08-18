@@ -37,16 +37,16 @@ const EndorseSafetyScreen = () => {
   };
 
   const handleSubmit = () => {
-    if (name.trim() === '' || badgeNumber.trim() === '' || location.trim() === '' || description.trim() === '') {
-      Alert.alert('Error', 'Please enter values in all fields.');
+    if (location.trim() === '' || description.trim() === '') {
+      Alert.alert('Error', 'Location and Description are mandatory fields.');
     } else {
       Alert.alert('Submitted', `Name: ${name}, Badge: ${badgeNumber}, Description: ${description}`);
     }
   };
 
   const handleCancel = () => {
-    setName('');
-    setBadgeNumber('');
+    // setName('');
+    // setBadgeNumber('');
     setLocation('');
     setDescription('');
   };
@@ -64,15 +64,31 @@ const EndorseSafetyScreen = () => {
       </View>
       <View style={styles.bottomView}>
         <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input}  onChangeText={setName} value={name} placeholder="Employee Name" maxLength={50} autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input}  
+        onChangeText={setName} value={name} 
+        placeholder="Employee Name" maxLength={50} 
+        autoCorrect={false} spellCheck={false}/>
+
         <Text style={styles.label}>Badge Number</Text>
-        <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} placeholder="#000000" maxLength={7}  autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input} 
+        onChangeText={setBadgeNumber} value={badgeNumber} 
+        keyboardType="numeric"
+        placeholder="#000000" maxLength={6}  
+        autoCorrect={false} spellCheck={false}/>
+        
         <Text style={styles.label}>Location</Text>
-        <TextInput style={styles.input}  onChangeText={setLocation} value={location} placeholder="Issue Location" maxLength={255}  autoCorrect={false} spellCheck={false}/>
+        <TextInput style={styles.input}  onChangeText={setLocation} 
+        value={location} placeholder="Issue Location" 
+        maxLength={255}  autoCorrect={false} spellCheck={false}/>
+
         <Text style={styles.label}>Description</Text>
-        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Enter Description"  autoCorrect={false} spellCheck={false} maxLength={255} multiline />
+        <TextInput style={[styles.input, styles.multilineInput]} 
+        onChangeText={setDescription} value={description} 
+        placeholder="Enter Description"  autoCorrect={false} 
+        spellCheck={false} maxLength={255} multiline />
       </View>
     </View>
+
     <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Submit</Text>

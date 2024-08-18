@@ -26,12 +26,16 @@ const ScheduleClassTraining = () => {
     }
   };
 
-  const formatDate = (date?: Date) => {
+  const formatDateTime = (date?: Date) => {
     if (!date) return '';
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
-    return `${day}/${month}/${year}`;
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+    return `${day}/${month}/${year} ${formattedHours}:${minutes} ${ampm}`;
   };
 
   const handleSubmit = () => {
@@ -57,8 +61,8 @@ const ScheduleClassTraining = () => {
 
   const handleNoOfTraineesEndEditing = () => {
     const num = parseInt(noOfTrainees);
-    if (isNaN(num) || num < 5 || num > 30) {
-      Alert.alert('No. Of Trainees', 'Invalid input please enter a number between 5 and 30.');
+    if (isNaN(num) || num < 5 || num > 25) {
+      Alert.alert('Invalid Input', 'Please enter a number between 5 and 25.');
       setNoOfTrainees(''); // Optionally clear the input if the value is invalid
     }
   };
@@ -71,20 +75,20 @@ const ScheduleClassTraining = () => {
       <Text style={styles.label}>Supervisor Name</Text>
       <TextInput style={styles.input} value={supervisor} onChangeText={setSupervisor} />
 
-      <Text style={styles.label}>Training on Date</Text>
+      <Text style={styles.label}>Training on Date & Time</Text>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => setShowFromDatePicker(true)} style={styles.dateInput}>
-          <Text>{fromDate ? formatDate(fromDate) : 'From Date'}</Text>
+          <Text>{fromDate ? formatDateTime(fromDate) : 'From Date'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setShowToDatePicker(true)} style={styles.dateInput}>
-          <Text>{toDate ? formatDate(toDate) : 'To Date'}</Text>
+          <Text>{toDate ? formatDateTime(toDate) : 'To Date'}</Text>
         </TouchableOpacity>
       </View>
 
       {showFromDatePicker && (
         <DateTimePicker
           value={fromDate || new Date()}
-          mode="date"
+          mode="datetime"
           display="default"
           onChange={onFromDateChange}
           maximumDate={toDate || undefined} // Prevent selecting a "From Date" after the "To Date"
@@ -94,7 +98,7 @@ const ScheduleClassTraining = () => {
       {showToDatePicker && (
         <DateTimePicker
           value={toDate || new Date()}
-          mode="date"
+          mode="datetime"
           display="default"
           onChange={onToDateChange}
           minimumDate={fromDate || undefined} // Prevent selecting a "To Date" before the "From Date"
