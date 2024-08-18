@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { submitTrainingData } from '../Networking/ClassTrainingServices';
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -38,11 +39,37 @@ const ScheduleClassTraining = () => {
     return `${day}/${month}/${year} ${formattedHours}:${minutes} ${ampm}`;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '') {
       Alert.alert('Error', 'Please enter values in all fields.');
-    } else {
-      Alert.alert('Submitted', `Department: ${department}, Supervisor: ${supervisor}, NoOfTrainees: ${noOfTrainees}, Location: ${location}`);
+      return;
+    }
+
+    const numTrainees = parseInt(noOfTrainees);
+    if (isNaN(numTrainees) || numTrainees < 5 || numTrainees > 25) {
+      Alert.alert('Invalid Input', 'Please enter a number between 5 and 25.');
+      return;
+    }
+
+    try {
+      const data = {
+        department,
+        supervisor,
+        noOfTrainees: numTrainees,
+        location,
+        fromDate: fromDate as Date,
+        toDate: toDate as Date,
+      };
+      const response = await submitTrainingData(data);
+      // Check the status code and show a message
+      if (response.status === 200) {
+        Alert.alert('Success', 'Data submitted successfully.');
+        handleCancel();
+      } else {
+        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to submit training data.');
     }
   };
 
@@ -63,7 +90,7 @@ const ScheduleClassTraining = () => {
     const num = parseInt(noOfTrainees);
     if (isNaN(num) || num < 5 || num > 25) {
       Alert.alert('Invalid Input', 'Please enter a number between 5 and 25.');
-      setNoOfTrainees(''); // Optionally clear the input if the value is invalid
+      setNoOfTrainees('');
     }
   };
 
@@ -91,7 +118,7 @@ const ScheduleClassTraining = () => {
           mode="datetime"
           display="default"
           onChange={onFromDateChange}
-          maximumDate={toDate || undefined} // Prevent selecting a "From Date" after the "To Date"
+          maximumDate={toDate || undefined}
         />
       )}
 
@@ -101,7 +128,7 @@ const ScheduleClassTraining = () => {
           mode="datetime"
           display="default"
           onChange={onToDateChange}
-          minimumDate={fromDate || undefined} // Prevent selecting a "To Date" before the "From Date"
+          minimumDate={fromDate || undefined}
         />
       )}
 
@@ -111,7 +138,7 @@ const ScheduleClassTraining = () => {
         keyboardType="numeric"
         value={noOfTrainees}
         onChangeText={handleNoOfTraineesChange}
-        onEndEditing={handleNoOfTraineesEndEditing} // Validate when user finishes editing
+        onEndEditing={handleNoOfTraineesEndEditing}
       />
 
       <Text style={styles.label}>Location</Text>
