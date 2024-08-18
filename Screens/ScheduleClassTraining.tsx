@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../Networking/ClassTrainingServices';
 
@@ -102,6 +102,7 @@ const ScheduleClassTraining = () => {
   };
 
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
     <View style={styles.container}>
       {loading && (
         <View style={styles.loaderContainer}>
@@ -109,10 +110,14 @@ const ScheduleClassTraining = () => {
         </View>
       )}
       <Text style={styles.label}>Department Name</Text>
-      <TextInput style={styles.input} value={department} onChangeText={setDepartment} />
+      <TextInput style={styles.input} value={department} 
+      autoCorrect={false} spellCheck={false} 
+      onChangeText={setDepartment} />
 
       <Text style={styles.label}>Supervisor Name</Text>
-      <TextInput style={styles.input} value={supervisor} onChangeText={setSupervisor} />
+      <TextInput style={styles.input} value={supervisor} 
+      autoCorrect={false} spellCheck={false} 
+      onChangeText={setSupervisor} />
 
       <Text style={styles.label}>Training on Date & Time</Text>
       <View style={styles.row}>
@@ -148,13 +153,16 @@ const ScheduleClassTraining = () => {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
+        autoCorrect={false} spellCheck={false}
         value={noOfTrainees}
         onChangeText={handleNoOfTraineesChange}
         onEndEditing={handleNoOfTraineesEndEditing}
       />
 
       <Text style={styles.label}>Location</Text>
-      <TextInput style={styles.input} value={location} onChangeText={setLocation} />
+      <TextInput style={styles.input} value={location} 
+      autoCorrect={false} spellCheck={false} 
+      onChangeText={setLocation} />
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
@@ -165,6 +173,7 @@ const ScheduleClassTraining = () => {
         </TouchableOpacity>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
