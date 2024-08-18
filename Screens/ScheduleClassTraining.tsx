@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../Networking/ClassTrainingServices';
 
@@ -12,6 +12,7 @@ const ScheduleClassTraining = () => {
   const [toDate, setToDate] = useState<Date | undefined>(undefined);
   const [showFromDatePicker, setShowFromDatePicker] = useState(false);
   const [showToDatePicker, setShowToDatePicker] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const onFromDateChange = (event: any, selectedDate?: Date) => {
     setShowFromDatePicker(false);
@@ -51,6 +52,8 @@ const ScheduleClassTraining = () => {
       return;
     }
 
+    setLoading(true); // Show loader
+
     try {
       const data = {
         department,
@@ -70,6 +73,10 @@ const ScheduleClassTraining = () => {
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to submit training data.');
+    } finally {
+      setTimeout(() => {
+        setLoading(false); // Hide loader after 0.5 seconds
+      }, 500);
     }
   };
 
@@ -96,6 +103,11 @@ const ScheduleClassTraining = () => {
 
   return (
     <View style={styles.container}>
+      {loading && (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
       <Text style={styles.label}>Department Name</Text>
       <TextInput style={styles.input} value={department} onChangeText={setDepartment} />
 
@@ -145,10 +157,10 @@ const ScheduleClassTraining = () => {
       <TextInput style={styles.input} value={location} onChangeText={setLocation} />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel}>
+        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
           <Text style={styles.whiteButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -220,6 +232,17 @@ const styles = StyleSheet.create({
     color: 'rgba(2, 28, 52, 1.0)',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  loaderContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    zIndex: 10,
   },
 });
 
