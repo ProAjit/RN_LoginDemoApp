@@ -63,13 +63,13 @@ const EndorseSafetyScreen = () => {
         <Button title="Take A Picture" onPress={openCamera} />
       </View>
       <View style={styles.bottomView}>
-        <Text style={styles.label}>Name</Text>
+        <Text style={styles.label}>Name (optional)</Text>
         <TextInput style={styles.input}  
         onChangeText={setName} value={name} 
         placeholder="Employee Name" maxLength={50} 
         autoCorrect={false} spellCheck={false}/>
 
-        <Text style={styles.label}>Badge Number</Text>
+        <Text style={styles.label}>Badge Number (optional)</Text>
         <TextInput style={styles.input} 
         onChangeText={setBadgeNumber} value={badgeNumber} 
         keyboardType="numeric"
