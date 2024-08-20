@@ -106,9 +106,12 @@ const TabNavigator = () => (
       headerShown: true,
     })}
   >
-    <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
-    <Tab.Screen name="Feedback" component={FeedbackScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
-    <Tab.Screen name="About" component={AboutScreen} options={{ headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="Home" component={HomeStack} 
+    options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="Feedback" component={FeedbackScreen} 
+    options={{ headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen name="About" component={AboutScreen} 
+    options={{ headerTitleStyle: { fontSize: 20} }}/>
   </Tab.Navigator>
 );
 

@@ -47,8 +47,8 @@ const ScheduleClassTraining = () => {
     }
 
     const numTrainees = parseInt(noOfTrainees);
-    if (isNaN(numTrainees) || numTrainees < 5 || numTrainees > 25) {
-      Alert.alert('Invalid Input', 'Please enter a number between 5 and 25.');
+    if (isNaN(numTrainees) || numTrainees < 5 || numTrainees > 30) {
+      Alert.alert('Invalid Input', 'Please enter a number between 5 and 30.');
       return;
     }
 
@@ -96,7 +96,7 @@ const ScheduleClassTraining = () => {
   const handleNoOfTraineesEndEditing = () => {
     const num = parseInt(noOfTrainees);
     if (isNaN(num) || num < 5 || num > 25) {
-      Alert.alert('Invalid Input', 'Please enter a number between 5 and 25.');
+      Alert.alert('Invalid Input', 'Please enter a number between 5 and 30.');
       setNoOfTrainees('');
     }
   };
