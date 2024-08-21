@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../Networking/EndorseSafetyServices';
+import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
 const { height } = Dimensions.get('window');
 
@@ -13,7 +14,7 @@ const EndorseSafetyScreen = () => {
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<'raiseIncident' | 'incidentsHistory'>('raiseIncident');
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -98,33 +99,30 @@ const EndorseSafetyScreen = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <KeyboardAwareScrollView
-        contentContainerStyle={styles.scrollContainer}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled
-      >
-        <View style={styles.topButtonsContainer}>
-          <TouchableOpacity
-            style={[styles.topLeftButton, selectedTab === 'raiseIncident' ? styles.activeButton : styles.inactiveButton]}
-            onPress={() => setSelectedTab('raiseIncident')}
-          >
-            <Text style={[styles.buttonText, selectedTab === 'raiseIncident' ? styles.activeButtonText : styles.inactiveButtonText]}>Raise Incident</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.topRightButton, selectedTab === 'incidentsHistory' ? styles.activeButton : styles.inactiveButton]}
-            onPress={() => setSelectedTab('incidentsHistory')}
-          >
-            <Text style={[styles.buttonText, selectedTab === 'incidentsHistory' ? styles.activeButtonText : styles.inactiveButtonText]}>Incidents History</Text>
-          </TouchableOpacity>
-        </View>
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled
+    >
+      <View style={styles.segmentedControlContainer}>
+        <SegmentedControl
+          values={['Raise Incident', 'Incidents History']}
+          selectedIndex={selectedIndex}
+          onChange={(event) => {
+            setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+          style={styles.segmentedControl}
+          tintColor="rgba(2, 28, 52, 1.0)"
+          fontStyle={{ fontSize: 15, fontWeight: 'bold', color: 'white' }}
+          backgroundColor="rgba(211, 211, 211, 1.0)"
+        />
+      </View>
 
-        <View style={styles.container}>
-          {selectedTab === 'raiseIncident' ? renderNewRequestContent() : renderHistoryRequestsContent()}
-        </View>
-      </KeyboardAwareScrollView>
-
-      {selectedTab === 'raiseIncident' && (
+      <View style={styles.container}>
+        {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
+      </View>
+      
+      {selectedIndex === 0 && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
             <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
@@ -134,63 +132,23 @@ const EndorseSafetyScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
+  container: {
+    flex: 1,
     padding: 10,
     backgroundColor: '#fff',
   },
-  container: {
-    flex: 1,
+  segmentedControlContainer: {
+    marginVertical: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
-  topButtonsContainer: {
+  segmentedControl: {
     height: 36,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 8,
-    marginBottom: 8,
-    margin: 10,
-  },
-  topLeftButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    marginRight: -15,
-    zIndex: 1,
-  },
-  topRightButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    width: 80,
-    marginLeft: -15,
-    zIndex: 1,
-  },
-  activeButton: {
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    zIndex: 2,
-  },
-  inactiveButton: {
-    backgroundColor: '#fff',
-    borderColor: 'rgba(2, 28, 52, 1.0)',
-    borderWidth: 1,
-    zIndex: 1,
-  },
-  activeButtonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  inactiveButtonText: {
-    color: 'rgba(2, 28, 52, 1.0)',
-    fontSize: 15,
-    fontWeight: 'semibold',
   },
   topView: {
     height: height * 0.15,
@@ -222,38 +180,33 @@ const styles = StyleSheet.create({
     height: 60,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#fff',
+    marginTop: 20,
+    height: 40,
+    margin: 10,
   },
   button: {
     flex: 1,
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    padding: 12,
+    borderRadius: 2,
     alignItems: 'center',
-    borderRadius: 4,
-    marginRight: 10,
-  },
-  whiteButton: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(2, 28, 52, 1.0)',
-    borderWidth: 1,
+    marginHorizontal: 20,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  whiteButton: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 4,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(2, 28, 52, 1.0)',
   },
   whiteButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',
@@ -261,13 +214,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   historyView: {
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
   },
   historyText: {
     fontSize: 18,
-    color: '#333',
+    color: 'rgba(2, 28, 52, 1.0)',
   },
 });
 
