@@ -14,7 +14,7 @@ const ScheduleClassTraining = () => {
   const [showFromDatePicker, setShowFromDatePicker] = useState(false);
   const [showToDatePicker, setShowToDatePicker] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state
-  const [selectedTab, setSelectedTab] = useState<'newRequest' | 'historyRequests'>('newRequest');
+  const [selectedTab, setSelectedTab] = useState<'newSchedule' | 'trainingHistory'>('newSchedule');
 
   const onFromDateChange = (event: any, selectedDate?: Date) => {
     setShowFromDatePicker(false);
@@ -29,8 +29,6 @@ const ScheduleClassTraining = () => {
       setToDate(selectedDate);
     }
   };
-//New Schedule
-//Training History
 
   const formatDateTime = (date?: Date) => {
     if (!date) return '';
@@ -185,24 +183,24 @@ const ScheduleClassTraining = () => {
     >
       <View style={styles.topButtonsContainer}>
         <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'newRequest' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('newRequest')}
+          style={[styles.topButton, selectedTab === 'newSchedule' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('newSchedule')}
         >
-          <Text style={[styles.buttonText, selectedTab === 'newRequest' ? styles.activeButtonText : styles.inactiveButtonText]}>New Request</Text>
+          <Text style={[styles.buttonText, selectedTab === 'newSchedule' ? styles.activeButtonText : styles.inactiveButtonText]}>New Schedule</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'historyRequests' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('historyRequests')}
+          style={[styles.topButton, selectedTab === 'trainingHistory' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('trainingHistory')}
         >
-          <Text style={[styles.buttonText, selectedTab === 'historyRequests' ? styles.activeButtonText : styles.inactiveButtonText]}>History Requests</Text>
+          <Text style={[styles.buttonText, selectedTab === 'trainingHistory' ? styles.activeButtonText : styles.inactiveButtonText]}>Training History</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.container}>
-        {selectedTab === 'newRequest' ? renderNewRequestContent() : renderHistoryRequestsContent()}
+        {selectedTab === 'newSchedule' ? renderNewRequestContent() : renderHistoryRequestsContent()}
       </View>
 
-      {selectedTab === 'newRequest' && (
+      {selectedTab === 'newSchedule' && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
             <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
