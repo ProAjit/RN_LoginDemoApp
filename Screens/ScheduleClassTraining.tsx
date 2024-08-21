@@ -29,6 +29,8 @@ const ScheduleClassTraining = () => {
       setToDate(selectedDate);
     }
   };
+//New Schedule
+//Training History
 
   const formatDateTime = (date?: Date) => {
     if (!date) return '';
@@ -39,7 +41,7 @@ const ScheduleClassTraining = () => {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
-    return `${day}/${month}/${year} ${formattedHours}:${minutes} ${ampm}`;
+    return `${day}/${month}/${year} \n ${formattedHours}:${minutes} ${ampm}`;
   };
 
   const handleSubmit = async () => {
