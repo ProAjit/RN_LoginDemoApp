@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { launchCamera, CameraOptions, Asset } from 'react-native-image-picker';
+import { launchCamera, CameraOptions } from 'react-native-image-picker';
+import { submitSafetyEndorsement } from '../Networking/EndorseSafetyServices';
 
 const { height } = Dimensions.get('window');
 
@@ -11,6 +12,8 @@ const EndorseSafetyScreen = () => {
   const [badgeNumber, setBadgeNumber] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<'newRequest' | 'historyRequests'>('newRequest');
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -20,36 +23,79 @@ const EndorseSafetyScreen = () => {
       includeBase64: true,
       saveToPhotos: false,
     };
-  
+
     launchCamera(options, (response) => {
       if (response.didCancel) {
         Alert.alert('User cancelled image picker');
       } else if (response.errorCode) {
-        //console.log('ImagePicker Error: ', response.errorCode);
-        Alert.alert('ImagePicker Error:  camera_unavailable');
+        Alert.alert('ImagePicker Error: camera_unavailable');
       } else if (response.assets) {
-        const source = { uri: response.assets[0].uri };
-        console.log('Image URI: ', source.uri);
-        Alert.alert('Photo taken!', source.uri);
-        //setImage();
+        const uri = response.assets[0].uri;
+        setImage(uri || null);
       }
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (location.trim() === '' || description.trim() === '') {
       Alert.alert('Error', 'Location and Description are mandatory fields.');
-    } else {
-      Alert.alert('Submitted', `Name: ${name}, Badge: ${badgeNumber}, Description: ${description}`);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await submitSafetyEndorsement(name, badgeNumber, location, description, image);
+
+      console.log('Response:', response); // Print the complete response
+
+      if (response?.result?.statusCode === 200) {
+        Alert.alert('Success', response.result.message);
+        handleCancel(); // Reset the form on success
+      } else {
+        Alert.alert('Error', 'There was an issue with your submission. Please try again.');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCancel = () => {
-    // setName('');
-    // setBadgeNumber('');
+    setName('');
+    setBadgeNumber('');
     setLocation('');
     setDescription('');
+    setImage(null);
   };
+
+  const renderNewRequestContent = () => (
+    <>
+      <View style={styles.topView}>
+        {image && <Image source={{ uri: image }} style={styles.imageView} />}
+        <Button title="Take A Picture" onPress={openCamera} />
+      </View>
+      <View style={styles.bottomView}>
+        <Text style={styles.label}>Name (optional)</Text>
+        <TextInput style={styles.input} onChangeText={setName} value={name} placeholder="Employee Name" maxLength={50} autoCorrect={false} spellCheck={false} />
+
+        <Text style={styles.label}>Badge Number (optional)</Text>
+        <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} keyboardType="numeric" placeholder="#000000" maxLength={6} autoCorrect={false} spellCheck={false} />
+
+        <Text style={styles.label}>Location</Text>
+        <TextInput style={styles.input} onChangeText={setLocation} value={location} placeholder="Issue Location" maxLength={255} autoCorrect={false} spellCheck={false} />
+
+        <Text style={styles.label}>Description</Text>
+        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Enter Description" autoCorrect={false} spellCheck={false} maxLength={255} multiline />
+      </View>
+    </>
+  );
+
+  const renderHistoryRequestsContent = () => (
+    <View style={styles.historyView}>
+      <Text style={styles.historyText}>ToDo: Here is list of old requests</Text>
+    </View>
+  );
 
   return (
     <KeyboardAwareScrollView
@@ -57,46 +103,35 @@ const EndorseSafetyScreen = () => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled
     >
-    <View style={styles.container}>
-      <View style={styles.topView}>
-        {image && <Image source={{ uri: image }} style={styles.imageView} />}
-        <Button title="Take A Picture" onPress={openCamera} />
-      </View>
-      <View style={styles.bottomView}>
-        <Text style={styles.label}>Name (optional)</Text>
-        <TextInput style={styles.input}  
-        onChangeText={setName} value={name} 
-        placeholder="Employee Name" maxLength={50} 
-        autoCorrect={false} spellCheck={false}/>
-
-        <Text style={styles.label}>Badge Number (optional)</Text>
-        <TextInput style={styles.input} 
-        onChangeText={setBadgeNumber} value={badgeNumber} 
-        keyboardType="numeric"
-        placeholder="#000000" maxLength={6}  
-        autoCorrect={false} spellCheck={false}/>
-        
-        <Text style={styles.label}>Location</Text>
-        <TextInput style={styles.input}  onChangeText={setLocation} 
-        value={location} placeholder="Issue Location" 
-        maxLength={255}  autoCorrect={false} spellCheck={false}/>
-
-        <Text style={styles.label}>Description</Text>
-        <TextInput style={[styles.input, styles.multilineInput]} 
-        onChangeText={setDescription} value={description} 
-        placeholder="Enter Description"  autoCorrect={false} 
-        spellCheck={false} maxLength={255} multiline />
-      </View>
-    </View>
-
-    <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
+      <View style={styles.topButtonsContainer}>
+        <TouchableOpacity
+          style={[styles.topButton, selectedTab === 'newRequest' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('newRequest')}
+        >
+          <Text style={[styles.buttonText, selectedTab === 'newRequest' ? styles.activeButtonText : styles.inactiveButtonText]}>New Request</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel}>
-          <Text style={styles.whiteButtonText}>Cancel</Text>
+        <TouchableOpacity
+          style={[styles.topButton, selectedTab === 'historyRequests' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('historyRequests')}
+        >
+          <Text style={[styles.buttonText, selectedTab === 'historyRequests' ? styles.activeButtonText : styles.inactiveButtonText]}>History Requests</Text>
         </TouchableOpacity>
       </View>
+
+      <View style={styles.container}>
+        {selectedTab === 'newRequest' ? renderNewRequestContent() : renderHistoryRequestsContent()}
+      </View>
+
+      {selectedTab === 'newRequest' && (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
+            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
+            <Text style={styles.whiteButtonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </KeyboardAwareScrollView>
   );
 };
@@ -107,12 +142,44 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
   },
+  topButtonsContainer: {
+    height: 36,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  topButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    marginHorizontal: 10,
+  },
+  activeButton: {
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',
+  },
+  inactiveButton: {
+    backgroundColor: '#fff',
+    borderColor: 'rgba(2, 28, 52, 1.0)',
+    borderWidth: 1,
+  },
+  activeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  inactiveButtonText: {
+    color: 'rgba(2, 28, 52, 1.0)',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   topView: {
     height: height * 0.15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   bottomView: {
     height: height * 0.65,
@@ -147,7 +214,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
     padding: 12,
-    borderRadius: 4,
+    borderRadius: 2,
     alignItems: 'center',
     marginHorizontal: 20,
   },
@@ -170,10 +237,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  historyView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  historyText: {
+    fontSize: 18,
+    color: 'rgba(2, 28, 52, 1.0)',
+  },
 });
 
 export default EndorseSafetyScreen;
-
-//useRef hook to create a reference to the camera, 
-//which is used in the takePicture function to capture the image. 
-//The captured image’s URI is then set as the state for the image variable
