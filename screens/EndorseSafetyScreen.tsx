@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../Networking/EndorseSafetyServices';
@@ -99,11 +99,11 @@ const EndorseSafetyScreen = () => {
   );
 
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.container}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled>
       <View style={styles.segmentedControlContainer}>
         <SegmentedControl
           values={['Raise Incident', 'Incidents History']}
@@ -121,7 +121,7 @@ const EndorseSafetyScreen = () => {
       <View style={styles.container}>
         {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
       </View>
-      
+      </KeyboardAwareScrollView>
       {selectedIndex === 0 && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
@@ -132,8 +132,8 @@ const EndorseSafetyScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-    </KeyboardAwareScrollView>
-  );
+    </KeyboardAvoidingView>
+   );
 };
 
 const styles = StyleSheet.create({
@@ -182,9 +182,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
     height: 40,
     margin: 10,
+    backgroundColor: '#fff',
   },
   button: {
     flex: 1,
