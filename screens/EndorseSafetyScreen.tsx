@@ -13,7 +13,7 @@ const EndorseSafetyScreen = () => {
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<'newRequest' | 'historyRequests'>('newRequest');
+  const [selectedTab, setSelectedTab] = useState<'raiseIncident' | 'incidentsHistory'>('raiseIncident');
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -105,24 +105,24 @@ const EndorseSafetyScreen = () => {
     >
       <View style={styles.topButtonsContainer}>
         <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'newRequest' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('newRequest')}
+          style={[styles.topLeftButton, selectedTab === 'raiseIncident' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('raiseIncident')}
         >
-          <Text style={[styles.buttonText, selectedTab === 'newRequest' ? styles.activeButtonText : styles.inactiveButtonText]}>New Request</Text>
+        <Text style={[styles.buttonText, selectedTab === 'raiseIncident' ? styles.activeButtonText : styles.inactiveButtonText]}>Raise Incident</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'historyRequests' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('historyRequests')}
+          style={[styles.topRightButton, selectedTab === 'incidentsHistory' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('incidentsHistory')}
         >
-          <Text style={[styles.buttonText, selectedTab === 'historyRequests' ? styles.activeButtonText : styles.inactiveButtonText]}>History Requests</Text>
+        <Text style={[styles.buttonText, selectedTab === 'incidentsHistory' ? styles.activeButtonText : styles.inactiveButtonText]}>Incidents History</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.container}>
-        {selectedTab === 'newRequest' ? renderNewRequestContent() : renderHistoryRequestsContent()}
+        {selectedTab === 'raiseIncident' ? renderNewRequestContent() : renderHistoryRequestsContent()}
       </View>
 
-      {selectedTab === 'newRequest' && (
+      {selectedTab === 'raiseIncident' && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
             <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
@@ -148,31 +148,44 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 8,
     marginBottom: 8,
+    margin: 10,
   },
-  topButton: {
+  topLeftButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    marginHorizontal: 10,
+    marginRight: -15,
+    zIndex: 1, // Default zIndex
+  },
+  topRightButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    width: 80,
+    marginLeft: -15,
+    zIndex: 1, // Default zIndex
   },
   activeButton: {
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
+    zIndex: 2, // Increase zIndex for the active button
   },
   inactiveButton: {
     backgroundColor: '#fff',
     borderColor: 'rgba(2, 28, 52, 1.0)',
     borderWidth: 1,
+    zIndex: 1, // Lower zIndex for the inactive button
   },
   activeButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   inactiveButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 15,
+    fontWeight: 'semibold',
   },
   topView: {
     height: height * 0.15,
