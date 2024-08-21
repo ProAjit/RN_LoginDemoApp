@@ -113,7 +113,7 @@ const EndorseSafetyScreen = () => {
           }}
           style={styles.segmentedControl}
           tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 15, fontWeight: 'bold', color: 'white' }}
+          fontStyle={{ fontSize: 15.5, fontWeight: 'bold', color: '#fff' }}
           backgroundColor="rgba(211, 211, 211, 1.0)"
         />
       </View>
