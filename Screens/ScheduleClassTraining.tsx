@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, Platform} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../Networking/ClassTrainingServices';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -13,6 +14,7 @@ const ScheduleClassTraining = () => {
   const [showFromDatePicker, setShowFromDatePicker] = useState(false);
   const [showToDatePicker, setShowToDatePicker] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state
+  const [selectedTab, setSelectedTab] = useState<'newRequest' | 'historyRequests'>('newRequest');
 
   const onFromDateChange = (event: any, selectedDate?: Date) => {
     setShowFromDatePicker(false);
@@ -101,9 +103,9 @@ const ScheduleClassTraining = () => {
     }
   };
 
-  return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-    <View style={styles.container}>
+  const renderNewRequestContent = () => (
+    <>
+      <View style={styles.container}>
       {loading && (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
@@ -163,24 +165,68 @@ const ScheduleClassTraining = () => {
       <TextInput style={styles.input} value={location} 
       autoCorrect={false} spellCheck={false} 
       onChangeText={setLocation} />
+    </View>
+    </>
+  );
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
-          <Text style={styles.buttonText}>Submit</Text>
+  const renderHistoryRequestsContent = () => (
+    <View style={styles.historyView}>
+      <Text style={styles.historyText}>ToDo: Here is list of old requests</Text>
+    </View>
+  );
+
+  return (
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled
+    >
+      <View style={styles.topButtonsContainer}>
+        <TouchableOpacity
+          style={[styles.topButton, selectedTab === 'newRequest' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('newRequest')}
+        >
+          <Text style={[styles.buttonText, selectedTab === 'newRequest' ? styles.activeButtonText : styles.inactiveButtonText]}>New Request</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
-          <Text style={styles.whiteButtonText}>Cancel</Text>
+        <TouchableOpacity
+          style={[styles.topButton, selectedTab === 'historyRequests' ? styles.activeButton : styles.inactiveButton]}
+          onPress={() => setSelectedTab('historyRequests')}
+        >
+          <Text style={[styles.buttonText, selectedTab === 'historyRequests' ? styles.activeButtonText : styles.inactiveButtonText]}>History Requests</Text>
         </TouchableOpacity>
       </View>
-    </View>
-    </KeyboardAvoidingView>
+
+      <View style={styles.container}>
+        {selectedTab === 'newRequest' ? renderNewRequestContent() : renderHistoryRequestsContent()}
+      </View>
+
+      {selectedTab === 'newRequest' && (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
+            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
+            <Text style={styles.whiteButtonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 8,
+  },
+  topButtonsContainer: {
+    height: 36,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    marginBottom: 8,
+    marginLeft: 6,
+    marginRight: 6,
   },
   label: {
     fontSize: 16,
@@ -192,6 +238,31 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
+  },
+  topButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    marginHorizontal: 10,
+  },
+  activeButton: {
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',
+  },
+  inactiveButton: {
+    backgroundColor: '#fff',
+    borderColor: 'rgba(2, 28, 52, 1.0)',
+    borderWidth: 1,
+  },
+  activeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  inactiveButtonText: {
+    color: 'rgba(2, 28, 52, 1.0)',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   row: {
     flexDirection: 'row',
@@ -252,6 +323,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     zIndex: 10,
+  },
+  historyView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  historyText: {
+    fontSize: 18,
+    color: 'rgba(2, 28, 52, 1.0)',
   },
 });
 
