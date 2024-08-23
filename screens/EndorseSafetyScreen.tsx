@@ -14,7 +14,7 @@ const data = [
   { badgeNumber: 222222, name: 'Employee Name 2', location: 'Pune office', status: 'Under Review' },
   { badgeNumber: 333333, name: 'Employee Name 3', location: 'Noida Office', status: 'Submitted' },
   { badgeNumber: 444444, name: 'Employee Name 4', location: 'India office', status: 'Approved' },
-  { badgeNumber: 555555, name: 'Employee Name 5', location: 'UAE office', status: 'Submitted' },
+  { badgeNumber: 555555, name: 'Employee Name 5', location: 'UAE office', status: 'Closed' },
   { badgeNumber: 666666, name: 'Employee Name 6', location: 'KSA Office', status: 'Rejected' },
 ];
 

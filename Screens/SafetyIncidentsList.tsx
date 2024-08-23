@@ -27,6 +27,8 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
           return styles.acceptedBackground;
         case 'Under Review':
           return styles.underReviewBackground;
+        case 'Closed':
+          return styles.approvedBackground;
         default:
           return styles.defaultBackground;
       }
@@ -38,20 +40,24 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
 
     return (
       <View style={[styles.container]}>
-        <Text style={styles.nameText}>
-          Name: {item.name}
-        </Text>
-        <Text style={styles.badgeNumberText}>
-          Badge Number: {item.badgeNumber}
-        </Text>
-        <Text style={styles.locationText}>
-          Location: {item.location}
-        </Text>
-        <TouchableOpacity onPress={() => handleStatusPress(item.status)} style={styles.statusButton}>
-         <Text style={[styles.statusText, getStatusBackgroundColor(item.status)]}>
-          { item.status }
+        <View style={styles.textContainer}>
+          <Text style={styles.nameText}>
+            Name: {item.name}
+          </Text>
+          <Text style={styles.badgeNumberText}>
+            Badge Number: {item.badgeNumber}
+          </Text>
+          <View style={[styles.innerContainer]}>
+          <Text style={styles.locationText}>
+            Location: {item.location}
+          </Text>
+          <TouchableOpacity onPress={() => handleStatusPress(item.status)} style={[styles.statusButton, getStatusBackgroundColor(item.status)]}>
+          <Text style={styles.statusText}>
+            {item.status}
           </Text>
         </TouchableOpacity>
+        </View>
+        </View>
       </View>
     );
   };
@@ -71,30 +77,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   container: {
-    height: 150,
-    marginBottom: 20,
+    height: 120,
+    marginBottom: 15,
     padding: 10,
     borderRadius: 10,
-    backgroundColor:'lightgray',
+    backgroundColor: 'lightgray',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  rowContent: {
+  innerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
   nameText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
-  },
-  statusButton: {
-    height: 50,
-    width: 150,
-    borderRadius: 10,
-    justifyContent: 'center',
-  },
-  statusText: {
-    fontSize: 16,
-    color: 'white',
   },
   badgeNumberText: {
     fontSize: 16,
@@ -105,8 +106,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: 'gray',
   },
+  statusButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
+    height: 32,
+  },
+  statusText: {
+    fontSize: 16,
+    color: 'white',
+  },
   approvedBackground: {
-    backgroundColor: 'green',
+    backgroundColor: 'gray',
   },
   rejectedBackground: {
     backgroundColor: 'red',
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   acceptedBackground: {
-    backgroundColor: 'cyan',
+    backgroundColor: 'green',
   },
   underReviewBackground: {
     backgroundColor: 'purple',
