@@ -1,20 +1,23 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
-interface DataItem {
-  badgeNumber: number;
-  name: string;
+interface TrainingDataItem {
+  noOfTrainees: number;
   location: string;
+  department: string;
+  supervisor: string;
+  fromDate: string;
+  toDate: string;
   status: string;
 }
 
-interface SafetyIncidentsListProps {
-  data: DataItem[];
+interface TrainingListProps {
+  data: TrainingDataItem[];
 }
 
-const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
+const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
   
-  const renderItem = ({ item }: { item: DataItem }) => {
+  const renderItem = ({ item }: { item: TrainingDataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
       switch (status) {
         case 'Approved':
@@ -42,10 +45,10 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
           <Text style={styles.nameText}>
-            Name: {item.name}
+            Department: {item.department}
           </Text>
           <Text style={styles.badgeNumberText}>
-            Badge Number: {item.badgeNumber}
+            No Of Trainees: {item.noOfTrainees}
           </Text>
           <View style={[styles.innerContainer]}>
           <Text style={styles.locationText}>
@@ -70,7 +73,7 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.badgeNumber.toString()}
+      keyExtractor={(item) => item.noOfTrainees.toString()}
       contentContainerStyle={styles.listContainer}
     />
   );
@@ -140,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SafetyIncidentsList;
+export default TrainingList;

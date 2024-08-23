@@ -4,6 +4,16 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import TrainingList from './TrainingList';
+
+const TrainingDataArr = [
+  { noOfTrainees: 111111, department: 'Department 1', supervisor: 'Supervisor 1', location: 'Riyadh office', status: 'Accepted', fromDate: 'Accepted', toDate: 'Accepted'},
+  { noOfTrainees: 222222, department: 'Department 2', supervisor: 'Supervisor 2', location: 'Pune office', status: 'Under Review', fromDate: 'Accepted', toDate: 'Accepted' },
+  { noOfTrainees: 333333, department: 'Department 3', supervisor: 'Supervisor 3', location: 'Noida Office', status: 'Submitted', fromDate: 'Accepted', toDate: 'Accepted' },
+  { noOfTrainees: 444444, department: 'Department 4', supervisor: 'Supervisor 4', location: 'India office', status: 'Approved', fromDate: 'Accepted', toDate: 'Accepted' },
+  { noOfTrainees: 555555, department: 'Department 5', supervisor: 'Supervisor 5', location: 'UAE office', status: 'Closed', fromDate: 'Accepted', toDate: 'Accepted'},
+  { noOfTrainees: 666666, department: 'Department 6', supervisor: 'Supervisor 6', location: 'KSA Office', status: 'Rejected', fromDate: 'Accepted', toDate: 'Accepted' },
+];
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -172,7 +182,7 @@ const ScheduleClassTraining = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyView}>
-      <Text style={styles.historyText}>ToDo: Here is list of old schedules</Text>
+    <TrainingList data={TrainingDataArr} />
     </View>
   );
 
@@ -333,8 +343,9 @@ const styles = StyleSheet.create({
   },
   historyView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 2,
+    marginTop: 5,
+    backgroundColor: '#fff',
   },
   historyText: {
     fontSize: 18,
