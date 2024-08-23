@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     height: 120,
     marginBottom: 15,
-    padding: 10,
+    padding: 8,
     borderRadius: 10,
     backgroundColor: 'lightgray',
     flexDirection: 'row',
