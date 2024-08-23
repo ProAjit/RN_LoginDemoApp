@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button, Image, TouchableOpacity, StyleSheet, Dimensions, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, Text, Button, Image, TouchableOpacity, 
+  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../Networking/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import SafetyIncidentsList from './SafetyIncidentsList';
 
 const { height } = Dimensions.get('window');
+
+const data = [
+  { badgeNumber: 111111, name: 'Employee Name 1', location: 'Riyadh office', status: 'Accepted' },
+  { badgeNumber: 222222, name: 'Employee Name 2', location: 'Pune office', status: 'Under Review' },
+  { badgeNumber: 333333, name: 'Employee Name 3', location: 'Noida Office', status: 'Submitted' },
+  { badgeNumber: 444444, name: 'Employee Name 4', location: 'India office', status: 'Approved' },
+  { badgeNumber: 555555, name: 'Employee Name 5', location: 'UAE office', status: 'Submitted' },
+  { badgeNumber: 666666, name: 'Employee Name 6', location: 'KSA Office', status: 'Rejected' },
+];
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -94,7 +105,9 @@ const EndorseSafetyScreen = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyView}>
-      <Text style={styles.historyText}>ToDo: Here is list of old requests</Text>
+      <SafeAreaView>
+      <SafetyIncidentsList data={data} />
+    </SafeAreaView>
     </View>
   );
 
@@ -148,7 +161,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   segmentedControl: {
-    height: 36,
+    height: 35,
   },
   topView: {
     height: height * 0.15,
@@ -216,8 +229,6 @@ const styles = StyleSheet.create({
   },
   historyView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   historyText: {
     fontSize: 18,

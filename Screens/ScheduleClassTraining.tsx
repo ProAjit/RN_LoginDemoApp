@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -14,7 +15,7 @@ const ScheduleClassTraining = () => {
   const [showFromDatePicker, setShowFromDatePicker] = useState(false);
   const [showToDatePicker, setShowToDatePicker] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state
-  const [selectedTab, setSelectedTab] = useState<'newSchedule' | 'trainingHistory'>('newSchedule');
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onFromDateChange = (event: any, selectedDate?: Date) => {
     setShowFromDatePicker(false);
@@ -171,36 +172,34 @@ const ScheduleClassTraining = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyView}>
-      <Text style={styles.historyText}>ToDo: Here is list of old requests</Text>
+      <Text style={styles.historyText}>ToDo: Here is list of old schedules</Text>
     </View>
   );
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
     <KeyboardAwareScrollView
-      contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled
-    >
-      <View style={styles.topButtonsContainer}>
-        <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'newSchedule' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('newSchedule')}
-        >
-          <Text style={[styles.buttonText, selectedTab === 'newSchedule' ? styles.activeButtonText : styles.inactiveButtonText]}>New Schedule</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.topButton, selectedTab === 'trainingHistory' ? styles.activeButton : styles.inactiveButton]}
-          onPress={() => setSelectedTab('trainingHistory')}
-        >
-          <Text style={[styles.buttonText, selectedTab === 'trainingHistory' ? styles.activeButtonText : styles.inactiveButtonText]}>Training History</Text>
-        </TouchableOpacity>
+        contentContainerStyle={styles.container}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled>
+      <View style={styles.segmentedControlContainer}>
+        <SegmentedControl
+          values={['New Schedule', 'Training History']}
+          selectedIndex={selectedIndex}
+          onChange={(event) => {
+            setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+          style={styles.segmentedControl}
+          tintColor="rgba(2, 28, 52, 1.0)"
+          fontStyle={{ fontSize: 15.5, fontWeight: 'bold', color: '#fff' }}
+          backgroundColor="rgba(211, 211, 211, 1.0)"
+        />
       </View>
-
       <View style={styles.container}>
-        {selectedTab === 'newSchedule' ? renderNewRequestContent() : renderHistoryRequestsContent()}
+        {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
       </View>
-
-      {selectedTab === 'newSchedule' && (
+      </KeyboardAwareScrollView>
+      {selectedIndex === 0 && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
             <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
@@ -210,7 +209,7 @@ const ScheduleClassTraining = () => {
           </TouchableOpacity>
         </View>
       )}
-    </KeyboardAwareScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -218,6 +217,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
+  },
+  segmentedControlContainer: {
+    marginVertical: 10,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  segmentedControl: {
+    height: 35,
   },
   topButtonsContainer: {
     height: 36,
