@@ -82,7 +82,7 @@ const EndorseSafetyScreen = () => {
   };
 
   const renderNewRequestContent = () => (
-    <>
+    <View style={styles.container}>
       <View style={styles.topView}>
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
         <Button title="Take A Picture" onPress={openCamera} />
@@ -100,14 +100,12 @@ const EndorseSafetyScreen = () => {
         <Text style={styles.label}>Description</Text>
         <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Enter Description" autoCorrect={false} spellCheck={false} maxLength={255} multiline />
       </View>
-    </>
+    </View>
   );
 
   const renderHistoryRequestsContent = () => (
-    <View style={styles.historyView}>
-      <SafeAreaView>
-      <SafetyIncidentsList data={data} />
-    </SafeAreaView>
+    <View style={styles.historyContainer}>
+    <SafetyIncidentsList data={data} />
     </View>
   );
 
@@ -131,7 +129,7 @@ const EndorseSafetyScreen = () => {
         />
       </View>
 
-      <View style={styles.container}>
+      <View>
         {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
       </View>
       </KeyboardAwareScrollView>
@@ -151,8 +149,13 @@ const EndorseSafetyScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
+    backgroundColor: '#fff',
+  },
+  historyContainer: {
+    flex: 1,
+    padding: 2,
+    marginTop: 5,
     backgroundColor: '#fff',
   },
   segmentedControlContainer: {
