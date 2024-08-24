@@ -47,6 +47,9 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           <Text style={styles.nameText}>
             Department: {item.department}
           </Text>
+          <Text style={styles.nameText}>
+            Supervisor: {item.supervisor}
+          </Text>
           <Text style={styles.numberText}>
             No Of Trainees: {item.noOfTrainees}
           </Text>
@@ -67,7 +70,7 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           getStatusBackgroundColor(item.status)]}
           >
           <Text style={styles.statusText}>
-         {item.status}
+          {item.status}
           </Text>
         </TouchableOpacity>
         </View>
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   container: {
-    height: 170,
+    height: 200,
     marginBottom: 15,
     padding: 8,
     borderRadius: 10,
@@ -125,14 +128,16 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   statusButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     borderRadius: 10,
     height: 32,
+    width: 120,
   },
   statusText: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'white',
+    textAlign:'center',
+    fontWeight:'bold',
+    marginTop: 5,
   },
   approvedBackground: {
     backgroundColor: 'gray',
