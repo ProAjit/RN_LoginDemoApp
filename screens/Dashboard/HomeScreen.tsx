@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, A
 import componentStyle from '../../styles/componentStyle';
 import CollectionView from './CollectionView';
 import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
-import EndorseSafetyScreen from '../EndorseSafetyScreen';
+import EndorseSafetyScreen from '../EndroseSafety/EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';

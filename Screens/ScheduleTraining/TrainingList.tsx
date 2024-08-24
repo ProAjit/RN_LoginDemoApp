@@ -50,6 +50,9 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           <Text style={styles.numberText}>
             No Of Trainees: {item.noOfTrainees}
           </Text>
+          <Text style={styles.numberText}>
+            Location: {item.location}
+         </Text>
           <View style={[styles.innerContainer]}>
           <Text style={styles.dateText}>
             From: {item.fromDate}
@@ -68,9 +71,6 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           </Text>
         </TouchableOpacity>
         </View>
-        <Text style={styles.numberText}>
-            Location: {item.location}
-        </Text>
         </View>
         </View>
       </View>

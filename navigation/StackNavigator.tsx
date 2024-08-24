@@ -10,7 +10,7 @@ import FeedbackScreen from '../Screens/Dashboard/FeedbackScreen';
 import AboutScreen from '../Screens/Dashboard/AboutScreen';
 import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
-import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
+import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E_TrainingScreen';
 import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
 
