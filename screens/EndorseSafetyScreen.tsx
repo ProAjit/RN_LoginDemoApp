@@ -110,7 +110,7 @@ const EndorseSafetyScreen = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#fff'}} behavior="padding">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -160,8 +160,7 @@ const styles = StyleSheet.create({
   },
   segmentedControlContainer: {
     marginVertical: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    paddingHorizontal: 40,
   },
   segmentedControl: {
     height: 35,

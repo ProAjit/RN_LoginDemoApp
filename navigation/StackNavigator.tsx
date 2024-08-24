@@ -12,7 +12,7 @@ import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E_TrainingScreen';
-import ScheduleClassTraining from '../Screens/ScheduleClassTraining';
+import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

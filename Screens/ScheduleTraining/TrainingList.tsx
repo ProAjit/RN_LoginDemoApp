@@ -81,7 +81,7 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 0,
   },
   container: {
     height: 120,

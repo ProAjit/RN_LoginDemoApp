@@ -6,7 +6,7 @@ import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessage
 import EndorseSafetyScreen from '../EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
-import ScheduleClassTraining from '../ScheduleClassTraining';
+import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E_TrainingScreen';
 
 interface Item {

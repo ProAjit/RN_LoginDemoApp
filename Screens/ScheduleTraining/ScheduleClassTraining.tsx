@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { submitTrainingData } from '../Networking/ClassTrainingServices';
+import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
@@ -226,12 +226,12 @@ const ScheduleClassTraining = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 8,
+    padding: 5,
+    backgroundColor: '#fff',
   },
   segmentedControlContainer: {
     marginVertical: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    paddingHorizontal: 40,
   },
   segmentedControl: {
     height: 35,
@@ -299,7 +299,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
     height: 40,
     margin: 10,
   },
