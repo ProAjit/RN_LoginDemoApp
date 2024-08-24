@@ -8,6 +8,7 @@ import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E_TrainingScreen';
+import PdfViewer from '../PdfViewer';
 
 interface Item {
   id: string;
@@ -45,8 +46,10 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
       case 'QUERIES':
         props.navigation.navigate('QUERIES', { QueriesScreen });
         break;
-    case 'E-TRAINING':
+      case 'E-TRAINING':
           props.navigation.navigate('E-TRAINING', { E_TrainingScreen });
+      case 'SAFETY NEWS':
+        props.navigation.navigate('SAFETY NEWS', { PdfViewer });
         break;
       default:
         break;

@@ -13,6 +13,7 @@ import ManagementMessagesScreen from '../Screens/TopManagementMessages/Managemen
 import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E_TrainingScreen';
 import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
+import PdfViewer from '../Screens/PdfViewer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,6 +67,15 @@ const HomeStack = () => (
       }}}/>
 
     <Stack.Screen name="E-TRAINING" component={E_TrainingScreen} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
+      }}}/>
+
+    <Stack.Screen name="SAFETY NEWS" component={PdfViewer} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
