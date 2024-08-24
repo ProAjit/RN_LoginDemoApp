@@ -47,12 +47,16 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           <Text style={styles.nameText}>
             Department: {item.department}
           </Text>
-          <Text style={styles.badgeNumberText}>
+          <Text style={styles.numberText}>
             No Of Trainees: {item.noOfTrainees}
           </Text>
           <View style={[styles.innerContainer]}>
-          <Text style={styles.locationText}>
-            Location: {item.location}
+          <Text style={styles.dateText}>
+            From: {item.fromDate}
+          </Text>
+          <View style={styles.rowContainer}>
+          <Text style={styles.dateText}>
+            To: {item.toDate}
           </Text>
           <TouchableOpacity 
           onPress={() => handleStatusPress(item.status)} 
@@ -63,6 +67,10 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
          {item.status}
           </Text>
         </TouchableOpacity>
+        </View>
+        <Text style={styles.numberText}>
+            Location: {item.location}
+        </Text>
         </View>
         </View>
       </View>
@@ -84,15 +92,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   container: {
-    height: 120,
+    height: 170,
     marginBottom: 15,
     padding: 8,
     borderRadius: 10,
     backgroundColor: 'lightgray',
-    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   innerContainer: {
+    justifyContent: 'space-between',
+  },
+  rowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -104,13 +114,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
   },
-  badgeNumberText: {
+  numberText: {
     fontSize: 16,
     marginTop: 10,
   },
-  locationText: {
+  dateText: {
     fontSize: 14,
     marginTop: 10,
+    width: 200,
     color: 'gray',
   },
   statusButton: {
