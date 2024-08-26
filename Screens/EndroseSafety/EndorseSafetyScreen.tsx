@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, Button, Image, TouchableOpacity, 
-  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, SafeAreaView, 
+  Platform} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
+// import PrivacySnapshot from 'react-native-privacy-snapshot'; // Import the library
 
 const { height } = Dimensions.get('window');
 
@@ -109,8 +111,26 @@ const EndorseSafetyScreen = () => {
     </View>
   );
 
+  // useEffect(() => {
+  //   if (Platform.OS === 'ios') {
+  //     if (PrivacySnapshot) {
+  //       PrivacySnapshot.enabled(true); // Enable privacy snapshot for iOS
+  //     } else {
+  //       Alert.alert('Error', 'PrivacySnapshot module is null');
+  //     }
+  //   }
+
+  //   return () => {
+  //     if (Platform.OS === 'ios') {
+  //       if (PrivacySnapshot) {
+  //         PrivacySnapshot.enabled(false); // Disable privacy snapshot when leaving the screen
+  //       }
+  //     }
+  //   };
+  // }, []);
+
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#fff'}} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#F4F6FF',}} behavior="padding">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -124,8 +144,8 @@ const EndorseSafetyScreen = () => {
           }}
           style={styles.segmentedControl}
           tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 15.5, fontWeight: 'bold', color: '#fff' }}
-          backgroundColor="rgba(211, 211, 211, 1.0)"
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#F4F6FF', }}
+          backgroundColor="rgba(222, 222, 222, 1.0)"
         />
       </View>
 
@@ -150,13 +170,13 @@ const EndorseSafetyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   historyContainer: {
     flex: 1,
     padding: 2,
     marginTop: 5,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   segmentedControlContainer: {
     marginVertical: 10,
@@ -170,7 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   bottomView: {
     height: height * 0.65,
@@ -187,9 +207,10 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
+    borderWidth: 0.5,
+    borderRadius: 5,
     paddingLeft: 8,
+    backgroundColor: '#fff',
   },
   multilineInput: {
     height: 60,
@@ -200,7 +221,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 40,
     margin: 10,
-    backgroundColor: '#fff',
+    borderRadius: 10,
+    backgroundColor: '#F4F6FF',
   },
   button: {
     flex: 1,
@@ -217,7 +239,7 @@ const styles = StyleSheet.create({
   },
   whiteButton: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
     padding: 12,
     borderRadius: 4,
     alignItems: 'center',

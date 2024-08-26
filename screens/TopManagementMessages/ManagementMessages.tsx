@@ -49,7 +49,7 @@ const ManagementMessagesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
     padding: 10,
   },
   row: {
@@ -59,15 +59,24 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     borderColor: '#ccc',
+    backgroundColor: '#fff',
     marginTop: 15,
+    margin: 10,
     borderRadius: 10,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Shadow for Android
+    elevation: 5,
   },
   rowContent: {
     flexDirection: 'column',
     flex: 1,  // Takes up available space in the row
   },
   expandedRow: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
   },
   idText: {
     fontSize: 16,

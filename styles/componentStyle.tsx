@@ -6,22 +6,22 @@ const { width, height } = Dimensions.get('window');
 const componentStyle = StyleSheet.create({
     safeArea: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#F4F6FF',
     },
     container: {
      flex: 1,
-     backgroundColor: '#fff',
+     backgroundColor: '#F4F6FF',
     },
     keyboardScrollContainer: {
        flexGrow: 1,
        padding: 16,
-       backgroundColor: '#fff',
+       backgroundColor: '#F4F6FF',
     },
     scrollView: {
       flexGrow: 1,
       width: width,
       height: height,
-      backgroundColor: '#fff',
+      backgroundColor: '#F4F6FF',
     },
     backgroundImage: {
       alignItems: 'center',
@@ -37,7 +37,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 50,
       width: width,
       height: height,
-      backgroundColor: '#fff',
+      backgroundColor: '#F4F6FF',
     },
     inputText: {
       height: 40,
@@ -46,6 +46,7 @@ const componentStyle = StyleSheet.create({
       marginBottom: 10,
       paddingHorizontal: 10,
       borderRadius: 10,  // Rounded corners
+      backgroundColor: '#fff',
     },
     text: {
       height: 40,
@@ -68,7 +69,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 20,
     },
     forgotButton: {
-      backgroundColor: 'white',  // Button color
+      backgroundColor: '#F4F6FF',  // Button color
       padding: 10,
       borderRadius: 10,  // Rounded corners
       marginTop: 20,

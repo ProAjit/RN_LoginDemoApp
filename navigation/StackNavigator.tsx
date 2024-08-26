@@ -106,9 +106,9 @@ const TabNavigator = () => (
       tabBarActiveTintColor: 'tomato',
       tabBarInactiveTintColor: 'rgba(2, 28, 52, 1.0)',
       headerStyle: {
-         backgroundColor: 'rgba(2, 28, 52, 1.0)'
+         backgroundColor: '#F4F6FF',
       },
-      headerTintColor: '#fff',
+      headerTintColor: '#F4F6FF',
       headerBackTitleVisible: false, // Hides the back button text
       headerTitleStyle: {
         fontSize: 16
@@ -136,7 +136,7 @@ const StackNavigator: React.FC = () => {
         />
         <Stack.Screen 
           name="Main" 
-          component={TabNavigator} 
+          component={TabNavigator}
           options={{
             headerShown: false,
           }} 

@@ -48,7 +48,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: '#F4F6FF' }}>
       <NetworkStatusProvider>
         <KeyboardAwareScrollView contentContainerStyle={componentStyle.scrollView}>
           <NetworkComponent />
@@ -96,7 +96,7 @@ const logoStyles = StyleSheet.create({
     flex: 1, // Full screen
     justifyContent: 'center', // Center vertically
     alignItems: 'center', // Center horizontally
-    backgroundColor: '#f0f0f0', // Background color for outer container
+    backgroundColor: '#F4F6FF', // Background color for outer container
     marginTop: 150,
   },
   innerContainer: {
@@ -104,7 +104,7 @@ const logoStyles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', // Background color for inner container
+    backgroundColor: '#F4F6FF', // Background color for inner container
 
   },
   logo: {

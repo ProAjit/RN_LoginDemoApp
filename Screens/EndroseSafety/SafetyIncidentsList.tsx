@@ -5,6 +5,7 @@ interface DataItem {
   badgeNumber: number;
   name: string;
   location: string;
+  description: string;
   status: string;
 }
 
@@ -47,6 +48,9 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
           <Text style={styles.badgeNumberText}>
             Badge Number: {item.badgeNumber}
           </Text>
+          <Text style={styles.badgeNumberText}>
+            Description: {item.description}
+          </Text>
           <View style={[styles.innerContainer]}>
           <Text style={styles.locationText}>
             Location: {item.location}
@@ -81,13 +85,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   container: {
-    height: 120,
+    marginTop: 10,
+    height: 140,
     marginBottom: 15,
     padding: 8,
-    borderRadius: 10,
-    backgroundColor: 'lightgray',
+    borderRadius: 8,
+    backgroundColor: 'white',//F4F6FF
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.0,
+    // Shadow for Android
+    elevation: 5,
   },
   innerContainer: {
     flexDirection: 'row',
