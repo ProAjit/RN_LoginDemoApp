@@ -189,7 +189,7 @@ const ScheduleClassTraining = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -203,8 +203,8 @@ const ScheduleClassTraining = () => {
             }}
             style={styles.segmentedControl}
             tintColor="rgba(2, 28, 52, 1.0)"
-            fontStyle={{ fontSize: 15.5, fontWeight: 'bold', color: '#fff' }}
-            backgroundColor="rgba(211, 211, 211, 1.0)"
+            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff'}}
+            backgroundColor="rgba(230, 230, 230, 1.0)"  
           />
         </View>
         <View style={styles.container}>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   segmentedControlContainer: {
     marginVertical: 10,
@@ -237,6 +237,8 @@ const styles = StyleSheet.create({
   },
   segmentedControl: {
     height: 35,
+    borderColor: 'black',
+    borderWidth: 0.2,
   },
   topButtonsContainer: {
     height: 36,
@@ -257,6 +259,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
+    backgroundColor: '#fff',
   },
   topButton: {
     flex: 1,
@@ -297,6 +300,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    padding: 12,
+    padding: 10,
     borderRadius: 4,
     alignItems: 'center',
     marginHorizontal: 20,
@@ -320,7 +324,7 @@ const styles = StyleSheet.create({
   whiteButton: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 12,
+    padding: 10,
     borderRadius: 4,
     alignItems: 'center',
     borderWidth: 1,
@@ -346,7 +350,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 2,
     marginTop: 5,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   historyText: {
     fontSize: 18,

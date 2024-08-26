@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    padding: 12,
+    padding: 10,
     borderRadius: 4,
     alignItems: 'center',
     marginHorizontal: 20,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   whiteButton: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 12,
+    padding: 10,
     borderRadius: 4,
     alignItems: 'center',
     borderWidth: 1,
