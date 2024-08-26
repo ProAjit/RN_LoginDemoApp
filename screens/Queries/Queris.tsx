@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const QueriesScreen = () => {
@@ -28,6 +28,7 @@ const QueriesScreen = () => {
   };
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -104,7 +105,7 @@ const QueriesScreen = () => {
           multiline
         />
       </View>
-
+      </KeyboardAwareScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
@@ -113,7 +114,7 @@ const QueriesScreen = () => {
           <Text style={styles.whiteButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
   );
 };
 
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FF',
   },
   inputGroup: {
     marginBottom: 12,
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingLeft: 8,
+    backgroundColor: '#fff',
   },
   multilineInput: {
     height: 60,
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
     height: 40,
     margin: 10,
   },
