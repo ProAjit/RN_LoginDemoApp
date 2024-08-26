@@ -18,18 +18,10 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
   const renderItem = ({ item }: { item: DataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
       switch (status) {
-        case 'Approved':
-          return styles.approvedBackground;
-        case 'Rejected':
-          return styles.rejectedBackground;
-        case 'Submitted':
-          return styles.submittedBackground;
-        case 'Accepted':
-          return styles.acceptedBackground;
-        case 'Under Review':
-          return styles.underReviewBackground;
+        case 'Open':
+          return styles.openBackground;
         case 'Closed':
-          return styles.approvedBackground;
+          return styles.closedBackground;
         default:
           return styles.defaultBackground;
       }
@@ -133,20 +125,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
   },
-  approvedBackground: {
+  closedBackground: {
     backgroundColor: 'gray',
   },
-  rejectedBackground: {
-    backgroundColor: 'red',
-  },
-  submittedBackground: {
-    backgroundColor: 'blue',
-  },
-  acceptedBackground: {
+  openBackground: {
     backgroundColor: 'green',
-  },
-  underReviewBackground: {
-    backgroundColor: 'purple',
   },
   defaultBackground: {
     backgroundColor: 'white',

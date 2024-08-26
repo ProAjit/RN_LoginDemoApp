@@ -12,12 +12,12 @@ import SafetyIncidentsList from './SafetyIncidentsList';
 const { height } = Dimensions.get('window');
 
 const data = [
-  { badgeNumber: 111111, name: 'Employee Name 1', location: 'Riyadh office', status: 'Accepted' },
-  { badgeNumber: 222222, name: 'Employee Name 2', location: 'Pune office', status: 'Under Review' },
-  { badgeNumber: 333333, name: 'Employee Name 3', location: 'Noida Office', status: 'Submitted' },
-  { badgeNumber: 444444, name: 'Employee Name 4', location: 'India office', status: 'Approved' },
-  { badgeNumber: 555555, name: 'Employee Name 5', location: 'UAE office', status: 'Closed' },
-  { badgeNumber: 666666, name: 'Employee Name 6', location: 'KSA Office', status: 'Rejected' },
+  { badgeNumber: 111111, name: 'Employee Name 1', description:'', location: 'Riyadh office', status: 'Open' },
+  { badgeNumber: 222222, name: 'Employee Name 2', description:'', location: 'Pune office', status: 'Closed' },
+  { badgeNumber: 333333, name: 'Employee Name 3', description:'', location: 'Noida Office', status: 'Open' },
+  { badgeNumber: 444444, name: 'Employee Name 4', description:'', location: 'India office', status: 'Closed' },
+  { badgeNumber: 555555, name: 'Employee Name 5', description:'', location: 'UAE office', status: 'Open' },
+  { badgeNumber: 666666, name: 'Employee Name 6', description:'', location: 'KSA Office', status: 'Closed' },
 ];
 
 const EndorseSafetyScreen = () => {

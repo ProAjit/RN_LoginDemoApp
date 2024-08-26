@@ -24,18 +24,17 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           return styles.approvedBackground;
         case 'Rejected':
           return styles.rejectedBackground;
-        case 'Submitted':
-          return styles.submittedBackground;
-        case 'Accepted':
-          return styles.acceptedBackground;
+        case 'On Hold':
+          return styles.onHoldBackground;
+        case 'Rescheduled':
+          return styles.rescheduledBackground;
         case 'Under Review':
           return styles.underReviewBackground;
-        case 'Closed':
-          return styles.approvedBackground;
         default:
           return styles.defaultBackground;
       }
     };
+
 
     const handleStatusPress = (status: string) => {
       console.log(`Status tapped: ${status}`);
@@ -154,10 +153,10 @@ const styles = StyleSheet.create({
   rejectedBackground: {
     backgroundColor: 'red',
   },
-  submittedBackground: {
+  onHoldBackground: {
     backgroundColor: 'blue',
   },
-  acceptedBackground: {
+  rescheduledBackground: {
     backgroundColor: 'green',
   },
   underReviewBackground: {
