@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign:'center',
     fontWeight:'bold',
-    marginTop: 5,
+    marginTop: 7,
   },
   approvedBackground: {
     backgroundColor: 'gray',
