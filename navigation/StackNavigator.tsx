@@ -106,22 +106,42 @@ const TabNavigator = () => (
       tabBarActiveTintColor: 'tomato',
       tabBarInactiveTintColor: 'rgba(2, 28, 52, 1.0)',
       headerStyle: {
-         backgroundColor: '#F4F6FF',
+         backgroundColor:'rgba(2, 28, 52, 1.0)',
       },
       headerTintColor: '#F4F6FF',
-      headerBackTitleVisible: false, // Hides the back button text
+      headerBackTitleVisible: false,
       headerTitleStyle: {
         fontSize: 16
       },
       headerShown: true,
+      tabBarStyle: {
+        backgroundColor: '#F4F6FF', // Set the background color for the tab bar - F4F6FF
+        shadowColor: '#000', // Shadow color
+        shadowOffset: { width: 0, height: -3 }, // Offset for the shadow, negative height for shadow above the tab bar
+        shadowOpacity: 0.1, // Shadow opacity
+        shadowRadius: 3, // Shadow blur radius
+        elevation: 5, // Elevation for Android to achieve a similar effect
+      },
     })}
   >
-    <Tab.Screen name="Home" component={HomeStack} 
-    options={{ headerShown: false, headerTitleStyle: { fontSize: 20} }}/>
-    <Tab.Screen name="Feedback" component={FeedbackScreen} 
-    options={{ headerTitleStyle: { fontSize: 20} }}/>
-    <Tab.Screen name="About" component={AboutScreen} 
-    options={{ headerTitleStyle: { fontSize: 20} }}/>
+    <Tab.Screen 
+      name="Home" 
+      component={HomeStack} 
+      options={{ 
+        headerShown: false, 
+        headerTitleStyle: { fontSize: 20},
+      }}
+    />
+    <Tab.Screen 
+      name="Feedback" 
+      component={FeedbackScreen} 
+      options={{ headerTitleStyle: {fontSize: 20}}}
+    />
+    <Tab.Screen 
+      name="About" 
+      component={AboutScreen} 
+      options={{ headerTitleStyle: { fontSize: 20} }}
+    />
   </Tab.Navigator>
 );
 
