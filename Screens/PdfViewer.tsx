@@ -32,7 +32,7 @@ const PdfViewer = () => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color='rgba(2, 28, 52, 1.0)' />
       </View>
     );
   }
