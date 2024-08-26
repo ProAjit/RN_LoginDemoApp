@@ -144,8 +144,8 @@ const EndorseSafetyScreen = () => {
           }}
           style={styles.segmentedControl}
           tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#F4F6FF', }}
-          backgroundColor="rgba(222, 222, 222, 1.0)"
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff'}}
+          backgroundColor="rgba(230, 230, 230, 1.0)"
         />
       </View>
 
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     backgroundColor: '#F4F6FF',
+    flexDirection: 'column',
   },
   historyContainer: {
     flex: 1,
@@ -184,13 +185,18 @@ const styles = StyleSheet.create({
   },
   segmentedControl: {
     height: 35,
+    borderColor: 'black',
+    borderWidth: 0.5,
   },
   topView: {
     height: height * 0.15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#F4F6FF',
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    borderWidth: 0.5,
+    borderRadius: 5,
   },
   bottomView: {
     height: height * 0.65,
