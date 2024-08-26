@@ -119,8 +119,8 @@ const TabNavigator = () => (
         shadowColor: '#000', // Shadow color
         shadowOffset: { width: 0, height: -3 }, // Offset for the shadow, negative height for shadow above the tab bar
         shadowOpacity: 0.1, // Shadow opacity
-        shadowRadius: 3, // Shadow blur radius
-        elevation: 5, // Elevation for Android to achieve a similar effect
+        shadowRadius: 2, // Shadow blur radius
+        elevation: 4, // Elevation for Android to achieve a similar effect
       },
     })}
   >
