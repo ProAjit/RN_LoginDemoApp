@@ -26,15 +26,18 @@ const E_TrainingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F4F6FF',
   },
   loader: {
     position: 'absolute', 
     top: '50%', 
     left: '50%',
     transform: [{ translateX: -25 }, { translateY: -25 }], // Center the loader
+    backgroundColor: '#F4F6FF',
   },
   webview: {
     flex: 1,
+    backgroundColor: '#F4F6FF',
   },
 });
 
