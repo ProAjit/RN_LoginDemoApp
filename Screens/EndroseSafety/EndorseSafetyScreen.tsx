@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   segmentedControl: {
     height: 35,
     borderColor: 'black',
-    borderWidth: 0.5,
+    borderWidth: 0.2,
   },
   topView: {
     height: height * 0.15,
