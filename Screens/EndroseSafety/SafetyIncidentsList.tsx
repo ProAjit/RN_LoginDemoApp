@@ -123,10 +123,11 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   statusButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     borderRadius: 10,
     height: 32,
+    width: 120,
+    paddingTop: 5,
+    alignItems: 'center',
   },
   statusText: {
     fontSize: 16,
