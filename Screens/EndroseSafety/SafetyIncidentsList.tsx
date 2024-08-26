@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.0,
     // Shadow for Android
-    elevation: 5,
+    elevation: 4,
   },
   innerContainer: {
     flexDirection: 'row',
