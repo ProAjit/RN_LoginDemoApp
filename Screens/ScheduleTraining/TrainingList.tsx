@@ -95,12 +95,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   container: {
+    marginTop: 10,
     height: 200,
-    marginBottom: 15,
+    margin: 5,
     padding: 8,
-    borderRadius: 10,
-    backgroundColor: 'lightgray',
+    borderRadius: 8,
+    backgroundColor: 'white',//F4F6FF
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.0,
+    // Shadow for Android
+    elevation: 4,
   },
   innerContainer: {
     justifyContent: 'space-between',
