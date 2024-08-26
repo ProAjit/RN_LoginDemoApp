@@ -13,7 +13,7 @@ import ManagementMessagesScreen from '../Screens/TopManagementMessages/Managemen
 import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E_TrainingScreen';
 import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
-import PdfViewer from '../Screens/PdfViewer';
+import PdfViewer from '../Screens/SafetyNews/PdfViewer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

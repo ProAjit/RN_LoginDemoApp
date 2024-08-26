@@ -8,7 +8,7 @@ import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E_TrainingScreen';
-import PdfViewer from '../PdfViewer';
+import PdfViewer from '../SafetyNews/PdfViewer';
 
 interface Item {
   id: string;

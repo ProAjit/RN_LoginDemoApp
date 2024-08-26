@@ -48,9 +48,12 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: '#F4F6FF' }}>
-      <NetworkStatusProvider>
-        <KeyboardAwareScrollView contentContainerStyle={componentStyle.scrollView}>
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
+    <KeyboardAwareScrollView
+        contentContainerStyle={componentStyle.scrollContainer}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled>        
+        <NetworkStatusProvider>
           <NetworkComponent />
           <View style={componentStyle.container}>
             <View style={logoStyles.outerContainer}>
@@ -84,8 +87,8 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
               </TouchableOpacity>
             </View>
           </View>
+          </NetworkStatusProvider>
         </KeyboardAwareScrollView>
-      </NetworkStatusProvider>
       <OverlayActivityIndicator show={show} />
     </KeyboardAvoidingView>
   );
@@ -97,7 +100,7 @@ const logoStyles = StyleSheet.create({
     justifyContent: 'center', // Center vertically
     alignItems: 'center', // Center horizontally
     backgroundColor: '#F4F6FF', // Background color for outer container
-    marginTop: 150,
+    marginTop: 80,
   },
   innerContainer: {
     width: 100,

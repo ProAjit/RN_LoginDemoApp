@@ -12,6 +12,11 @@ const componentStyle = StyleSheet.create({
      flex: 1,
      backgroundColor: '#F4F6FF',
     },
+    scrollContainer: {
+      flex: 1,
+      padding: 5,
+      backgroundColor: '#F4F6FF',
+    },
     keyboardScrollContainer: {
        flexGrow: 1,
        padding: 16,
