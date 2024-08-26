@@ -41,11 +41,12 @@ const componentStyle = StyleSheet.create({
     },
     inputText: {
       height: 40,
-      borderColor: 'rgba(2, 28, 52, 0.1)',
       borderWidth: 0.5,
-      marginBottom: 10,
       paddingHorizontal: 10,
-      borderRadius: 10,  // Rounded corners
+      borderColor: '#ccc',
+      padding: 10,
+      borderRadius: 5,
+      marginBottom: 20,
       backgroundColor: '#fff',
     },
     text: {
