@@ -10,6 +10,15 @@ import SafetyIncidentsList from './SafetyIncidentsList';
 
 const { height } = Dimensions.get('window');
 
+const data = [
+  { badgeNumber: 111111, name: 'Employee Name 1', description:'', location: 'Riyadh office', status: 'Open' },
+  { badgeNumber: 222222, name: 'Employee Name 2', description:'', location: 'Pune office', status: 'Closed' },
+  { badgeNumber: 333333, name: 'Employee Name 3', description:'', location: 'Noida Office', status: 'Open' },
+  { badgeNumber: 444444, name: 'Employee Name 4', description:'', location: 'India office', status: 'Closed' },
+  { badgeNumber: 555555, name: 'Employee Name 5', description:'', location: 'UAE office', status: 'Open' },
+  { badgeNumber: 666666, name: 'Employee Name 6', description:'', location: 'KSA Office', status: 'Closed' },
+];
+
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
   const [name, setName] = useState('');
@@ -260,33 +269,36 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
     height: 40,
     margin: 10,
-    borderRadius: 10,
-    backgroundColor: '#F4F6FF',
   },
   button: {
     flex: 1,
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
     padding: 10,
-    borderRadius: 2,
-    justifyContent: 'center',
+    borderRadius: 4,
     alignItems: 'center',
+    marginHorizontal: 20,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   whiteButton: {
     flex: 1,
+    backgroundColor: '#fff',
     padding: 10,
-    justifyContent: 'center',
+    borderRadius: 4,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(2, 28, 52, 1.0)',
+    marginRight: 20,
   },
   whiteButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
