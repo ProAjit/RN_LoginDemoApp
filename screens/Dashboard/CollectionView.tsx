@@ -39,14 +39,14 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) =>
 const styles = StyleSheet.create({
   row: {
     justifyContent: 'space-between',
-    height: 125,
+    height: 130,
   },
   item: {
     backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
-    padding: 10,
+    padding: 8,
     marginVertical: 8,
-    marginHorizontal: 4,
-    width: itemWidth - 18, // Subtracting marginHorizontal to fit exactly
+    marginHorizontal: 8,
+    width: itemWidth - 20, // Subtracting marginHorizontal to fit exactly
     alignItems: 'center',
     borderRadius: 5,
   },

@@ -80,8 +80,9 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
 const homeStyles = StyleSheet.create({
   collectionContainer: {
     height: '95%',
+    marginTop: 10,
   },
-});
+}); 
 
 export default HomeScreen;
 
