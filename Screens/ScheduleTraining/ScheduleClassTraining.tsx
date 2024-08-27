@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, FlatList } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
+// import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
+
+const regionsData = ['Riyadh', 'India', 'UAE', 'Mumbai', 'Dubai'];
 
 const TrainingDataArr = [
   { noOfTrainees: 111111, department: 'Department 1', supervisor: 'Supervisor 1', location: 'Riyadh office', status: 'Rescheduled', fromDate: '20 Aug 2024 10:30 AM', toDate: '21 Aug 2024 11:30 AM' },
@@ -25,6 +28,8 @@ const ScheduleClassTraining = () => {
   const [showToDatePicker, setShowToDatePicker] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [region, setRegion] = useState(''); // State for selected region
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
 
   const onFromDateChange = (event: any, selectedDate?: Date) => {
     setShowFromDatePicker(false);
@@ -121,6 +126,16 @@ const ScheduleClassTraining = () => {
             <ActivityIndicator size="large" color="#0000ff" />
           </View>
         )}
+        {/* Region Dropdown */}
+        <Text style={styles.label}>Region</Text>
+        <TouchableOpacity
+          style={styles.dropdownInput}
+          onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
+          <Text style={styles.regionText}>{region || 'Select a Region'}</Text>
+          {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
+        </TouchableOpacity>
+        {isDropdownVisible && renderRegionDropdown()}
+
         <Text style={styles.label}>Department Name</Text>
         <TextInput style={styles.input} value={department}
           autoCorrect={false} spellCheck={false}
@@ -184,6 +199,27 @@ const ScheduleClassTraining = () => {
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyView}>
       <TrainingList data={TrainingDataArr} />
+    </View>
+  );
+
+  const handleRegionSelect = (selectedRegion: React.SetStateAction<string>) => {
+    setRegion(selectedRegion);
+    setIsDropdownVisible(false);
+  };
+
+  const renderRegionDropdown = () => (
+    <View style={styles.dropdownContainer}>
+    <FlatList
+      data={regionsData}
+      keyExtractor={(item) => item}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.dropdownItem}
+          onPress={() => handleRegionSelect(item)}>
+          <Text style={styles.dropdownItemText}>{item}</Text>
+        </TouchableOpacity>
+      )}
+    />
     </View>
   );
 
@@ -251,6 +287,41 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 5,
+  },
+  dropdownContainer: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    zIndex: 1000,
+    height: 200, // Height for all 5 items
+    width: '99%', // Full width of the parent container
+    marginTop: 70,
+    marginLeft: 7,
+  },
+  dropdownInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  regionText: {
+    fontSize: 16,
+  },
+  dropdownItem: {
+    padding: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  dropdownItemText: {
+    fontSize: 16,
   },
   input: {
     borderWidth: 1,
