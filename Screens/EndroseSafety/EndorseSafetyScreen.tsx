@@ -1,24 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, Button, Image, TouchableOpacity, 
   StyleSheet, Dimensions, Alert, KeyboardAvoidingView, SafeAreaView, 
-  Platform} from 'react-native';
+  Platform, Switch} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
-// import PrivacySnapshot from 'react-native-privacy-snapshot'; // Import the library
 
 const { height } = Dimensions.get('window');
-
-const data = [
-  { badgeNumber: 111111, name: 'Employee Name 1', description:'', location: 'Riyadh office', status: 'Open' },
-  { badgeNumber: 222222, name: 'Employee Name 2', description:'', location: 'Pune office', status: 'Closed' },
-  { badgeNumber: 333333, name: 'Employee Name 3', description:'', location: 'Noida Office', status: 'Open' },
-  { badgeNumber: 444444, name: 'Employee Name 4', description:'', location: 'India office', status: 'Closed' },
-  { badgeNumber: 555555, name: 'Employee Name 5', description:'', location: 'UAE office', status: 'Open' },
-  { badgeNumber: 666666, name: 'Employee Name 6', description:'', location: 'KSA Office', status: 'Closed' },
-];
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -28,6 +18,7 @@ const EndorseSafetyScreen = () => {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isShareDataEnabled, setIsShareDataEnabled] = useState(true); // State for the switch
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -60,8 +51,6 @@ const EndorseSafetyScreen = () => {
     try {
       const response = await submitSafetyEndorsement(name, badgeNumber, location, description, image);
 
-      console.log('Response:', response); // Print the complete response
-
       if (response?.result?.statusCode === 200) {
         Alert.alert('Success', response.result.message);
         handleCancel(); // Reset the form on success
@@ -89,69 +78,97 @@ const EndorseSafetyScreen = () => {
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
         <Button title="Take A Picture" onPress={openCamera} />
       </View>
-      <View style={styles.bottomView}>
-        <Text style={styles.label}>Name (optional)</Text>
-        <TextInput style={styles.input} onChangeText={setName} value={name} placeholder="Employee Name" maxLength={50} autoCorrect={false} spellCheck={false} />
 
-        <Text style={styles.label}>Badge Number (optional)</Text>
-        <TextInput style={styles.input} onChangeText={setBadgeNumber} value={badgeNumber} keyboardType="numeric" placeholder="#000000" maxLength={6} autoCorrect={false} spellCheck={false} />
+      {/* New Switch View */}
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchLabel}>Share my data</Text>
+        <Switch
+          value={isShareDataEnabled}
+          onValueChange={(value) => setIsShareDataEnabled(value)}
+          style={styles.switch}
+        />
+      </View>
+
+      <View style={styles.bottomView}>
+        {isShareDataEnabled && (
+          <>
+            <Text style={styles.label}>Name (optional)</Text>
+            <TextInput
+              style={styles.staticInput}
+              onChangeText={setName}
+              value={name}
+              placeholder="Employee Name"
+              editable={false}
+            />
+
+            <Text style={styles.label}>Badge Number (optional)</Text>
+            <TextInput
+              style={styles.staticInput}
+              onChangeText={setBadgeNumber}
+              value={badgeNumber}
+              keyboardType="numeric"
+              placeholder="#000000"
+              editable={false}
+            />
+          </>
+        )}
 
         <Text style={styles.label}>Location</Text>
-        <TextInput style={styles.input} onChangeText={setLocation} value={location} placeholder="Issue Location" maxLength={255} autoCorrect={false} spellCheck={false} />
+        <TextInput
+          style={styles.input}
+          onChangeText={setLocation}
+          value={location}
+          placeholder="Issue Location"
+          maxLength={255}
+          autoCorrect={false}
+          spellCheck={false}
+        />
 
         <Text style={styles.label}>Description</Text>
-        <TextInput style={[styles.input, styles.multilineInput]} onChangeText={setDescription} value={description} placeholder="Enter Description" autoCorrect={false} spellCheck={false} maxLength={255} multiline />
+        <TextInput
+          style={[styles.input, styles.multilineInput]}
+          onChangeText={setDescription}
+          value={description}
+          placeholder="Enter Description"
+          autoCorrect={false}
+          spellCheck={false}
+          maxLength={255}
+          multiline
+        />
       </View>
     </View>
   );
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyContainer}>
-    <SafetyIncidentsList data={data} />
+      <SafetyIncidentsList data={data} />
     </View>
   );
 
-  // useEffect(() => {
-  //   if (Platform.OS === 'ios') {
-  //     if (PrivacySnapshot) {
-  //       PrivacySnapshot.enabled(true); // Enable privacy snapshot for iOS
-  //     } else {
-  //       Alert.alert('Error', 'PrivacySnapshot module is null');
-  //     }
-  //   }
-
-  //   return () => {
-  //     if (Platform.OS === 'ios') {
-  //       if (PrivacySnapshot) {
-  //         PrivacySnapshot.enabled(false); // Disable privacy snapshot when leaving the screen
-  //       }
-  //     }
-  //   };
-  // }, []);
-
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#F4F6FF',}} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled>
-      <View style={styles.segmentedControlContainer}>
-        <SegmentedControl
-          values={['Raise Incident', 'Incidents History']}
-          selectedIndex={selectedIndex}
-          onChange={(event) => {
-            setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
-          }}
-          style={styles.segmentedControl}
-          tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff'}}
-          backgroundColor="rgba(230, 230, 230, 1.0)"
-        />
-      </View>
+        scrollEnabled
+      >
+        <View style={styles.segmentedControlContainer}>
+          <SegmentedControl
+            values={['Raise Incident', 'Incidents History']}
+            selectedIndex={selectedIndex}
+            onChange={(event) => {
+              setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
+            }}
+            style={styles.segmentedControl}
+            tintColor="rgba(2, 28, 52, 1.0)"
+            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+            backgroundColor="rgba(230, 230, 230, 1.0)"
+          />
+        </View>
 
-      <View>
-        {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
-      </View>
+        <View>
+          {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
+        </View>
       </KeyboardAwareScrollView>
       {selectedIndex === 0 && (
         <View style={styles.buttonContainer}>
@@ -164,7 +181,7 @@ const EndorseSafetyScreen = () => {
         </View>
       )}
     </KeyboardAvoidingView>
-   );
+  );
 };
 
 const styles = StyleSheet.create({
@@ -198,8 +215,19 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 5,
   },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: 15,
+    marginBottom: 0,
+  },
+  switchLabel: {
+    fontSize: 16,
+    paddingRight: 15,
+  },
   bottomView: {
-    height: height * 0.65,
+    height: height * 0.50,
   },
   imageView: {
     width: 100,
@@ -218,6 +246,14 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     backgroundColor: '#fff',
   },
+  staticInput: {
+    height: 40,
+    paddingLeft: 8,
+    backgroundColor: '#F4F6FF',
+  },
+  switch: {
+    transform: [{ scaleX: 0.85 }, { scaleY: 0.8 }], // Adjust the scale to fit within the wrapper
+  },
   multilineInput: {
     height: 60,
   },
@@ -235,34 +271,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
     padding: 10,
     borderRadius: 2,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 20,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
   },
   whiteButton: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 10,
-    borderRadius: 4,
+    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(2, 28, 52, 1.0)',
   },
   whiteButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-  historyView: {
-    flex: 1,
-  },
-  historyText: {
-    fontSize: 18,
-    color: 'rgba(2, 28, 52, 1.0)',
   },
 });
 
