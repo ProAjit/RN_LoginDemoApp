@@ -24,6 +24,8 @@ const data: Item[] = [
   { id: '6', title: 'LINKS' },
   { id: '7', title: 'SAFETY ALERTS' },
   { id: '8', title: 'SAFETY NEWS' },
+  { id: '9', title: 'ADMIN' },
+  { id: '10', title: 'ABOUT' },
 ];
 
 const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string, params?: any) => void }; }) => {
@@ -49,8 +51,20 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
       case 'E-TRAINING':
         props.navigation.navigate('E-TRAINING', { E_TrainingScreen });
         break;
+      case 'LINKS':
+       props.navigation.navigate('LINKS', { PdfViewer });
+        break;
       case 'SAFETY NEWS':
         props.navigation.navigate('SAFETY NEWS', { PdfViewer });
+        break;
+      case 'SAFETY ALERTS':
+        props.navigation.navigate('SAFETY ALERTS', { PdfViewer });
+        break;
+      case 'ADMIN':
+        props.navigation.navigate('ADMIN', { PdfViewer });
+        break;
+      case 'ABOUT':
+        props.navigation.navigate('ABOUT', { PdfViewer });
         break;
       default:
         break;
