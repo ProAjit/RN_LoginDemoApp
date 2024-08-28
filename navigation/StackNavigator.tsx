@@ -1,8 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../Screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
@@ -16,11 +14,9 @@ import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTrai
 import PdfViewer from '../Screens/SafetyNews/PdfViewer';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator>
-
     <Stack.Screen name="Safety 24/7" component={HomeScreen} 
       options={{ headerLeft: () => null , 
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
@@ -31,7 +27,7 @@ const HomeStack = () => (
       }}}/>
       
     <Stack.Screen name="TOP MANAGEMENT MESSAGES" component={ManagementMessagesScreen} 
-     options={{  
+      options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
       headerBackTitleVisible: false,
@@ -75,6 +71,15 @@ const HomeStack = () => (
         fontSize: 16
       }}}/>
 
+    <Stack.Screen name="LINKS" component={PdfViewer} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
+      }}}/>
+
     <Stack.Screen name="SAFETY NEWS" component={PdfViewer} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
@@ -84,65 +89,34 @@ const HomeStack = () => (
         fontSize: 16
       }}}/>
 
-  </Stack.Navigator>
-);
-
-const TabNavigator = () => (
-  <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName: string;
-        if (route.name === 'Home') {
-          iconName = 'home-outline';
-        } else if (route.name === 'FEEDBACK') {
-          iconName = 'chatbubble-ellipses-outline';
-        } else if (route.name === 'ABOUT') {
-          iconName = 'information-circle-outline';
-        } else {
-          iconName = 'alert-circle-outline'; // Fallback icon
-        }
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: 'tomato',
-      tabBarInactiveTintColor: 'rgba(2, 28, 52, 1.0)',
-      headerStyle: {
-         backgroundColor:'rgba(2, 28, 52, 1.0)',
-      },
-      headerTintColor: '#F4F6FF',
+    <Stack.Screen name="SAFETY ALERTS" component={PdfViewer} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
       headerBackTitleVisible: false,
       headerTitleStyle: {
         fontSize: 16
-      },
-      headerShown: true,
-      tabBarStyle: {
-        backgroundColor: '#F4F6FF', // Set the background color for the tab bar - F4F6FF
-        shadowColor: '#000', // Shadow color
-        shadowOffset: { width: 0, height: -3 }, // Offset for the shadow, negative height for shadow above the tab bar
-        shadowOpacity: 0.1, // Shadow opacity
-        shadowRadius: 2, // Shadow blur radius
-        elevation: 4, // Elevation for Android to achieve a similar effect
-      },
-    })}
-  >
-    <Tab.Screen 
-      name="Home" 
-      component={HomeStack} 
-      options={{ 
-        headerShown: false, 
-        headerTitleStyle: { fontSize: 20},
-      }}
-    />
-    <Tab.Screen 
-      name="Feedback" 
-      component={FeedbackScreen} 
-      options={{ headerTitleStyle: {fontSize: 20}}}
-    />
-    <Tab.Screen 
-      name="About" 
-      component={AboutScreen} 
-      options={{ headerTitleStyle: { fontSize: 20} }}
-    />
-  </Tab.Navigator>
+      }}}/>
+      
+      <Stack.Screen name="ADMIN" component={PdfViewer} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
+      }}}/>
+
+    <Stack.Screen name="ABOUT" component={PdfViewer} 
+      options={{  
+      headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
+      headerTintColor: '#fff',
+      headerBackTitleVisible: false,
+      headerTitleStyle: {
+        fontSize: 16
+      }}}/>
+
+  </Stack.Navigator>
 );
 
 const StackNavigator: React.FC = () => {
@@ -156,7 +130,7 @@ const StackNavigator: React.FC = () => {
         />
         <Stack.Screen 
           name="Main" 
-          component={TabNavigator}
+          component={HomeStack}
           options={{
             headerShown: false,
           }} 
