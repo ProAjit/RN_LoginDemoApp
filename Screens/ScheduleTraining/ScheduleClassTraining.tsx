@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
-} from 'react-native';
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../styles/bottomButtonStyles';
+import segmentStyle from '../../styles/segmentStyle';
 // import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
 
 const regionsData = ['Riyadh', 'India', 'UAE', 'Mumbai', 'Dubai'];
@@ -243,14 +243,14 @@ const ScheduleClassTraining = () => {
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled >
-        <View style={styles.segmentedControlContainer}>
+        <View style={segmentStyle.segmentedControlContainer}>
           <SegmentedControl
             values={['New Schedule', 'Training History']}
             selectedIndex={selectedIndex}
             onChange={(event) => {
               setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
             }}
-            style={styles.segmentedControl}
+            style={segmentStyle.segmentedControl}
             tintColor="rgba(2, 28, 52, 1.0)"
             fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
             backgroundColor="rgba(230, 230, 230, 1.0)"
@@ -279,15 +279,6 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: '#F4F6FF',
     flexDirection: 'column',
-  },
-  segmentedControlContainer: {
-    marginVertical: 10,
-    paddingHorizontal: 40,
-  },
-  segmentedControl: {
-    height: 35,
-    borderColor: 'black',
-    borderWidth: 0.2,
   },
   topButtonsContainer: {
     height: 36,

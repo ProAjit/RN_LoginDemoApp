@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, Button, Image, TouchableOpacity, 
-  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, SafeAreaView, 
-  Platform, Switch} from 'react-native';
+  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../styles/bottomButtonStyles';
+import segmentStyle from '../../styles/segmentStyle';
 
 const { height } = Dimensions.get('window');
 
@@ -60,7 +60,6 @@ const EndorseSafetyScreen = () => {
     setLoading(true);
     try {
       const response = await submitSafetyEndorsement(name, badgeNumber, location, description, image);
-
       if (response?.result?.statusCode === 200) {
         Alert.alert('Success', response.result.message);
         handleCancel(); // Reset the form on success
@@ -160,14 +159,14 @@ const EndorseSafetyScreen = () => {
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled
       >
-        <View style={styles.segmentedControlContainer}>
+        <View style={segmentStyle.segmentedControlContainer}>
           <SegmentedControl
             values={['Raise Incident', 'Incidents History']}
             selectedIndex={selectedIndex}
             onChange={(event) => {
               setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
             }}
-            style={styles.segmentedControl}
+            style={segmentStyle.segmentedControl}
             tintColor="rgba(2, 28, 52, 1.0)"
             fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
             backgroundColor="rgba(230, 230, 230, 1.0)"
@@ -203,15 +202,6 @@ const styles = StyleSheet.create({
     padding: 2,
     marginTop: 5,
     backgroundColor: '#F4F6FF',
-  },
-  segmentedControlContainer: {
-    marginVertical: 10,
-    paddingHorizontal: 40,
-  },
-  segmentedControl: {
-    height: 35,
-    borderColor: 'black',
-    borderWidth: 0.2,
   },
   topView: {
     height: height * 0.15,
