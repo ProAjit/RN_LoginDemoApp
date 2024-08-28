@@ -65,59 +65,49 @@ const QueriesScreen = () => {
     >
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setName} autoCorrect={false} spellCheck={false} placeholder="Enter Name" maxLength={255}/>
-      </View>
+        <TextInput
+        style={styles.staticInput}
+        onChangeText={setName}
+        placeholder='Logged User Name'
+        editable={false}/>
+      </View>      
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Email</Text>
         <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          placeholder="Enter Email" 
-          maxLength={255}
-          autoCorrect={false}
-          spellCheck={false}
-        />
+        style={styles.staticInput}
+        onChangeText={setName}
+        placeholder='Logged User Email'
+        editable={false}/>
       </View>
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Phone number</Text>
         <TextInput
-          style={styles.input}
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="numeric"
-          maxLength={15}
-          placeholder='Enter Phone number'
-          autoCorrect={false}
-          spellCheck={false}
-        />
+        style={styles.staticInput}
+        onChangeText={setName}
+        placeholder='Logged User Phone'
+        editable={false}/>
       </View>
 
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Title</Text>
-        <TextInput 
-        style={styles.input} 
-        value={title} 
-        onChangeText={setTitle} 
-        placeholder="Enter Title" 
-        maxLength={255}
-        autoCorrect={false} 
-        spellCheck={false}
-        />
+        <TextInput
+        style={styles.staticInput}
+        onChangeText={setName}
+        placeholder='Logged User Designation'
+        editable={false}/>
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.label}>Type</Text>
+        <Text style={styles.label}>Subject</Text>
         <TextInput 
         style={styles.input} 
         value={type} 
         onChangeText={setType} 
         autoCorrect={false} 
         spellCheck={false} 
-        placeholder="Enter Type" 
+        placeholder="Enter Subject" 
         maxLength={255}/>
       </View>
 
@@ -151,6 +141,11 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 15,
+    backgroundColor: '#F4F6FF',
+  },
+  staticInput: {
+    height: 40,
+    paddingLeft: 0,
     backgroundColor: '#F4F6FF',
   },
   inputGroup: {
