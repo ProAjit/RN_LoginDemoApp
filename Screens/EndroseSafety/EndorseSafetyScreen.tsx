@@ -193,7 +193,7 @@ const EndorseSafetyScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 8,
     backgroundColor: '#F4F6FF',
     flexDirection: 'column',
   },
@@ -269,6 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 40,
     margin: 10,
+    marginBottom: 25,
   },
   button: {
     flex: 1,
