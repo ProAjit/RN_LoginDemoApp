@@ -138,7 +138,11 @@ const ScheduleClassTraining = () => {
         <TouchableOpacity
           style={styles.dropdownInput}
           onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
-          <TextInput placeholder='Select a Region' style={styles.regionText}>{region}</TextInput>
+          <TextInput 
+          placeholder='Select a Region' 
+          editable={false}
+          style={styles.regionText}>{region}
+          </TextInput>
           {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
         </TouchableOpacity>
         {isDropdownVisible && renderRegionDropdown()}
@@ -231,11 +235,11 @@ const ScheduleClassTraining = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled>
+        scrollEnabled >
         <View style={styles.segmentedControlContainer}>
           <SegmentedControl
             values={['New Schedule', 'Training History']}
@@ -269,9 +273,9 @@ const ScheduleClassTraining = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 5,
     backgroundColor: '#F4F6FF',
+    flexDirection: 'column',
   },
   segmentedControlContainer: {
     marginVertical: 10,
@@ -389,6 +393,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 40,
     margin: 10,
+    marginBottom: 25,
   },
   button: {
     flex: 1,
@@ -411,6 +416,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(2, 28, 52, 1.0)',
+    marginRight: 20,
   },
   whiteButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',
