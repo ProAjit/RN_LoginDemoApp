@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { submitQueriesData } from '../../Networking/QueriesServices';
 
 const QueriesScreen = () => {
   const [name, setName] = useState('');
@@ -9,12 +10,39 @@ const QueriesScreen = () => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || title.trim() === '' || type.trim() === '') {
       Alert.alert('Error', 'Please enter values in all fields.');
-    } else {
-      Alert.alert('Submitted', `Name: ${name}, Email: ${email}, Phone: ${phone}, Title: ${title}, Type: ${type}, Description: ${description}`);
+      return;
+    }
+
+    setLoading(true); // Show loader
+
+    try {
+      const data = {
+        name,
+        email,
+        phone,
+        description,
+        type,
+        title,
+      };
+      const response = await submitQueriesData(data);
+      // Check the status code and show a message
+      if (response.status === 200) {
+        Alert.alert('Success', 'Data submitted successfully.');
+        handleCancel();
+      } else {
+        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to submit training data.');
+    } finally {
+      setTimeout(() => {
+        setLoading(false); // Hide loader after 0.5 seconds
+      }, 500);
     }
   };
 
@@ -107,13 +135,13 @@ const QueriesScreen = () => {
       </View>
       </KeyboardAwareScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.whiteButton} onPress={handleCancel}>
-          <Text style={styles.whiteButtonText}>Cancel</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
+            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
+            <Text style={styles.whiteButtonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
   );
 };
@@ -121,7 +149,7 @@ const QueriesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 16,
+    padding: 15,
     backgroundColor: '#F4F6FF',
   },
   inputGroup: {
@@ -145,9 +173,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
     height: 40,
     margin: 10,
+    marginBottom: 25,
   },
   button: {
     flex: 1,
@@ -170,6 +198,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(2, 28, 52, 1.0)',
+    marginRight: 20,
   },
   whiteButtonText: {
     color: 'rgba(2, 28, 52, 1.0)',

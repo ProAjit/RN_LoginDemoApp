@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, 
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -138,10 +140,10 @@ const ScheduleClassTraining = () => {
         <TouchableOpacity
           style={styles.dropdownInput}
           onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
-          <TextInput 
-          placeholder='Select a Region' 
-          editable={false}
-          style={styles.regionText}>{region}
+          <TextInput
+            placeholder='Select a Region'
+            editable={false}
+            style={styles.regionText}>{region}
           </TextInput>
           {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
         </TouchableOpacity>
@@ -220,17 +222,17 @@ const ScheduleClassTraining = () => {
 
   const renderRegionDropdown = () => (
     <View style={styles.dropdownContainer}>
-    <FlatList
-      data={regionsData}
-      keyExtractor={(item) => item}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={styles.dropdownItem}
-          onPress={() => handleRegionSelect(item)}>
-          <Text style={styles.dropdownItemText}>{item}</Text>
-        </TouchableOpacity>
-      )}
-    />
+      <FlatList
+        data={regionsData}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.dropdownItem}
+            onPress={() => handleRegionSelect(item)}>
+            <Text style={styles.dropdownItemText}>{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 
@@ -249,8 +251,8 @@ const ScheduleClassTraining = () => {
             }}
             style={styles.segmentedControl}
             tintColor="rgba(2, 28, 52, 1.0)"
-            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff'}}
-            backgroundColor="rgba(230, 230, 230, 1.0)"  
+            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+            backgroundColor="rgba(230, 230, 230, 1.0)"
           />
         </View>
         <View style={styles.container}>
