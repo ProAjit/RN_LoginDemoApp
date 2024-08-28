@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
+import bottomButtonStyles from '../../styles/bottomButtonStyles';
 
 const QueriesScreen = () => {
   const [name, setName] = useState('');
@@ -134,12 +135,12 @@ const QueriesScreen = () => {
         />
       </View>
       </KeyboardAwareScrollView>
-      <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
-            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+      <View style={bottomButtonStyles.buttonContainer}>
+          <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
+            <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
-            <Text style={styles.whiteButtonText}>Cancel</Text>
+          <TouchableOpacity style={bottomButtonStyles.whiteButton} onPress={handleCancel} disabled={loading}>
+            <Text style={bottomButtonStyles.whiteButtonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -169,41 +170,6 @@ const styles = StyleSheet.create({
   },
   multilineInput: {
     height: 60,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 40,
-    margin: 10,
-    marginBottom: 25,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    padding: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    marginHorizontal: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  whiteButton: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(2, 28, 52, 1.0)',
-    marginRight: 20,
-  },
-  whiteButtonText: {
-    color: 'rgba(2, 28, 52, 1.0)',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
 

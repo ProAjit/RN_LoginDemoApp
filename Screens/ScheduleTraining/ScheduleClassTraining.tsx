@@ -8,6 +8,7 @@ import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
+import bottomButtonStyles from '../../styles/bottomButtonStyles';
 // import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
 
 const regionsData = ['Riyadh', 'India', 'UAE', 'Mumbai', 'Dubai'];
@@ -260,12 +261,12 @@ const ScheduleClassTraining = () => {
         </View>
       </KeyboardAwareScrollView>
       {selectedIndex === 0 && (
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
-            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+        <View style={bottomButtonStyles.buttonContainer}>
+          <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
+            <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.whiteButton} onPress={handleCancel} disabled={loading}>
-            <Text style={styles.whiteButtonText}>Cancel</Text>
+          <TouchableOpacity style={bottomButtonStyles.whiteButton} onPress={handleCancel} disabled={loading}>
+            <Text style={bottomButtonStyles.whiteButtonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -389,41 +390,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 40,
-    margin: 10,
-    marginBottom: 25,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',
-    padding: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    marginHorizontal: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  whiteButton: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(2, 28, 52, 1.0)',
-    marginRight: 20,
-  },
-  whiteButtonText: {
-    color: 'rgba(2, 28, 52, 1.0)',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   loaderContainer: {
     position: 'absolute',
