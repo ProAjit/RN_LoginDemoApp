@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, 
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -112,14 +113,20 @@ const ScheduleClassTraining = () => {
 
   const handleNoOfTraineesEndEditing = () => {
     const num = parseInt(noOfTrainees);
-    if (isNaN(num) || num < 5 || num > 25) {
+    if (isNaN(num) || num < 5 || num > 30) {
       Alert.alert('Invalid Input', 'Please enter a number between 5 and 30.');
       setNoOfTrainees('');
     }
   };
 
+  const handleScreenPress = () => {
+    if (isDropdownVisible) {
+      setIsDropdownVisible(false)
+    }
+  };
+
   const renderNewRequestContent = () => (
-    <>
+    <TouchableWithoutFeedback onPress={handleScreenPress}>
       <View style={styles.container}>
         {loading && (
           <View style={styles.loaderContainer}>
@@ -193,7 +200,7 @@ const ScheduleClassTraining = () => {
           autoCorrect={false} spellCheck={false}
           onChangeText={setLocation} />
       </View>
-    </>
+    </TouchableWithoutFeedback>
   );
 
   const renderHistoryRequestsContent = () => (
@@ -299,6 +306,11 @@ const styles = StyleSheet.create({
     width: '99%', // Full width of the parent container
     marginTop: 70,
     marginLeft: 7,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5, // For Android shadow
   },
   dropdownInput: {
     flexDirection: 'row',
