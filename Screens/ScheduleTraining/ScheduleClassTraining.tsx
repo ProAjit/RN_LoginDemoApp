@@ -59,7 +59,7 @@ const ScheduleClassTraining = () => {
   };
 
   const handleSubmit = async () => {
-    if (department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '') {
+    if (region.trim() === '' || department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '') {
       Alert.alert('Error', 'Please enter values in all fields.');
       return;
     }
@@ -138,7 +138,7 @@ const ScheduleClassTraining = () => {
         <TouchableOpacity
           style={styles.dropdownInput}
           onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
-          <Text style={styles.regionText}>{region || 'Select a Region'}</Text>
+          <TextInput placeholder='Select a Region' style={styles.regionText}>{region}</TextInput>
           {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
         </TouchableOpacity>
         {isDropdownVisible && renderRegionDropdown()}
