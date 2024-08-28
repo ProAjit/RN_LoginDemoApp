@@ -105,8 +105,7 @@ const EndorseSafetyScreen = () => {
             <TextInput
               style={styles.staticInput}
               onChangeText={setName}
-              value={name}
-              placeholder="Employee Name"
+              value={"Logged User Name"}
               editable={false}
             />
 
@@ -114,9 +113,8 @@ const EndorseSafetyScreen = () => {
             <TextInput
               style={styles.staticInput}
               onChangeText={setBadgeNumber}
-              value={badgeNumber}
+              value={"Logged User Badge"}
               keyboardType="numeric"
-              placeholder="#000000"
               editable={false}
             />
           </>
