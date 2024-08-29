@@ -116,7 +116,6 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Name</Text>
         <TextInput
         style={styles.staticInput}
-        onChangeText={setName}
         placeholder='Logged User Name'
         editable={false}/>
       </View>      
@@ -125,7 +124,6 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Email</Text>
         <TextInput
         style={styles.staticInput}
-        onChangeText={setName}
         placeholder='Logged User Email'
         editable={false}/>
       </View>
@@ -134,7 +132,6 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Phone number</Text>
         <TextInput
         style={styles.staticInput}
-        onChangeText={setName}
         placeholder='Logged User Phone'
         editable={false}/>
       </View>
@@ -143,7 +140,6 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Title</Text>
         <TextInput
         style={styles.staticInput}
-        onChangeText={setName}
         placeholder='Logged User Designation'
         editable={false}/>
       </View>
