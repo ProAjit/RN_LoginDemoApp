@@ -95,6 +95,7 @@ const homeStyles = StyleSheet.create({
   collectionContainer: {
     height: '95%',
     marginTop: 10,
+    marginBottom: -10,
   },
 }); 
 
