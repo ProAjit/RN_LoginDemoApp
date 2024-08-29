@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, Button, Image, TouchableOpacity, 
-  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch} from 'react-native';
+import {
+  View, TextInput, Text, Button, Image, TouchableOpacity,
+  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch, FlatList
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
@@ -10,14 +12,15 @@ import bottomButtonStyles from '../../styles/bottomButtonStyles';
 import segmentStyle from '../../styles/segmentStyle';
 
 const { height } = Dimensions.get('window');
+const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
 const data = [
-  { badgeNumber: 111111, name: 'Employee Name 1', description:'', location: 'Riyadh office', status: 'Open' },
-  { badgeNumber: 222222, name: 'Employee Name 2', description:'', location: 'Pune office', status: 'Closed' },
-  { badgeNumber: 333333, name: 'Employee Name 3', description:'', location: 'Noida Office', status: 'Open' },
-  { badgeNumber: 444444, name: 'Employee Name 4', description:'', location: 'India office', status: 'Closed' },
-  { badgeNumber: 555555, name: 'Employee Name 5', description:'', location: 'UAE office', status: 'Open' },
-  { badgeNumber: 666666, name: 'Employee Name 6', description:'', location: 'KSA Office', status: 'Closed' },
+  { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
+  { badgeNumber: 222222, name: 'Employee Name 2', description: '', location: 'Pune office', status: 'Closed' },
+  { badgeNumber: 333333, name: 'Employee Name 3', description: '', location: 'Noida Office', status: 'Open' },
+  { badgeNumber: 444444, name: 'Employee Name 4', description: '', location: 'India office', status: 'Closed' },
+  { badgeNumber: 555555, name: 'Employee Name 5', description: '', location: 'UAE office', status: 'Open' },
+  { badgeNumber: 666666, name: 'Employee Name 6', description: '', location: 'KSA Office', status: 'Closed' },
 ];
 
 const EndorseSafetyScreen = () => {
@@ -29,6 +32,8 @@ const EndorseSafetyScreen = () => {
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isShareDataEnabled, setIsShareDataEnabled] = useState(true); // State for the switch
+  const [region, setRegion] = useState(''); // State for selected region
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -81,8 +86,49 @@ const EndorseSafetyScreen = () => {
     setImage(null);
   };
 
+  const handleScreenPress = () => {
+    if (isDropdownVisible) {
+      setIsDropdownVisible(false)
+    }
+  };
+
+  const handleRegionSelect = (selectedRegion: React.SetStateAction<string>) => {
+    setRegion(selectedRegion);
+    setIsDropdownVisible(false);
+  };
+
+  const renderRegionDropdown = () => (
+    <View style={styles.dropdownContainer}>
+      <FlatList
+        data={regionsData}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.dropdownItem}
+            onPress={() => handleRegionSelect(item)}>
+            <Text style={styles.dropdownItemText}>{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+
   const renderNewRequestContent = () => (
     <View style={styles.container}>
+      {/* Region Dropdown */}
+      <Text style={styles.regionLabel}>Region</Text>
+      <TouchableOpacity
+        style={styles.dropdownInput}
+        onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
+        <TextInput
+          placeholder='Select a Region'
+          editable={false}
+          style={styles.regionText}>{region}
+        </TextInput>
+        {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
+      </TouchableOpacity>
+      {isDropdownVisible && renderRegionDropdown()}
+
       <View style={styles.topView}>
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
         <Button title="Take A Picture" onPress={openCamera} />
@@ -154,26 +200,25 @@ const EndorseSafetyScreen = () => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
+      <View style={segmentStyle.segmentedControlContainer}>
+        <SegmentedControl
+          values={['Raise Incident', 'Incidents History']}
+          selectedIndex={selectedIndex}
+          onChange={(event) => {
+            setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+          style={segmentStyle.segmentedControl}
+          tintColor="rgba(2, 28, 52, 1.0)"
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+          backgroundColor="rgba(230, 230, 230, 1.0)"
+        />
+      </View>
+
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled
-      >
-        <View style={segmentStyle.segmentedControlContainer}>
-          <SegmentedControl
-            values={['Raise Incident', 'Incidents History']}
-            selectedIndex={selectedIndex}
-            onChange={(event) => {
-              setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
-            }}
-            style={segmentStyle.segmentedControl}
-            tintColor="rgba(2, 28, 52, 1.0)"
-            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
-            backgroundColor="rgba(230, 230, 230, 1.0)"
-          />
-        </View>
-
-        <View>
+        scrollEnabled >
+        <View style={styles.container}>
           {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
         </View>
       </KeyboardAwareScrollView>
@@ -193,13 +238,52 @@ const EndorseSafetyScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: 5,
     backgroundColor: '#F4F6FF',
     flexDirection: 'column',
   },
+  dropdownContainer: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    zIndex: 1000,
+    height: 200, // Height for all 5 items
+    width: '99%', // Full width of the parent container
+    marginTop: 70,
+    marginLeft: 7,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5, // For Android shadow
+  },
+  dropdownInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  regionText: {
+    fontSize: 16,
+  },
+  dropdownItem: {
+    padding: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  dropdownItemText: {
+    fontSize: 16,
+  },
   historyContainer: {
     flex: 1,
-    padding: 2,
     marginTop: 5,
     backgroundColor: '#F4F6FF',
   },
@@ -231,10 +315,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  regionLabel: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
   label: {
     fontSize: 16,
-    marginTop: 15,
-    marginBottom: 5,
+    marginBottom: 8,
+    marginTop: 10,
   },
   input: {
     height: 40,
