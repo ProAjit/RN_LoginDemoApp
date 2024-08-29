@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, 
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../styles/bottomButtonStyles';
@@ -12,6 +13,9 @@ const QueriesScreen = () => {
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
+  const [region, setRegion] = useState(''); // State for selected region
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
+  const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   const handleSubmit = async () => {
     if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || title.trim() === '' || type.trim() === '') {
@@ -54,15 +58,60 @@ const QueriesScreen = () => {
     setTitle('');
     setType('');
     setDescription('');
+    setRegion('');
+    setIsDropdownVisible(false)
   };
 
+  const handleScreenPress = () => {
+    if (isDropdownVisible) {
+      setIsDropdownVisible(false)
+    }
+  };
+
+  const handleRegionSelect = (selectedRegion: React.SetStateAction<string>) => {
+    setRegion(selectedRegion);
+    setIsDropdownVisible(false);
+  };
+
+  const renderRegionDropdown = () => (
+    <View style={styles.dropdownContainer}>
+      <FlatList
+        data={regionsData}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.dropdownItem}
+            onPress={() => handleRegionSelect(item)}>
+            <Text style={styles.dropdownItemText}>{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+
   return (
+    <TouchableWithoutFeedback onPress={handleScreenPress}>
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled
     >
+      {/* Region Dropdown */}
+      <Text style={styles.regionLabel}>Region</Text>
+      <TouchableOpacity
+        style={styles.dropdownInput}
+        onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
+        <TextInput
+          placeholder='Select a Region'
+          editable={false}
+          style={styles.regionText}>{region}
+        </TextInput>
+        {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
+      </TouchableOpacity>
+      {isDropdownVisible && renderRegionDropdown()}
+
+
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Name</Text>
         <TextInput
@@ -134,6 +183,7 @@ const QueriesScreen = () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
   );
 };
 
@@ -143,6 +193,46 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#F4F6FF',
   },
+  dropdownContainer: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    zIndex: 1000,
+    height: 200, // Height for all 5 items
+    width: '99%', // Full width of the parent container
+    marginTop: 80,
+    marginLeft: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5, // For Android shadow
+  },
+  dropdownInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  regionText: {
+    fontSize: 16,
+  },
+  dropdownItem: {
+    padding: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  dropdownItemText: {
+    fontSize: 16,
+  },
   staticInput: {
     height: 40,
     paddingLeft: 0,
@@ -150,6 +240,10 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     marginBottom: 12,
+  },
+  regionLabel: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   label: {
     fontSize: 16,

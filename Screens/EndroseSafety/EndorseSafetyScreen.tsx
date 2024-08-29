@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, TextInput, Text, Button, Image, TouchableOpacity,
-  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch, FlatList
-} from 'react-native';
+  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch, FlatList, TouchableWithoutFeedback} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
@@ -84,6 +83,8 @@ const EndorseSafetyScreen = () => {
     setLocation('');
     setDescription('');
     setImage(null);
+    setRegion('');
+    setIsDropdownVisible(false)
   };
 
   const handleScreenPress = () => {
@@ -114,6 +115,7 @@ const EndorseSafetyScreen = () => {
   );
 
   const renderNewRequestContent = () => (
+    <TouchableWithoutFeedback onPress={handleScreenPress}>
     <View style={styles.container}>
       {/* Region Dropdown */}
       <Text style={styles.regionLabel}>Region</Text>
@@ -190,6 +192,7 @@ const EndorseSafetyScreen = () => {
         />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 
   const renderHistoryRequestsContent = () => (

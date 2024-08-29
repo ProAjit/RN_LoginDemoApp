@@ -107,6 +107,7 @@ const ScheduleClassTraining = () => {
     setNoOfTrainees('');
     setSupervisor('');
     setLocation('');
+    setRegion('');
     setFromDate(undefined);
     setToDate(undefined);
   };
