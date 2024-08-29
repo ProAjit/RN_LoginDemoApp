@@ -401,6 +401,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 2,
     marginTop: 5,
+    marginBottom: 25,
     backgroundColor: '#F4F6FF',
   },
   historyText: {

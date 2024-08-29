@@ -288,6 +288,7 @@ const styles = StyleSheet.create({
   historyContainer: {
     flex: 1,
     marginTop: 5,
+    marginBottom: 25,
     backgroundColor: '#F4F6FF',
   },
   topView: {
