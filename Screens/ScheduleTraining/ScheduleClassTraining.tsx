@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -239,27 +240,29 @@ const ScheduleClassTraining = () => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
+      <View style={segmentStyle.segmentedControlContainer}>
+        <SegmentedControl
+          values={['New Schedule', 'Training History']}
+          selectedIndex={selectedIndex}
+          onChange={(event) => {
+            setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+          style={segmentStyle.segmentedControl}
+          tintColor="rgba(2, 28, 52, 1.0)"
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+          backgroundColor="rgba(230, 230, 230, 1.0)"
+        />
+      </View>
+
       <KeyboardAwareScrollView
         contentContainerStyle={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled >
-        <View style={segmentStyle.segmentedControlContainer}>
-          <SegmentedControl
-            values={['New Schedule', 'Training History']}
-            selectedIndex={selectedIndex}
-            onChange={(event) => {
-              setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
-            }}
-            style={segmentStyle.segmentedControl}
-            tintColor="rgba(2, 28, 52, 1.0)"
-            fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
-            backgroundColor="rgba(230, 230, 230, 1.0)"
-          />
-        </View>
         <View style={styles.container}>
           {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
         </View>
       </KeyboardAwareScrollView>
+
       {selectedIndex === 0 && (
         <View style={bottomButtonStyles.buttonContainer}>
           <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
