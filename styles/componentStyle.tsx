@@ -11,7 +11,6 @@ const componentStyle = StyleSheet.create({
     container: {
      flex: 1,
      backgroundColor: '#F4F6FF',
-     marginTop: 10,
     },
     scrollContainer: {
       flex: 1,
