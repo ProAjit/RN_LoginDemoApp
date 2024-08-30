@@ -23,6 +23,7 @@ target 'LoginDemoApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   target 'LoginDemoAppTests' do
     inherit! :complete

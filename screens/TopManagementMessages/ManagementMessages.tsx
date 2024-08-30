@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
+// import Icon from 'react-native-vector-icons/Ionicons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronUp, faChevronDown, faAnglesDown, faAnglesUp } from '@fortawesome/free-solid-svg-icons';
 
 const data = [
   { id: 'CEO Message', title: 'Here is expanded view for showing actual CEO message' },
@@ -22,13 +25,13 @@ const ManagementMessagesScreen = () => {
       <TouchableOpacity onPress={() => handleRowPress(item.id)}>
         <View style={[styles.row, isExpanded && styles.expandedRow]}>
           <View style={styles.rowContent}>
-            <Text style={styles.idText}>{item.id}</Text>
-            {isExpanded && <Text style={styles.titleText}>{item.title}</Text>}
+          <Text style={styles.idText}>{item.id}</Text>
+          {isExpanded && <Text style={styles.titleText}>{item.title}</Text>}
           </View>
-          <Image
-            source={isExpanded ? require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/upArrow.png') : require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/downArrow.png')}
-            style={styles.arrowIcon}
-          />
+          <FontAwesomeIcon 
+          icon={isExpanded ? faAnglesUp : faAnglesDown} 
+          size={16} 
+          color='rgba(2, 28, 52, 1.0)'/>
         </View>
       </TouchableOpacity>
     );
@@ -84,8 +87,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 14,
-    color: '#333',
     marginTop: 10,  // Adds spacing between idText and titleText
+    tintColor: 'rgba(2, 28, 52, 1.0)',
   },
   arrowIcon: {
     width: 20,

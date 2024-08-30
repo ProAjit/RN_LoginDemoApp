@@ -1602,8 +1602,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreenshotPrevent (1.2.1):
-    - React
+  - RNSVG (15.6.0):
+    - React-Core
   - RNVectorIcons (10.1.0):
     - DoubleConversion
     - glog
@@ -1703,7 +1703,7 @@ DEPENDENCIES:
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNScreenshotPrevent (from `../node_modules/react-native-screenshot-prevent`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1857,8 +1857,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNScreenshotPrevent:
-    :path: "../node_modules/react-native-screenshot-prevent"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -1937,11 +1937,11 @@ SPEC CHECKSUMS:
   RNDateTimePicker: 40ffda97d071a98a10fdca4fa97e3977102ccd14
   RNGestureHandler: 044a81d99e5ad7a67b4c23d9f8ea4c6c30fd4bca
   RNScreens: ca47818a6197d1b14782f0aa3bb4157a512e96dd
-  RNScreenshotPrevent: 105cddf74799cbd81aac76e56a4025a345db8967
+  RNSVG: 5da7a24f31968ec74f0b091e3440080f347e279b
   RNVectorIcons: ef957b2a1cd5efb71e53397257ec4ccffa34d0c4
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: a1d7895431387402a674fd0d1c04ec85e87909b8
 
-PODFILE CHECKSUM: 1596f665c8f04c379b87edfae8e412c820da4ba8
+PODFILE CHECKSUM: 4b3791e9db0c850901e72fd863db5e65bcc9ffcd
 
 COCOAPODS: 1.15.2
