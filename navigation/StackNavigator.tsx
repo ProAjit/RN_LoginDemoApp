@@ -107,7 +107,7 @@ const HomeStack = () => (
         fontSize: 16
       }}}/>
 
-    <Stack.Screen name="ABOUT" component={PdfViewer} 
+    <Stack.Screen name="ABOUT" component={AboutScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',

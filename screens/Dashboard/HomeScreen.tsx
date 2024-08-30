@@ -9,6 +9,7 @@ import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E_TrainingScreen';
 import PdfViewer from '../SafetyNews/PdfViewer';
+import AboutScreen from './AboutScreen';
 
 interface Item {
   id: string;
@@ -64,7 +65,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         props.navigation.navigate('ADMIN', { PdfViewer });
         break;
       case 'ABOUT':
-        props.navigation.navigate('ABOUT', { PdfViewer });
+        props.navigation.navigate('ABOUT', { AboutScreen });
         break;
       default:
         break;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const AboutScreen: React.FC = () => {
+const AboutScreen  = () => {
   return (
     <View style={styles.container}>
       <Text>About Screen</Text>
