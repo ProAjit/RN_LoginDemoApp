@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, 
+  faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie, faPeoplePulling, faPeopleRoof } from '@fortawesome/free-solid-svg-icons';
 
-interface Item {
+  interface Item {
   id: string;
   title: string;
 }
@@ -17,11 +18,39 @@ const numColumns = 2;
 const { width } = Dimensions.get('window');
 const itemWidth = width / numColumns;
 
+const getIcon = (title: string) => {
+  console.log(title)
+  switch (title) {
+    case 'TOP MANAGEMENT MESSAGES':
+      return faMessage;
+    case 'ENDORSE YOUR SAFETY ISSUE':
+      return faPersonShelter;
+    case 'SCHEDULE IN CLASS TRAINING':
+      return faGraduationCap;
+    case 'QUERIES':
+      return faClipboardQuestion;
+    case 'E-TRAINING':
+      return faBlog;
+    case 'LINKS':
+      return faLink;
+    case 'SAFETY NEWS':
+      return faNewspaper;
+    case 'SAFETY ALERTS':
+      return faBellSlash;
+    case 'ABOUT':
+      return faAddressBook;
+    case 'ADMIN':
+      return faUserTie;
+    default:
+      return faAddressCard;
+  }
+};
+
 const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) => {
 
   const renderItem = ({ item }: { item: Item }) => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
-      <FontAwesomeIcon style={styles.iconStyle} icon={faMessage}  size={50}  color='#fff' />
+      <FontAwesomeIcon style={styles.iconStyle} icon={getIcon(item.title)} size={45} color='#fff' />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
@@ -73,28 +102,14 @@ const styles = StyleSheet.create({
 export default CollectionView;
 
 /*
-switch (item.id) {
-      case 'TOP MANAGEMENT MESSAGES':
-        break;
-      case 'ENDORSE YOUR SAFETY ISSUE':
-        break;
-      case 'SCHEDULE IN CLASS TRAINING':
-        break;
-      case 'QUERIES':
-        break;
-      case 'E-TRAINING':
-        break;
-      case 'LINKS':
-        break;
-      case 'SAFETY NEWS':
-        break;
-      case 'SAFETY ALERTS':
-        break;
-      case 'ADMIN':
-        break;
-      case 'ABOUT':
-        break;
-      default:
-        break;
-    } 
+// faMessage
+// faPersonShelter
+// faGraduationCap, faBuildingColumns
+// faClipboardQuestion, faFileCircleQuestion
+// faBlog, faSchoolCircleExclamation, faSchool,
+// faLink
+// faBellSlash, faBell
+// faNewspaper, faEnvelope
+// faUserTie
+// faAddressBook
 */
