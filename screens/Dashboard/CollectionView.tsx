@@ -71,3 +71,30 @@ const styles = StyleSheet.create({
 });
 
 export default CollectionView;
+
+/*
+switch (item.id) {
+      case 'TOP MANAGEMENT MESSAGES':
+        break;
+      case 'ENDORSE YOUR SAFETY ISSUE':
+        break;
+      case 'SCHEDULE IN CLASS TRAINING':
+        break;
+      case 'QUERIES':
+        break;
+      case 'E-TRAINING':
+        break;
+      case 'LINKS':
+        break;
+      case 'SAFETY NEWS':
+        break;
+      case 'SAFETY ALERTS':
+        break;
+      case 'ADMIN':
+        break;
+      case 'ABOUT':
+        break;
+      default:
+        break;
+    } 
+*/
