@@ -78,13 +78,13 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={componentStyle.container}
       >
-        <View style={{ alignItems: 'center', marginTop: 10 }}>
-          <Text style={{ fontSize: 18 }}> Welcome: {name} </Text> 
-          <View style={homeStyles.collectionContainer}>
-            <CollectionView 
-              data={data} 
-              onItemPress={(id: string) => handleItemPress(id, data.find(item => item.id === id)?.title ?? '')} 
-            />
+     <View style={{ alignItems: 'center', marginTop: 10 }}>
+       <Text style={{ fontSize: 18 }}> Welcome: {name} </Text> 
+        <View style={homeStyles.collectionContainer}>
+          <CollectionView 
+           data={data} 
+           onItemPress={(id: string) => handleItemPress(id, data.find(item => item.id === id)?.title ?? '')} 
+          />
           </View>
         </View>
       </KeyboardAvoidingView>

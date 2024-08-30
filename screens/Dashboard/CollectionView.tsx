@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
 
 interface Item {
   id: string;
@@ -19,8 +21,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) =>
 
   const renderItem = ({ item }: { item: Item }) => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
-      <Image source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/logo.png')} 
-      style={styles.image} />
+      <FontAwesomeIcon style={styles.iconStyle} icon={faMessage}  size={50}  color='#fff' />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
@@ -49,12 +50,17 @@ const styles = StyleSheet.create({
     width: itemWidth - 20, // Subtracting marginHorizontal to fit exactly
     alignItems: 'center',
     borderRadius: 5,
+    flexDirection: 'column',
   },
   title: {
     fontSize: 12,
     textAlign: 'center',
     color:'white',
     fontWeight: 'bold',
+    marginTop: 10,
+  },
+  iconStyle: {
+    marginTop: 10,
   },
   image: {
     width: 60,
