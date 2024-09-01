@@ -132,7 +132,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name="UpdateTrainingScreen" component={UpdateTrainingScreen}
+    <Stack.Screen name="Update Trainings" component={UpdateTrainingScreen}
       options={{
         headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
         headerTintColor: '#fff',
@@ -142,7 +142,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name="UpdateIncidentsScreen" component={UpdateIncidentsScreen}
+    <Stack.Screen name="Update Incidents" component={UpdateIncidentsScreen}
       options={{
         headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
         headerTintColor: '#fff',
