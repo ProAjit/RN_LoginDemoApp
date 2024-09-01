@@ -16,6 +16,7 @@ import PdfViewer from '../Screens/SafetyNews/PdfViewer';
 import AdminScreen from '../Screens/Admin/AdminScreen';
 import UpdateTrainingScreen from '../Screens/Admin/UpdateTrainingScreen';
 import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
+import LinksScreen from '../Screens/Links/LinksScreen';
 
 const Stack = createStackNavigator();
 
@@ -82,7 +83,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name="LINKS" component={PdfViewer}
+    <Stack.Screen name="LINKS" component={LinksScreen}
       options={{
         headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
         headerTintColor: '#fff',

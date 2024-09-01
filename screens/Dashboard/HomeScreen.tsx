@@ -11,6 +11,7 @@ import E_TrainingScreen from '../E_TrainingScreen';
 import PdfViewer from '../SafetyNews/PdfViewer';
 import AboutScreen from './AboutScreen';
 import AdminScreen from '../Admin/AdminScreen';
+import LinksScreen from '../Links/LinksScreen';
 
 interface Item {
   id: string;
@@ -54,7 +55,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         props.navigation.navigate('E-TRAINING', { E_TrainingScreen });
         break;
       case 'LINKS':
-       props.navigation.navigate('LINKS', { PdfViewer });
+       props.navigation.navigate('LINKS', { LinksScreen });
         break;
       case 'SAFETY NEWS':
         props.navigation.navigate('SAFETY NEWS', { PdfViewer });
