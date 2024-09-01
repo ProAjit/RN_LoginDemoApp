@@ -75,6 +75,7 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
 const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10,
+    
   },
   container: {
     marginTop: 10,
