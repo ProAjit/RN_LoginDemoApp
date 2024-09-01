@@ -5,7 +5,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 // Define the type for navigation
-type AdminScreenNavigationProp = NavigationProp<{ UpdateTrainingScreen: undefined }>;
+type AdminScreenNavigationProp = NavigationProp<{ UpdateTrainingScreen: undefined, UpdateIncidentsScreen: undefined }>;
 
 const AdminScreen: React.FC = () => {
   const navigation = useNavigation<AdminScreenNavigationProp>();
@@ -17,7 +17,9 @@ const AdminScreen: React.FC = () => {
 
   const handlePress = (item: { id: string; title: string }) => {
     if (item.id === '2') {
-      navigation.navigate('UpdateTrainingScreen');
+      navigation.navigate('UpdateTrainingScreen'); 
+    } else {
+      navigation.navigate('UpdateIncidentsScreen');
     }
     // Add more conditions here if you need to navigate to different screens
   };

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import SafetyIncidentsList from '../EndroseSafety/SafetyIncidentsList';
 
-const data = [
+const initialData = [
   { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
   { badgeNumber: 222222, name: 'Employee Name 2', description: '', location: 'Pune office', status: 'Closed' },
   { badgeNumber: 333333, name: 'Employee Name 3', description: '', location: 'Noida Office', status: 'Open' },
@@ -12,9 +12,18 @@ const data = [
 ];
 
 const UpdateTrainingScreen: React.FC = () => {
+  const [data, setData] = useState(initialData);
+
+  const updateStatus = (badgeNumber: number, newStatus: string) => {
+    const updatedData = data.map(item =>
+      item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
+    );
+    setData(updatedData);
+  };
+
   return (
     <View style={styles.historyContainer}>
-      <SafetyIncidentsList data={data} />
+      <SafetyIncidentsList data={data} updateStatus={updateStatus} />
     </View>
   );
 };

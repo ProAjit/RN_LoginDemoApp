@@ -15,6 +15,7 @@ import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTrai
 import PdfViewer from '../Screens/SafetyNews/PdfViewer';
 import AdminScreen from '../Screens/Admin/AdminScreen';
 import UpdateTrainingScreen from '../Screens/Admin/UpdateTrainingScreen';
+import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
 
 const Stack = createStackNavigator();
 
@@ -140,6 +141,17 @@ const HomeStack = () => (
           fontSize: 16
         }
       }} />
+
+    <Stack.Screen name="UpdateIncidentsScreen" component={UpdateIncidentsScreen}
+      options={{
+        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerTintColor: '#fff',
+        headerBackTitleVisible: false,
+        headerTitleStyle: {
+          fontSize: 16
+        }
+      }} />
+
   </Stack.Navigator>
 );
 
