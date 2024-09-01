@@ -11,8 +11,8 @@ const AdminScreen: React.FC = () => {
   const navigation = useNavigation<AdminScreenNavigationProp>();
 
   const data = [
-    { id: '1', title: 'Update incident history' },
-    { id: '2', title: 'Update training history' },
+    { id: '1', title: 'Update incidents history' },
+    { id: '2', title: 'Update trainings history' },
   ];
 
   const handlePress = (item: { id: string; title: string }) => {
