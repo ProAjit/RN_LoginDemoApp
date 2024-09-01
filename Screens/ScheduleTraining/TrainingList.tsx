@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -13,10 +13,30 @@ interface TrainingDataItem {
 
 interface TrainingListProps {
   data: TrainingDataItem[];
+  updateStatus: (noOfTrainees: number, newStatus: string) => void;
 }
 
-const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
-  
+const TrainingList: React.FC<TrainingListProps> = ({ data, updateStatus }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<TrainingDataItem | null>(null);
+
+  const statusOptions = ['Rescheduled', 'On Hold', 'Approved', 'Rejected', 'Under Review'];
+
+  const handleStatusPress = (item: TrainingDataItem) => {
+    if (item.status !== 'Approved' && item.status !== 'Rejected') {
+      setSelectedItem(item);
+      setModalVisible(true);
+    }
+  };
+
+  const handleStatusSelect = (newStatus: string) => {
+    if (selectedItem) {
+      updateStatus(selectedItem.noOfTrainees, newStatus);
+      setModalVisible(false);
+      setSelectedItem(null);
+    }
+  };
+
   const renderItem = ({ item }: { item: TrainingDataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
       switch (status) {
@@ -35,11 +55,6 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
       }
     };
 
-
-    const handleStatusPress = (status: string) => {
-      console.log(`Status tapped: ${status}`);
-    };
-
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
@@ -54,38 +69,59 @@ const TrainingList: React.FC<TrainingListProps> = ({ data }) => {
           </Text>
           <Text style={styles.numberText}>
             Location: {item.location}
-         </Text>
+          </Text>
           <View style={[styles.innerContainer]}>
-          <Text style={styles.dateText}>
-            From: {item.fromDate}
-          </Text>
-          <View style={styles.rowContainer}>
-          <Text style={styles.dateText}>
-            To: {item.toDate}
-          </Text>
-          <TouchableOpacity 
-          onPress={() => handleStatusPress(item.status)} 
-          style={[styles.statusButton, 
-          getStatusBackgroundColor(item.status)]}
-          >
-          <Text style={styles.statusText}>
-          {item.status}
-          </Text>
-        </TouchableOpacity>
-        </View>
-        </View>
+            <Text style={styles.dateText}>
+              From: {item.fromDate}
+            </Text>
+            <View style={styles.rowContainer}>
+              <Text style={styles.dateText}>
+                To: {item.toDate}
+              </Text>
+              <TouchableOpacity
+                onPress={() => handleStatusPress(item)}
+                style={[styles.statusButton, getStatusBackgroundColor(item.status)]}
+              >
+                <Text style={styles.statusText}>
+                  {item.status}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
     );
   };
 
   return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.noOfTrainees.toString()}
-      contentContainerStyle={styles.listContainer}
-    />
+    <View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.noOfTrainees.toString()}
+        contentContainerStyle={styles.listContainer}
+      />
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableOpacity style={styles.modalBackground} onPress={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Change the status of Training to -</Text>
+            <FlatList
+              data={statusOptions.filter(option => option !== (selectedItem ? selectedItem.status : ''))}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleStatusSelect(item)} style={styles.modalItem}>
+                  <Text style={styles.modalItemText}>{item}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </View>
   );
 };
 
@@ -99,15 +135,13 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 8,
     borderRadius: 8,
-    backgroundColor: 'white',//F4F6FF
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 3.0,
-    // Shadow for Android
     elevation: 4,
   },
   innerContainer: {
@@ -143,8 +177,8 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: 15,
     color: 'white',
-    textAlign:'center',
-    fontWeight:'bold',
+    textAlign: 'center',
+    fontWeight: 'bold',
     marginTop: 7,
   },
   approvedBackground: {
@@ -164,6 +198,32 @@ const styles = StyleSheet.create({
   },
   defaultBackground: {
     backgroundColor: 'white',
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '90%',
+    height: '40%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalItem: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  modalItemText: {
+    fontSize: 18,
   },
 });
 
