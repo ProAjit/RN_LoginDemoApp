@@ -10,6 +10,7 @@ import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E_TrainingScreen';
 import PdfViewer from '../SafetyNews/PdfViewer';
 import AboutScreen from './AboutScreen';
+import AdminScreen from '../Admin/AdminScreen';
 
 interface Item {
   id: string;
@@ -62,7 +63,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         props.navigation.navigate('SAFETY ALERTS', { PdfViewer });
         break;
       case 'ADMIN':
-        props.navigation.navigate('ADMIN', { PdfViewer });
+        props.navigation.navigate('ADMIN', { AdminScreen });
         break;
       case 'ABOUT':
         props.navigation.navigate('ABOUT', { AboutScreen });

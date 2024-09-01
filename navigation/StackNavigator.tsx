@@ -12,6 +12,7 @@ import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E_TrainingScreen';
 import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
 import PdfViewer from '../Screens/SafetyNews/PdfViewer';
+import AdminScreen from '../Screens/Admin/AdminScreen';
 
 const Stack = createStackNavigator();
 
@@ -98,7 +99,7 @@ const HomeStack = () => (
         fontSize: 16
       }}}/>
       
-      <Stack.Screen name="ADMIN" component={PdfViewer} 
+      <Stack.Screen name="ADMIN" component={AdminScreen} 
       options={{  
       headerStyle: {backgroundColor: 'rgba(2, 28, 52, 1.0)'},
       headerTintColor: '#fff',
