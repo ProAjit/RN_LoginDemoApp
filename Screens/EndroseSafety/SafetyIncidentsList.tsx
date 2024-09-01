@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 interface DataItem {
   badgeNumber: number;
@@ -11,9 +11,10 @@ interface DataItem {
 
 interface SafetyIncidentsListProps {
   data: DataItem[];
+  updateStatus: (badgeNumber: number, newStatus: string) => void;
 }
 
-const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
+const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data, updateStatus }) => {
   
   const renderItem = ({ item }: { item: DataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
@@ -27,8 +28,24 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
       }
     };
 
-    const handleStatusPress = (status: string) => {
-      console.log(`Status tapped: ${status}`);
+    const handleStatusPress = (item: DataItem) => {
+      if (item.status === 'Open') {
+        Alert.alert(
+          'Would you like to close this incident?',
+          '',
+          [
+            {
+              text: 'Okay',
+              onPress: () => updateStatus(item.badgeNumber, 'Closed'),
+            },
+            {
+              text: 'Cancel',
+              style: 'cancel',
+            },
+          ],
+          { cancelable: true }
+        );
+      }
     };
 
     return (
@@ -48,7 +65,7 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
             Location: {item.location}
           </Text>
           <TouchableOpacity 
-          onPress={() => handleStatusPress(item.status)} 
+          onPress={() => handleStatusPress(item)} 
           style={[styles.statusButton, 
           getStatusBackgroundColor(item.status)]}
           >
@@ -75,7 +92,6 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data }) => {
 const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10,
-    
   },
   container: {
     marginTop: 10,
@@ -83,15 +99,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 8,
     borderRadius: 8,
-    backgroundColor: 'white',//F4F6FF
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 2.5,
-    // Shadow for Android
     elevation: 4,
   },
   innerContainer: {

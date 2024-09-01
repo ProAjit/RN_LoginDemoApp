@@ -198,7 +198,9 @@ const EndorseSafetyScreen = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyContainer}>
-      <SafetyIncidentsList data={data} />
+      <SafetyIncidentsList data={data} updateStatus={function (badgeNumber: number, newStatus: string): void {
+        throw new Error('Function not implemented.');
+      } } />
     </View>
   );
 
