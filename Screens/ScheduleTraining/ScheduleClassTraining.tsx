@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
-} from 'react-native';
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
