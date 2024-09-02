@@ -1,16 +1,17 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, 
-  faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie, faPeoplePulling, faPeopleRoof } from '@fortawesome/free-solid-svg-icons';
+  faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
-  interface Item {
+interface Item {
   id: string;
   title: string;
 }
 
 interface CollectionViewProps {
   data: Item[];
+  alertsVisited: boolean;
   onItemPress: (title: string) => void;
 }
 
@@ -19,7 +20,6 @@ const { width } = Dimensions.get('window');
 const itemWidth = width / numColumns;
 
 const getIcon = (title: string) => {
-  console.log(title)
   switch (title) {
     case 'TOP MANAGEMENT MESSAGES':
       return faMessage;
@@ -46,14 +46,60 @@ const getIcon = (title: string) => {
   }
 };
 
-const CollectionView: React.FC<CollectionViewProps> = ({ data, onItemPress }) => {
+const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, onItemPress }) => {
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
 
-  const renderItem = ({ item }: { item: Item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
-      <FontAwesomeIcon style={styles.iconStyle} icon={getIcon(item.title)} size={45} color='#fff' />
-      <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
-  );
+  useEffect(() => {
+    if (!alertsVisited) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(shakeAnimation, {
+            toValue: 1,
+            duration: 100,
+            useNativeDriver: true,
+          }),
+          Animated.timing(shakeAnimation, {
+            toValue: -1,
+            duration: 100,
+            useNativeDriver: true,
+          }),
+          Animated.timing(shakeAnimation, {
+            toValue: 0,
+            duration: 100,
+            useNativeDriver: true,
+          }),
+        ]),
+      ).start();
+    }
+  }, [alertsVisited]);
+
+  const renderItem = ({ item }: { item: Item }) => {
+    const iconStyle = [
+      styles.iconStyle,
+      item.title === 'SAFETY ALERTS' && !alertsVisited && {
+        transform: [{
+          translateX: shakeAnimation.interpolate({
+            inputRange: [-1, 1],
+            outputRange: [-2, 2],
+          })
+        }]
+      },
+    ];
+
+    return (
+      <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
+        <Animated.View style={iconStyle}>
+          <FontAwesomeIcon icon={getIcon(item.title)} size={45} color='#fff' />
+        </Animated.View>
+        <Text style={styles.title}>{item.title}</Text>
+        {item.title === 'SAFETY ALERTS' && !alertsVisited && (
+          <View style={styles.badgeContainer}>
+            <Text style={styles.badgeText}>05</Text>
+          </View>
+        )}
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <FlatList
@@ -72,11 +118,11 @@ const styles = StyleSheet.create({
     height: 130,
   },
   item: {
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+    backgroundColor: 'rgba(2, 28, 52, 1.0)',
     padding: 8,
     marginVertical: 8,
     marginHorizontal: 8,
-    width: itemWidth - 20, // Subtracting marginHorizontal to fit exactly
+    width: itemWidth - 20,
     alignItems: 'center',
     borderRadius: 5,
     flexDirection: 'column',
@@ -84,18 +130,28 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 12,
     textAlign: 'center',
-    color:'white',
+    color: 'white',
     fontWeight: 'bold',
     marginTop: 10,
   },
   iconStyle: {
     marginTop: 10,
   },
-  image: {
-    width: 60,
-    height: 60,
-    marginBottom: 10,
-    borderRadius: 30,
+  badgeContainer: {
+    position: 'absolute',
+    top: -3,
+    right: -3,
+    backgroundColor: 'red',
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 

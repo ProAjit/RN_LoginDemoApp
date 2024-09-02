@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import componentStyle from '../../Styles/componentStyle';
 import CollectionView from './CollectionView';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+
 import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../EndroseSafety/EndorseSafetyScreen';
-import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
 import E_TrainingScreen from '../E-Training/E_TrainingScreen';
-import PdfViewer from '../SafetyNews/PdfViewer';
 import AboutScreen from './AboutScreen';
 import AdminScreen from '../Admin/AdminScreen';
 import LinksScreen from '../Links/LinksScreen';
@@ -37,9 +37,9 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
   const shareInstance = AppSingleton.getInstance();
   const name = shareInstance.getUserName();
 
-  const handleItemPress = (id: string, title: string) => {
-    console.log('id:', id); 
+  const [alertsVisited, setAlertsVisited] = useState(false);
 
+  const handleItemPress = (id: string, title: string) => {
     switch (id) {
       case 'TOP MANAGEMENT MESSAGES':
         props.navigation.navigate('TOP MANAGEMENT MESSAGES', { ManagementMessagesScreen });
@@ -64,6 +64,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         break;
       case 'SAFETY ALERTS':
         props.navigation.navigate('SAFETY ALERTS', { SafetyAlertsScreen });
+        setAlertsVisited(true);  // Mark alerts as visited
         break;
       case 'ADMIN':
         props.navigation.navigate('ADMIN', { AdminScreen });
@@ -87,6 +88,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         <View style={homeStyles.collectionContainer}>
           <CollectionView 
            data={data} 
+           alertsVisited={alertsVisited}
            onItemPress={(id: string) => handleItemPress(id, data.find(item => item.id === id)?.title ?? '')} 
           />
           </View>
@@ -105,7 +107,6 @@ const homeStyles = StyleSheet.create({
 }); 
 
 export default HomeScreen;
-
 
 // UIColor(red: 19/255, green: 172/255, blue: 232/255, alpha: 1.0) - Sky Blue - #13ACE8
 // UIColor(red: 211/255, green: 215/255, blue: 219/255, alpha: 1.0) - gray - #D3D7DB
