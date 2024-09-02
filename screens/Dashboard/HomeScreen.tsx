@@ -7,11 +7,12 @@ import EndorseSafetyScreen from '../EndroseSafety/EndorseSafetyScreen';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import QueriesScreen from '../Queries/Queris';
 import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
-import E_TrainingScreen from '../E_TrainingScreen';
+import E_TrainingScreen from '../E-Training/E_TrainingScreen';
 import PdfViewer from '../SafetyNews/PdfViewer';
 import AboutScreen from './AboutScreen';
 import AdminScreen from '../Admin/AdminScreen';
 import LinksScreen from '../Links/LinksScreen';
+import SafetyNewsScreen from '../SafetyNews/SafetyNewsScreen';
 
 interface Item {
   id: string;
@@ -58,7 +59,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
        props.navigation.navigate('LINKS', { LinksScreen });
         break;
       case 'SAFETY NEWS':
-        props.navigation.navigate('SAFETY NEWS', { PdfViewer });
+        props.navigation.navigate('SAFETY NEWS', { SafetyNewsScreen });
         break;
       case 'SAFETY ALERTS':
         props.navigation.navigate('SAFETY ALERTS', { PdfViewer });
