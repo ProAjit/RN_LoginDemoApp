@@ -8,8 +8,8 @@ import { submitTrainingData } from '../../Networking/ClassTrainingServices';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
-import bottomButtonStyles from '../../styles/bottomButtonStyles';
-import segmentStyle from '../../styles/segmentStyle';
+import bottomButtonStyles from '../../Styles/bottomButtonStyles';
+import segmentStyle from '../../Styles/segmentStyle';
 // import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];

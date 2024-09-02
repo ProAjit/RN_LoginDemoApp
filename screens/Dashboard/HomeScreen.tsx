@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import componentStyle from '../../styles/componentStyle';
+import componentStyle from '../../Styles/componentStyle';
 import CollectionView from './CollectionView';
 import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../EndroseSafety/EndorseSafetyScreen';

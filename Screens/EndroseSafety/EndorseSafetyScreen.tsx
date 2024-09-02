@@ -8,8 +8,8 @@ import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
-import bottomButtonStyles from '../../styles/bottomButtonStyles';
-import segmentStyle from '../../styles/segmentStyle';
+import bottomButtonStyles from '../../Styles/bottomButtonStyles';
+import segmentStyle from '../../Styles/segmentStyle';
 
 const { height } = Dimensions.get('window');
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];

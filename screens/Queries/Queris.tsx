@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
   KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
-import bottomButtonStyles from '../../styles/bottomButtonStyles';
+import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 
 const QueriesScreen = () => {
   const [name, setName] = useState('');

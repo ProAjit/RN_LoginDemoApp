@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../Screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
-import FeedbackScreen from '../Screens/Dashboard/FeedbackScreen';
 import AboutScreen from '../Screens/Dashboard/AboutScreen';
 import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
