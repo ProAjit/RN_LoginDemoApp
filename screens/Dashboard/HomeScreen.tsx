@@ -13,6 +13,7 @@ import AboutScreen from './AboutScreen';
 import AdminScreen from '../Admin/AdminScreen';
 import LinksScreen from '../Links/LinksScreen';
 import SafetyNewsScreen from '../SafetyNews/SafetyNewsScreen';
+import SafetyAlertsScreen from '../SafetyAlerts/SafetyAlertsScreen';
 
 interface Item {
   id: string;
@@ -62,7 +63,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         props.navigation.navigate('SAFETY NEWS', { SafetyNewsScreen });
         break;
       case 'SAFETY ALERTS':
-        props.navigation.navigate('SAFETY ALERTS', { PdfViewer });
+        props.navigation.navigate('SAFETY ALERTS', { SafetyAlertsScreen });
         break;
       case 'ADMIN':
         props.navigation.navigate('ADMIN', { AdminScreen });

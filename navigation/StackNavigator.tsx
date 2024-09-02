@@ -17,6 +17,7 @@ import UpdateTrainingScreen from '../Screens/Admin/UpdateTrainingScreen';
 import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
 import LinksScreen from '../Screens/Links/LinksScreen';
 import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
+import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
 
 const Stack = createStackNavigator();
 
@@ -103,7 +104,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name="SAFETY ALERTS" component={PdfViewer}
+    <Stack.Screen name="SAFETY ALERTS" component={SafetyAlertsScreen}
       options={{
         headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
         headerTintColor: '#fff',
