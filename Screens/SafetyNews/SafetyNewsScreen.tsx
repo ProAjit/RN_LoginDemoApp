@@ -1,19 +1,23 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
-import * as FileSystem from 'expo-file-system';
+import RNFetchBlob from 'react-native-blob-util';
 
 const { width, height } = Dimensions.get('window');
 
 const SafetyNewsScreen = () => {
   const handleDownload = async () => {
+    console.log('Download started')
     const uri = 'https://www.sharedfilespro.com/shared-files/38/?sample.pdf';
-    const fileUri = FileSystem.documentDirectory + 'sample.pdf';
+    const fileUri = RNFetchBlob.fs.dirs.DocumentDir + '/sample.pdf';
     try {
-      const { uri: downloadedUri } = await FileSystem.downloadAsync(uri, fileUri);
-      console.log('Download completed:', downloadedUri);
+      const res = await RNFetchBlob.config({
+        path: fileUri,
+      }).fetch('GET', uri);
+      console.log('Download completed:', res.path());
       Alert.alert('Download completed');
     } catch (error) {
       console.error('Download failed:', error);
+      Alert.alert('Download failed');
     }
   };
 
@@ -51,6 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: '#F4F6FF',
   },
   image: {
     width: width * 0.9,
@@ -70,12 +75,14 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   downloadButton: {
-    height: 50,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(2, 28, 52, 1.0)',
     marginTop: 10,
     marginBottom: 20,
+    marginLeft: 50,
+    marginRight: 50,
   },
   downloadText: {
     color: '#FFFFFF',
