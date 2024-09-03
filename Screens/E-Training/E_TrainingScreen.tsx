@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert, Linking } from 'react-native';
 import Pdf from 'react-native-pdf';
 import RNFetchBlob from 'react-native-blob-util';
+import { faLink,faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const { height, width } = Dimensions.get('window');
 
@@ -41,25 +43,58 @@ const E_TrainingScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://farm4.staticflickr.com/3075/3168662394_7d7103de7d_z_d.jpg' }}
-        style={styles.image}
-      />
-      <Text style={styles.title}>Training Title</Text>
+      <View style={styles.topContainer}> 
+       <Text style={styles.title}>React Native Tutorial</Text>
+       <TouchableOpacity style={styles.button} onPress={() => handleDownload(youtubeLink)}>
+       <View style={styles.iconContainer}>
+        <FontAwesomeIcon icon={faPlay} size={15} color="#F4F6FF" />
+        </View>
+       </TouchableOpacity>
+      </View>
       <ScrollView style={styles.descriptionContainer}>
         <Text style={styles.description}>
-          This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content. {'\n'}This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content. {'\n'}This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content. {'\n'}This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content. {'\n'}This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content. {'\n'}This is a static description related to the title. It will scroll if the content exceeds the allocated space. 
-          You can replace this text with any other content.
+        ✦
+Introduction to React Native for beginners
+00:02
+The series covers learning the different concepts of React Native from scratch.
+The introductory video explores what React Native is, why it's worth learning, and the prerequisites to get started.
+{'\n'}{'\n'}✦
+React Native is an open source framework for building mobile apps.
+00:33
+React Native allows for cross-platform development using React fundamentals and advanced topics.
+It supports features such as React hooks, TypeScript, Redux, router, testing, material UI, style components, storybook, query, table, formic, hook form, and rendering behavior.
+{'\n'}{'\n'}✦
+React Native leverages JavaScript to access platform-specific APIs and define UI components.
+01:07
+React is a library for building user interfaces, paired with React Dom for web apps and a framework like React Native for Native mobile apps.
+It allows for creating applications with platform-specific functionality while maintaining a consistent and efficient development process.
+{'\n'}{'\n'}✦
+Understanding the benefits of learning React Native.
+01:36
+React Native simplifies app development for both iOS and Android.
+It eliminates the need for expertise in multiple programming languages.
+{'\n'}{'\n'}✦
+React Native enables seamless app development for both Android and iOS platforms
+02:11
+Developers can create an app that works seamlessly on both platforms
+Learning React Native involves a minimal learning curve and is in high demand in the job market
+{'\n'}{'\n'}✦
+React Native enables businesses to save time and costs by using a single team for iOS and Android development.
+02:42
+Proficiency in React Native can extend to web app development, further increasing cost and time savings.
+Top companies like Microsoft, Meta, Tesla, Pinterest, and Discord use React Native for mobile app development, making it a valuable skill to add to your skill set.
+{'\n'}{'\n'}✦
+Understanding JavaScript and React fundamentals is essential.
+03:15
+Function components, props, state, JSX, and hooks are prerequisites.
+An extensive tutorial series covering react is available for beginners to advanced levels.
+{'\n'}{'\n'}✦
+Complete beginner to expert in React Native
+03:43
+Source code for the series is on the GitHub repository linked in the description
+Stay tuned for the next video as we start learning various concepts of React Native
         </Text>
       </ScrollView>
-      <TouchableOpacity style={styles.downloadButton} onPress={() => handleDownload(youtubeLink)}> 
-        <Text style={styles.downloadText}>Open Link</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -69,6 +104,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#F4F6FF',
+  },
+  button: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#000', // Set the background color if you want
+    borderRadius: 15, // Make it circular
+  },
+  iconContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   image: {
     height: height * 0.15,
@@ -85,12 +136,13 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     height: height * 0.75,
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 10,
   },
   description: {
     fontSize: 14,
     textAlign: 'justify',
+    paddingBottom: 20,
   },
   downloadButton: {
     height: 40,
