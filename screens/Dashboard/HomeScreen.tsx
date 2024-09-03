@@ -14,24 +14,8 @@ import AdminScreen from '../Admin/AdminScreen';
 import LinksScreen from '../Links/LinksScreen';
 import SafetyNewsScreen from '../SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../SafetyAlerts/SafetyAlertsScreen';
-
-interface Item {
-  id: string;
-  title: string;
-}
-
-const data: Item[] = [
-  { id: '1', title: 'TOP MANAGEMENT MESSAGES' },
-  { id: '2', title: 'ENDORSE YOUR SAFETY ISSUE' },
-  { id: '3', title: 'SCHEDULE IN CLASS TRAINING' },
-  { id: '4', title: 'QUERIES' },
-  { id: '5', title: 'E-TRAINING' },
-  { id: '6', title: 'LINKS' },
-  { id: '7', title: 'SAFETY ALERTS' },
-  { id: '8', title: 'SAFETY NEWS' },
-  { id: '9', title: 'ADMIN' },
-  { id: '10', title: 'ABOUT' },
-];
+import { HomeCategoriesArr, Item } from '../../Constants/globalData';
+import { CATEGORY } from '../../Constants/globalData';
 
 const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string, params?: any) => void }; }) => {
   const shareInstance = AppSingleton.getInstance();
@@ -41,36 +25,36 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
 
   const handleItemPress = (id: string, title: string) => {
     switch (id) {
-      case 'TOP MANAGEMENT MESSAGES':
-        props.navigation.navigate('TOP MANAGEMENT MESSAGES', { ManagementMessagesScreen });
+      case CATEGORY.topManangement:
+        props.navigation.navigate(CATEGORY.topManangement, { ManagementMessagesScreen });
         break;
-      case 'ENDORSE YOUR SAFETY ISSUE':
-        props.navigation.navigate('ENDORSE YOUR SAFETY ISSUE', { EndorseSafetyScreen });
+      case CATEGORY.safetyIssue:
+        props.navigation.navigate(CATEGORY.safetyIssue, { EndorseSafetyScreen });
         break;
-      case 'SCHEDULE IN CLASS TRAINING':
-        props.navigation.navigate('SCHEDULE IN CLASS TRAINING', { ScheduleClassTraining });
+      case CATEGORY.scheduleTraining:
+        props.navigation.navigate(CATEGORY.scheduleTraining, { ScheduleClassTraining });
         break;
-      case 'QUERIES':
-        props.navigation.navigate('QUERIES', { QueriesScreen });
+      case CATEGORY.queries:
+        props.navigation.navigate(CATEGORY.queries, { QueriesScreen });
         break;
-      case 'E-TRAINING':
-        props.navigation.navigate('E-TRAINING', { E_TrainingScreen });
+      case CATEGORY.eTraining:
+        props.navigation.navigate(CATEGORY.eTraining, { E_TrainingScreen });
         break;
-      case 'LINKS':
-       props.navigation.navigate('LINKS', { LinksScreen });
+      case CATEGORY.links:
+       props.navigation.navigate(CATEGORY.links, { LinksScreen });
         break;
-      case 'SAFETY NEWS':
-        props.navigation.navigate('SAFETY NEWS', { SafetyNewsScreen });
+      case CATEGORY.safetyNews:
+        props.navigation.navigate(CATEGORY.safetyNews, { SafetyNewsScreen });
         break;
-      case 'SAFETY ALERTS':
-        props.navigation.navigate('SAFETY ALERTS', { SafetyAlertsScreen });
+      case CATEGORY.safetyAlert:
+        props.navigation.navigate(CATEGORY.safetyAlert, { SafetyAlertsScreen });
         setAlertsVisited(true);  // Mark alerts as visited
         break;
-      case 'ADMIN':
-        props.navigation.navigate('ADMIN', { AdminScreen });
+      case CATEGORY.admin:
+        props.navigation.navigate(CATEGORY.admin, { AdminScreen });
         break;
-      case 'ABOUT':
-        props.navigation.navigate('ABOUT', { AboutScreen });
+      case CATEGORY.about:
+        props.navigation.navigate(CATEGORY.about, { AboutScreen });
         break;
       default:
         break;
@@ -87,9 +71,9 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
        <Text style={{ fontSize: 18 }}> Welcome: {name} </Text> 
         <View style={homeStyles.collectionContainer}>
           <CollectionView 
-           data={data} 
+           data={HomeCategoriesArr} 
            alertsVisited={alertsVisited}
-           onItemPress={(id: string) => handleItemPress(id, data.find(item => item.id === id)?.title ?? '')} 
+           onItemPress={(id: string) => handleItemPress(id, HomeCategoriesArr.find(item => item.id === id)?.title ?? '')} 
           />
           </View>
         </View>
