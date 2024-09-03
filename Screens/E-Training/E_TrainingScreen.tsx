@@ -58,7 +58,7 @@ const E_TrainingScreen = () => {
         </Text>
       </ScrollView>
       <TouchableOpacity style={styles.downloadButton} onPress={() => handleDownload(youtubeLink)}> 
-        <Text style={styles.downloadText}>Open/Download</Text>
+        <Text style={styles.downloadText}>Open Link</Text>
       </TouchableOpacity>
     </View>
   );
