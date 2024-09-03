@@ -118,8 +118,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   topContainer: {
+    height: 30,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    margin: 10,
   },
   image: {
     height: height * 0.15,
