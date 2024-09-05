@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
+import { COLORS } from '../../Constants/globalData';
 
 const { width, height } = Dimensions.get('window');
 
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   image: {
     width: width * 0.9,

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import TrainingList from '../ScheduleTraining/TrainingList';
+import { COLORS } from '../../Constants/globalData';
 
 const initialData = [
   { noOfTrainees: 10, location: 'Riyadh office', department: 'HR', supervisor: 'John Doe', fromDate: '2023-09-01 10:30 AM', toDate: '2023-09-10 11:30 AM', status: 'Under Review' },
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 5,
     marginBottom: 25,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     padding: 10,
   },
 });

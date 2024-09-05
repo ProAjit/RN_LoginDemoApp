@@ -6,6 +6,7 @@ import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkS
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
+import { COLORS } from './Constants/globalData';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -48,7 +49,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground}} behavior="padding">
     <KeyboardAwareScrollView
         contentContainerStyle={componentStyle.scrollContainer}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -99,7 +100,7 @@ const logoStyles = StyleSheet.create({
     flex: 1, // Full screen
     justifyContent: 'center', // Center vertically
     alignItems: 'center', // Center horizontally
-    backgroundColor: '#F4F6FF', // Background color for outer container
+    backgroundColor: COLORS.appBackground, // Background color for outer container
     marginTop: 80,
   },
   innerContainer: {
@@ -107,7 +108,7 @@ const logoStyles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F4F6FF', // Background color for inner container
+    backgroundColor: COLORS.appBackground, // Background color for inner container
 
   },
   logo: {

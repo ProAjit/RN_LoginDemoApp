@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Linking, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { COLORS } from '../../Constants/globalData';
 
 interface DataItem {
   title: string;
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   container: {
     padding: 20,

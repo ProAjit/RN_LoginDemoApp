@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import SafetyIncidentsList from '../EndroseSafety/SafetyIncidentsList';
+import { COLORS } from '../../Constants/globalData';
 
 const initialData = [
   { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 5,
     marginBottom: 25,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     padding: 5,
   },
 });

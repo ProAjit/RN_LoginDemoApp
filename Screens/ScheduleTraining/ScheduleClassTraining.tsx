@@ -10,6 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
+import { COLORS } from '../../Constants/globalData';
 // import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
@@ -242,7 +243,7 @@ const ScheduleClassTraining = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground }} behavior="padding">
       <View style={segmentStyle.segmentedControlContainer}>
         <SegmentedControl
           values={['New Schedule', 'Training History']}
@@ -283,7 +284,7 @@ const ScheduleClassTraining = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     flexDirection: 'column',
   },
   topButtonsContainer: {
@@ -404,7 +405,7 @@ const styles = StyleSheet.create({
     padding: 2,
     marginTop: 5,
     marginBottom: 25,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   historyText: {
     fontSize: 18,

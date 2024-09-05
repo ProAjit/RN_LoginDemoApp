@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { COLORS } from '../../Constants/globalData';
 
 // Sample data with random notifications
 const notifications = [
@@ -52,7 +53,7 @@ const SafetyAlertsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     paddingVertical: 10,
     paddingHorizontal: '2.5%',
   },

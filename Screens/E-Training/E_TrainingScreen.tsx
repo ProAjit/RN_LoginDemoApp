@@ -4,6 +4,7 @@ import Pdf from 'react-native-pdf';
 import RNFetchBlob from 'react-native-blob-util';
 import { faLink,faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { COLORS } from '../../Constants/globalData';
 
 const { height, width } = Dimensions.get('window');
 
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   button: {
     width: 30,

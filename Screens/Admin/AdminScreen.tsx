@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { COLORS } from '../../Constants/globalData';
 
 // Define the type for navigation
 type AdminScreenNavigationProp = NavigationProp<{ UpdateIncidentsScreen: undefined, UpdateTrainingScreen: undefined }>;
@@ -44,7 +45,7 @@ const AdminScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   itemContainer: {
     flexDirection: 'row',

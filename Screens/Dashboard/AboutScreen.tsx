@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { COLORS } from '../../Constants/globalData';
 
 const AboutScreen = () => {
   return (
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     alignItems: 'center',
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   image: {
     width: 150,

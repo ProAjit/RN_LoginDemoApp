@@ -4,6 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
+import { COLORS } from '../../Constants/globalData';
 
 const QueriesScreen = () => {
   const [name, setName] = useState('');
@@ -91,7 +92,7 @@ const QueriesScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={handleScreenPress}>
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF'}} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground}} behavior="padding">
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 15,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   dropdownContainer: {
     position: 'absolute',
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
   staticInput: {
     height: 40,
     paddingLeft: 0,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   inputGroup: {
     marginBottom: 12,

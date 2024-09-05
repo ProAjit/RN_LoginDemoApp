@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { COLORS } from '../Constants/globalData';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
@@ -6,27 +7,27 @@ const { width, height } = Dimensions.get('window');
 const componentStyle = StyleSheet.create({
     safeArea: {
       flex: 1,
-      backgroundColor: '#F4F6FF',
+      backgroundColor: COLORS.appBackground,
     },
     container: {
      flex: 1,
-     backgroundColor: '#F4F6FF',
+     backgroundColor: COLORS.appBackground,
     },
     scrollContainer: {
       flex: 1,
       padding: 5,
-      backgroundColor: '#F4F6FF',
+      backgroundColor: COLORS.appBackground,
     },
     keyboardScrollContainer: {
        flexGrow: 1,
        padding: 16,
-       backgroundColor: '#F4F6FF',
+       backgroundColor: COLORS.appBackground,
     },
     scrollView: {
       flexGrow: 1,
       width: width,
       height: height,
-      backgroundColor: '#F4F6FF',
+      backgroundColor: COLORS.appBackground,
     },
     backgroundImage: {
       alignItems: 'center',
@@ -42,7 +43,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 50,
       width: width,
       height: height,
-      backgroundColor: '#F4F6FF',
+      backgroundColor: COLORS.appBackground,
     },
     inputText: {
       height: 40,
@@ -75,7 +76,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 20,
     },
     forgotButton: {
-      backgroundColor: '#F4F6FF',  // Button color
+      backgroundColor: COLORS.appBackground,  // Button color
       padding: 10,
       borderRadius: 10,  // Rounded corners
       marginTop: 20,

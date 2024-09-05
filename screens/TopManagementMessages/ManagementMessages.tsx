@@ -3,6 +3,7 @@ import { View, FlatList, StyleSheet, TouchableOpacity, Text, Image } from 'react
 // import Icon from 'react-native-vector-icons/Ionicons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronUp, faChevronDown, faAnglesDown, faAnglesUp } from '@fortawesome/free-solid-svg-icons';
+import { COLORS } from '../../Constants/globalData';
 
 const data = [
   { id: 'CEO Message', title: 'Here is expanded view for showing actual CEO message' },
@@ -52,7 +53,7 @@ const ManagementMessagesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     padding: 10,
   },
   row: {

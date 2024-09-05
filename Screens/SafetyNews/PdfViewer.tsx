@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, StyleSheet, Dimensions } from 'react-native';
 import Pdf from 'react-native-pdf';
 import RNFetchBlob from 'react-native-blob-util';
+import { COLORS } from '../../Constants/globalData';
 
 const PdfViewer = () => {
   const [pdfPath, setPdfPath] = useState<string | null>(null);
@@ -63,19 +64,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   pdf: {
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
 });
 

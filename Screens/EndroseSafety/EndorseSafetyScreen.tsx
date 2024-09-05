@@ -10,6 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
+import { COLORS } from '../../Constants/globalData';
 
 const { height } = Dimensions.get('window');
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
@@ -205,7 +206,7 @@ const EndorseSafetyScreen = () => {
   );
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F4F6FF' }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground }} behavior="padding">
       <View style={segmentStyle.segmentedControlContainer}>
         <SegmentedControl
           values={['Raise Incident', 'Incidents History']}
@@ -245,7 +246,7 @@ const EndorseSafetyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
     flexDirection: 'column',
   },
   dropdownContainer: {
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 5,
     marginBottom: 25,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   topView: {
     height: height * 0.15,
@@ -342,7 +343,7 @@ const styles = StyleSheet.create({
   staticInput: {
     height: 40,
     paddingLeft: 0,
-    backgroundColor: '#F4F6FF',
+    backgroundColor: COLORS.appBackground,
   },
   switch: {
     transform: [{ scaleX: 0.85 }, { scaleY: 0.8 }], // Adjust the scale to fit within the wrapper
