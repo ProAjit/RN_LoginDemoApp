@@ -34,47 +34,63 @@ const LinksScreen: React.FC = () => {
   );
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.container}>
     <FlatList
       data={data}
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
       ItemSeparatorComponent={renderSeparator}
-      contentContainerStyle={styles.container}
+      contentContainerStyle={styles.notificationContainer}
     />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: COLORS.appBackground,
-  },
   container: {
-    padding: 20,
+    flex: 1,
+    backgroundColor: COLORS.appBackground,
+    paddingVertical: 10,
+    paddingHorizontal: '2.5%',
+  },
+  notificationContainer: {
     backgroundColor: '#fff',
+    padding: 10,
+    marginVertical: 8,
     borderRadius: 10,
-    borderColor: COLORS.appThemeBlue,
-    borderWidth: 0.17,
-  },
-  item: {
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    tintColor: COLORS.appThemeBlue
-  },
-  link: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    width: '95%',
+    alignSelf: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   separator: {
     height: 1,
     backgroundColor: '#CED0CE',
     marginVertical: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+    fontSize: 14,
+  },
+  item: {
+    marginTop: 10,
+    marginBottom: 10,
+    width: '95%',
+    alignSelf: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });
 
