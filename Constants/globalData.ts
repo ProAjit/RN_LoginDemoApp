@@ -37,5 +37,5 @@ export interface Item {
 
   export const COLORS= {
     appBackground: '#F4F6FF',
-    appTheme: 'rgba(2, 28, 52, 1.0)',
+    appThemeBlue: 'rgba(2, 28, 52, 1.0)',
   }

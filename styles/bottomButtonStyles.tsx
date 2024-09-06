@@ -1,5 +1,6 @@
 
 import { Dimensions, StyleSheet } from 'react-native';
+import { COLORS } from '../Constants/globalData';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
@@ -14,7 +15,7 @@ const bottomButtonStyles = StyleSheet.create({
       },
       button: {
         flex: 1,
-        backgroundColor: 'rgba(2, 28, 52, 1.0)',
+        backgroundColor: COLORS.appThemeBlue,
         padding: 10,
         borderRadius: 4,
         alignItems: 'center',
@@ -32,11 +33,11 @@ const bottomButtonStyles = StyleSheet.create({
         borderRadius: 4,
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'rgba(2, 28, 52, 1.0)',
+        borderColor: COLORS.appThemeBlue,
         marginRight: 20,
       },
       whiteButtonText: {
-        color: 'rgba(2, 28, 52, 1.0)',
+        color: COLORS.appThemeBlue,
         fontSize: 16,
         fontWeight: 'bold',
       },

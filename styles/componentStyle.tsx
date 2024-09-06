@@ -64,12 +64,12 @@ const componentStyle = StyleSheet.create({
       padding: 10,
       fontSize: 13,
       fontWeight: 'bold',
-      tintColor: 'rgba(2, 28, 52, 1.0)', 
+      tintColor: COLORS.appThemeBlue, 
       textAlign: 'center',  // Center text horizontally
       marginBottom: 20,
     },
     loginButton: {
-      backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+      backgroundColor: COLORS.appThemeBlue,  // Button color
       padding: 10,
       borderRadius: 10,  // Rounded corners
       alignItems: 'center',  // Center text horizontally
@@ -82,7 +82,7 @@ const componentStyle = StyleSheet.create({
       marginTop: 20,
     },
     button: {
-      backgroundColor: 'rgba(2, 28, 52, 1.0)',  // Button color
+      backgroundColor: COLORS.appThemeBlue,  // Button color
       padding: 10,
       borderRadius: 10,  // Rounded corners
       alignItems: 'center',  // Center text horizontally
@@ -93,7 +93,7 @@ const componentStyle = StyleSheet.create({
       fontWeight: 'regular',
     },
     forgotButtonText: {
-      color: 'rgba(2, 28, 52, 1.0)',  // Text color
+      color: COLORS.appThemeBlue,  // Text color
       fontSize: 14,
       fontWeight: 'regular',
       textAlign: 'right',

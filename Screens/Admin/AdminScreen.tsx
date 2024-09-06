@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 18,
-    color: 'rgba(2, 28, 52, 1.0)',
+    color: COLORS.appThemeBlue,
   },
   icon: {
-    color: 'rgba(2, 28, 52, 1.0)',
+    color: COLORS.appThemeBlue,
   },
 });
 

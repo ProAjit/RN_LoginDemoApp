@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',
+    backgroundColor: COLORS.appThemeBlue,
     marginTop: 10,
     marginBottom: 20,
     marginLeft: 50,

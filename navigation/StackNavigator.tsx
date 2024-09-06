@@ -18,7 +18,7 @@ import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
 import LinksScreen from '../Screens/Links/LinksScreen';
 import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
-import { CATEGORY, SCREEN_NAME } from '../Constants/globalData';
+import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/globalData';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +27,7 @@ const HomeStack = () => (
     <Stack.Screen name={SCREEN_NAME.dashboard} component={HomeScreen}
       options={{
         headerLeft: () => null,
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -37,7 +37,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.topManangement} component={ManagementMessagesScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -47,7 +47,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.safetyIssue} component={EndorseSafetyScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -57,7 +57,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.scheduleTraining} component={ScheduleClassTraining}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -67,7 +67,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.queries} component={QueriesScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -77,7 +77,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.eTraining} component={E_TrainingScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -87,7 +87,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.links} component={LinksScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -97,7 +97,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.safetyNews} component={SafetyNewsScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -107,7 +107,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.safetyAlert} component={SafetyAlertsScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -117,7 +117,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.admin} component={AdminScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -127,7 +127,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={CATEGORY.about} component={AboutScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -137,7 +137,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={SCREEN_NAME.updateTrainings} component={UpdateTrainingScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -147,7 +147,7 @@ const HomeStack = () => (
 
     <Stack.Screen name={SCREEN_NAME.updateIncidents} component={UpdateIncidentsScreen}
       options={{
-        headerStyle: { backgroundColor: 'rgba(2, 28, 52, 1.0)' },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: '#fff',
         headerBackTitleVisible: false,
         headerTitleStyle: {

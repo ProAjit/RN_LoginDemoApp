@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
-    borderColor: 'rgba(2, 28, 52, 1.0)',
+    borderColor: COLORS.appThemeBlue,
     borderWidth: 0.17,
   },
   item: {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    tintColor: 'rgba(2, 28, 52, 1.0)'
+    tintColor: COLORS.appThemeBlue
   },
   link: {
     color: 'blue',

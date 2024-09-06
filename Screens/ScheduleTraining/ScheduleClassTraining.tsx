@@ -356,11 +356,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   activeButton: {
-    backgroundColor: 'rgba(2, 28, 52, 1.0)',
+    backgroundColor: COLORS.appThemeBlue,
   },
   inactiveButton: {
     backgroundColor: '#fff',
-    borderColor: 'rgba(2, 28, 52, 1.0)',
+    borderColor: COLORS.appThemeBlue,
     borderWidth: 1,
   },
   activeButtonText: {
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inactiveButtonText: {
-    color: 'rgba(2, 28, 52, 1.0)',
+    color: COLORS.appThemeBlue,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
   },
   historyText: {
     fontSize: 18,
-    color: 'rgba(2, 28, 52, 1.0)',
+    color: COLORS.appThemeBlue,
   },
 });
 

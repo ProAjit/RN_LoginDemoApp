@@ -32,7 +32,7 @@ const ManagementMessagesScreen = () => {
           <FontAwesomeIcon 
           icon={isExpanded ? faAnglesUp : faAnglesDown} 
           size={16} 
-          color='rgba(2, 28, 52, 1.0)'/>
+          color={COLORS.appThemeBlue} />
         </View>
       </TouchableOpacity>
     );
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 14,
     marginTop: 10,  // Adds spacing between idText and titleText
-    tintColor: 'rgba(2, 28, 52, 1.0)',
+    tintColor: COLORS.appThemeBlue,
   },
   arrowIcon: {
     width: 20,
