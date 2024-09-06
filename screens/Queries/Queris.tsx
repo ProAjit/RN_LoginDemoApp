@@ -203,9 +203,9 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 5, // For Android shadow
+    elevation: 3,
   },
   dropdownInput: {
     flexDirection: 'row',
