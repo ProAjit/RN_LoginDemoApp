@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, StyleSheet, Dimensions } from 'react-native';
 import Pdf from 'react-native-pdf';
 import RNFetchBlob from 'react-native-blob-util';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 const PdfViewer = () => {
   const [pdfPath, setPdfPath] = useState<string | null>(null);

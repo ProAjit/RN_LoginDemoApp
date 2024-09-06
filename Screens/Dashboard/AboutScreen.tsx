@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 const AboutScreen = () => {
   return (

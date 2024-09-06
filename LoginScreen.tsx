@@ -6,7 +6,7 @@ import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkS
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
-import { COLORS } from './Constants/globalData';
+import { COLORS } from './Constants/GlobalData';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();

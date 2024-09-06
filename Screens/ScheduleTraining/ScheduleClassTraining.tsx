@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 // import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for the dropdown arrow
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];

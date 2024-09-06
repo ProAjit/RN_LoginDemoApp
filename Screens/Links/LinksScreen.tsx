@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Linking, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 interface DataItem {
   title: string;

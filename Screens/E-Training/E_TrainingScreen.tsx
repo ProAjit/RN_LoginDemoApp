@@ -4,7 +4,7 @@ import Pdf from 'react-native-pdf';
 import RNFetchBlob from 'react-native-blob-util';
 import { faLink,faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 const { height, width } = Dimensions.get('window');
 

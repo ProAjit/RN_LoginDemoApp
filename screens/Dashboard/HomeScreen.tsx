@@ -14,8 +14,8 @@ import AdminScreen from '../Admin/AdminScreen';
 import LinksScreen from '../Links/LinksScreen';
 import SafetyNewsScreen from '../SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../SafetyAlerts/SafetyAlertsScreen';
-import { HomeCategoriesArr, Item } from '../../Constants/globalData';
-import { CATEGORY } from '../../Constants/globalData';
+import { HomeCategoriesArr, Item } from '../../Constants/GlobalData';
+import { CATEGORY } from '../../Constants/GlobalData';
 
 const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string, params?: any) => void }; }) => {
   const shareInstance = AppSingleton.getInstance();

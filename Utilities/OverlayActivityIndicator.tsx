@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { COLORS } from '../Constants/globalData';
+import { COLORS } from '../Constants/GlobalData';
 
 const OverlayActivityIndicator = ({ show }) => {
   return (

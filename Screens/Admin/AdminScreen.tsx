@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 // Define the type for navigation
 type AdminScreenNavigationProp = NavigationProp<{ UpdateIncidentsScreen: undefined, UpdateTrainingScreen: undefined }>;

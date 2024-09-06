@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 const { width, height } = Dimensions.get('window');
 

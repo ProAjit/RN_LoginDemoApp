@@ -18,7 +18,7 @@ import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
 import LinksScreen from '../Screens/Links/LinksScreen';
 import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
-import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/globalData';
+import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/GlobalData';
 
 const Stack = createStackNavigator();
 

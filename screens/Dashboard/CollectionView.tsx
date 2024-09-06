@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animate
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, 
   faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
-import { COLORS } from '../../Constants/globalData';
+import { COLORS } from '../../Constants/GlobalData';
 
 interface Item {
   id: string;
