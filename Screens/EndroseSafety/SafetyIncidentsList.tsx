@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 interface DataItem {
@@ -9,13 +9,68 @@ interface DataItem {
   status: string;
 }
 
-interface SafetyIncidentsListProps {
-  data: DataItem[];
-  updateStatus: (badgeNumber: number, newStatus: string) => void;
-}
+const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/incidentsList.json';
+const apiURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getIncidentList?BadgeNumber=67541'
 
-const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data, updateStatus }) => {
-  
+const SafetyIncidentsList: React.FC = () => {
+  const [data, setData] = useState<DataItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Function to call API and fetch data
+  const fetchData = async () => {
+    try {
+      const response = await fetch(apiURL);
+      const json = await response.json();
+
+      // Parse the response to map to DataItem format
+      const parsedData: DataItem[] = json["Incidents  "].map((incident: any) => ({
+        badgeNumber: Number(incident["Badgenumber  "].trim()),
+        name: incident["Name  "].trim(),
+        location: incident["Location  "].trim(),
+        description: incident["Description  "].trim(),
+        status: incident["incidentstatus  "].trim(),
+      }));
+
+      setData(parsedData);  // Set parsed data
+      setLoading(false);    // Set loading to false after data is fetched
+    } catch (error) {
+      // If the API call fails, load from local JSON file
+      console.log('API call failed, loading local JSON:', error);
+      const localData = require(jsonFilePath);
+      processIncidents(localData);
+      setLoading(false);  // Stop loading in case of an error
+    }
+  };
+
+  const processIncidents = (data: any) => {
+    if (data && data['Incidents  '] && data['Incidents  '].length > 0) {
+      // Parse the local JSON data to the DataItem format
+      const parsedData: DataItem[] = data['Incidents  '].map((incident: any) => ({
+        badgeNumber: Number(incident['Badgenumber  '].trim()),
+        name: incident['Name  '].trim(),
+        location: incident['Location  '].trim(),
+        description: incident['Description  '].trim(),
+        status: incident['incidentstatus  '].trim(),
+      }));
+      // Set the parsed local data
+      setData(parsedData);
+    } else {
+      Alert.alert('No Incidents', 'No incidents found in the local JSON');
+    }
+  };
+
+  useEffect(() => {
+    fetchData();  // Call the API when the component mounts
+  }, []);
+
+  const updateStatus = (badgeNumber: number, newStatus: string) => {
+    // Logic to update status can go here (if needed)
+    const updatedData = data.map(item =>
+      item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
+    );
+    setData(updatedData);
+  };
+
   const renderItem = ({ item }: { item: DataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
       switch (status) {
@@ -33,16 +88,8 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data, updateS
         Alert.alert(
           'Would you like to close this incident?',
           '',
-          [
-            {
-              text: 'Okay',
-              onPress: () => updateStatus(item.badgeNumber, 'Closed'),
-            },
-            {
-              text: 'Cancel',
-              style: 'cancel',
-            },
-          ],
+          [{ text: 'Okay', onPress: () => updateStatus(item.badgeNumber, 'Closed'), },
+          { text: 'Cancel', style: 'cancel', },],
           { cancelable: true }
         );
       }
@@ -54,30 +101,37 @@ const SafetyIncidentsList: React.FC<SafetyIncidentsListProps> = ({ data, updateS
           <Text style={styles.nameText}>
             Name: {item.name}
           </Text>
-          <Text style={styles.badgeNumberText}>
-            Badge Number: {item.badgeNumber}
-          </Text>
+          <View style={[styles.innerContainer]}>
+            <Text style={styles.badgeNumberText}>
+              Badge Number: {item.badgeNumber}
+            </Text>
+            <TouchableOpacity
+              onPress={() => handleStatusPress(item)}
+              style={[styles.statusButton,
+              getStatusBackgroundColor(item.status)]}
+            >
+            <Text style={styles.statusText}> {item.status} </Text>
+            </TouchableOpacity>
+          </View>
           <Text style={styles.badgeNumberText}>
             Description: {item.description}
           </Text>
-          <View style={[styles.innerContainer]}>
           <Text style={styles.locationText}>
             Location: {item.location}
           </Text>
-          <TouchableOpacity 
-          onPress={() => handleStatusPress(item)} 
-          style={[styles.statusButton, 
-          getStatusBackgroundColor(item.status)]}
-          >
-          <Text style={styles.statusText}>
-         {item.status}
-          </Text>
-        </TouchableOpacity>
-        </View>
         </View>
       </View>
     );
   };
+
+  // Show Loading... while fetching data
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList
@@ -95,7 +149,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 10,
-    height: 140,
+    height: 180,
     marginBottom: 15,
     padding: 8,
     borderRadius: 8,
@@ -111,6 +165,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   textContainer: {
     flex: 1,
@@ -128,11 +183,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 10,
     color: 'gray',
+    height: 60,
   },
   statusButton: {
     borderRadius: 10,
     height: 32,
     width: 120,
+    marginTop: 10,
     paddingTop: 5,
     alignItems: 'center',
   },
@@ -148,6 +205,11 @@ const styles = StyleSheet.create({
   },
   defaultBackground: {
     backgroundColor: 'white',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
