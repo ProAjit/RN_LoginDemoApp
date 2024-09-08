@@ -216,14 +216,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   regionText: {
     fontSize: 16,
   },
   dropdownItem: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingLeft: 8,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   multilineInput: {
     height: 60,

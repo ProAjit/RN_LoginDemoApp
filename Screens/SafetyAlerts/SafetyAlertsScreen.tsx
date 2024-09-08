@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '2.5%',
   },
   notificationContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     padding: 15,
     marginVertical: 8,
     borderRadius: 10,

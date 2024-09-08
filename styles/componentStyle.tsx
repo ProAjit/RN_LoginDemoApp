@@ -53,7 +53,7 @@ const componentStyle = StyleSheet.create({
       padding: 10,
       borderRadius: 5,
       marginBottom: 20,
-      backgroundColor: '#fff',
+      backgroundColor: COLORS.white,
     },
     text: {
       height: 40,
@@ -88,7 +88,7 @@ const componentStyle = StyleSheet.create({
       alignItems: 'center',  // Center text horizontally
     },
     buttonText: {
-      color: '#fff',  // Text color
+      color: COLORS.white,  // Text color
       fontSize: 20,
       fontWeight: 'regular',
     },

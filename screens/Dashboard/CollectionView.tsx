@@ -90,7 +90,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
     return (
       <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
         <Animated.View style={iconStyle}>
-          <FontAwesomeIcon icon={getIcon(item.title)} size={45} color='#fff' />
+          <FontAwesomeIcon icon={getIcon(item.title)} size={45} color={COLORS.white} />
         </Animated.View>
         <Text style={styles.title}>{item.title}</Text>
         {item.title === 'SAFETY ALERTS' && !alertsVisited && (

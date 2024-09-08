@@ -253,7 +253,7 @@ const ScheduleClassTraining = () => {
           }}
           style={segmentStyle.segmentedControl}
           tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: COLORS.white }}
           backgroundColor="rgba(230, 230, 230, 1.0)"
         />
       </View>
@@ -326,14 +326,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   regionText: {
     fontSize: 16,
   },
   dropdownItem: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   topButton: {
     flex: 1,
@@ -359,12 +359,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.appThemeBlue,
   },
   inactiveButton: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderColor: COLORS.appThemeBlue,
     borderWidth: 1,
   },
   activeButtonText: {
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   loaderContainer: {
     position: 'absolute',

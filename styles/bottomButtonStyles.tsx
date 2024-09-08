@@ -22,13 +22,13 @@ const bottomButtonStyles = StyleSheet.create({
         marginHorizontal: 20,
       },
       buttonText: {
-        color: '#fff',
+        color: COLORS.white,
         fontSize: 16,
         fontWeight: 'bold',
       },
       whiteButton: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: COLORS.white,
         padding: 10,
         borderRadius: 4,
         alignItems: 'center',

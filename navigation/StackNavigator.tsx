@@ -28,7 +28,7 @@ const HomeStack = () => (
       options={{
         headerLeft: () => null,
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 18
@@ -38,7 +38,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.topManangement} component={ManagementMessagesScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -48,7 +48,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.safetyIssue} component={EndorseSafetyScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -58,7 +58,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.scheduleTraining} component={ScheduleClassTraining}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -68,7 +68,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.queries} component={QueriesScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -78,7 +78,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.eTraining} component={E_TrainingScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -88,7 +88,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.links} component={LinksScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -98,7 +98,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.safetyNews} component={SafetyNewsScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -108,7 +108,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.safetyAlert} component={SafetyAlertsScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -118,7 +118,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.admin} component={AdminScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -128,7 +128,7 @@ const HomeStack = () => (
     <Stack.Screen name={CATEGORY.about} component={AboutScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -138,7 +138,7 @@ const HomeStack = () => (
     <Stack.Screen name={SCREEN_NAME.updateTrainings} component={UpdateTrainingScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16
@@ -148,7 +148,7 @@ const HomeStack = () => (
     <Stack.Screen name={SCREEN_NAME.updateIncidents} component={UpdateIncidentsScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
-        headerTintColor: '#fff',
+        headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontSize: 16

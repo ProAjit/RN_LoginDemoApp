@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 0.5,
     borderColor: '#ccc',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     marginTop: 15,
     margin: 10,
     borderRadius: 8,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,  // Takes up available space in the row
   },
   expandedRow: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   idText: {
     fontSize: 16,

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   itemText: {
     fontSize: 18,

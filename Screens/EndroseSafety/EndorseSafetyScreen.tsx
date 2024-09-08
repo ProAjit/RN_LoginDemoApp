@@ -216,7 +216,7 @@ const EndorseSafetyScreen = () => {
           }}
           style={segmentStyle.segmentedControl}
           tintColor="rgba(2, 28, 52, 1.0)"
-          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: '#fff' }}
+          fontStyle={{ fontSize: 16, fontWeight: 'bold', color: COLORS.white }}
           backgroundColor="rgba(230, 230, 230, 1.0)"
         />
       </View>
@@ -275,14 +275,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   regionText: {
     fontSize: 16,
   },
   dropdownItem: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderColor: '#ccc',
     borderWidth: 0.5,
     borderRadius: 5,
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 5,
     paddingLeft: 8,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   staticInput: {
     height: 40,
