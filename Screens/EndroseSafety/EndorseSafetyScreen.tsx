@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View, TextInput, Text, Button, Image, TouchableOpacity,
-  StyleSheet, Dimensions, Alert, KeyboardAvoidingView, Switch, 
+  StyleSheet, Alert, KeyboardAvoidingView, Switch, 
   FlatList, TouchableWithoutFeedback} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
@@ -10,19 +10,13 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
-const { height } = Dimensions.get('window');
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
-const data = [
-  { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
-  { badgeNumber: 222222, name: 'Employee Name 2', description: '', location: 'Pune office', status: 'Closed' },
-  { badgeNumber: 333333, name: 'Employee Name 3', description: '', location: 'Noida Office', status: 'Open' },
-  { badgeNumber: 444444, name: 'Employee Name 4', description: '', location: 'India office', status: 'Closed' },
-  { badgeNumber: 555555, name: 'Employee Name 5', description: '', location: 'UAE office', status: 'Open' },
-  { badgeNumber: 666666, name: 'Employee Name 6', description: '', location: 'KSA Office', status: 'Closed' },
-];
+// const data = [
+//   { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
+// ];
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -199,9 +193,7 @@ const EndorseSafetyScreen = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyContainer}>
-      <SafetyIncidentsList data={data} updateStatus={function (badgeNumber: number, newStatus: string): void {
-        throw new Error('Function not implemented.');
-      } } />
+      <SafetyIncidentsList />
     </View>
   );
 
@@ -296,7 +288,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.appBackground,
   },
   topView: {
-    height: height * 0.15,
+    height: DEVICE.height * 0.15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -317,7 +309,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   bottomView: {
-    height: height * 0.50,
+    height: DEVICE.height * 0.50,
   },
   imageView: {
     width: 100,

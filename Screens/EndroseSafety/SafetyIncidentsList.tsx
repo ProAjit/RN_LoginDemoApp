@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Dimensions } from 'react-native';
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 interface DataItem {
   badgeNumber: number;
@@ -14,14 +15,13 @@ const apiURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/de
 
 const SafetyIncidentsList: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [show, setShow] = useState(false);
 
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
       const response = await fetch(apiURL);
       const json = await response.json();
-
       // Parse the response to map to DataItem format
       const parsedData: DataItem[] = json["Incidents  "].map((incident: any) => ({
         badgeNumber: Number(incident["Badgenumber  "].trim()),
@@ -30,15 +30,16 @@ const SafetyIncidentsList: React.FC = () => {
         description: incident["Description  "].trim(),
         status: incident["incidentstatus  "].trim(),
       }));
-
       setData(parsedData);  // Set parsed data
-      setLoading(false);    // Set loading to false after data is fetched
+      setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('API call failed, loading local JSON:', error);
       const localData = require(jsonFilePath);
-      processIncidents(localData);
-      setLoading(false);  // Stop loading in case of an error
+      setTimeout(() => {
+        processIncidents(localData);
+        setShow(false);  // Stop loading in case of an error
+      }, 1000);
     }
   };
 
@@ -60,6 +61,7 @@ const SafetyIncidentsList: React.FC = () => {
   };
 
   useEffect(() => {
+    setShow(true)
     fetchData();  // Call the API when the component mounts
   }, []);
 
@@ -124,22 +126,19 @@ const SafetyIncidentsList: React.FC = () => {
     );
   };
 
-  // Show Loading... while fetching data
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
   return (
+    <>
+    {show && (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+      </View>
+    )}
     <FlatList
       data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.badgeNumber.toString()}
-      contentContainerStyle={styles.listContainer}
-    />
+      contentContainerStyle={styles.listContainer} />
+    </>
   );
 };
 
@@ -206,10 +205,15 @@ const styles = StyleSheet.create({
   defaultBackground: {
     backgroundColor: 'white',
   },
-  loadingContainer: {
-    flex: 1,
+  loaderContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: DEVICE.height/3,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 10,
   },
 });
 

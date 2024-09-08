@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, Image, StyleSheet, Alert} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import componentStyle from './Styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
