@@ -31,20 +31,20 @@ const TrainingList: React.FC = () => {
   const [show, setShow] = useState(false);
   const statusOptions = ['Rescheduled', 'On Hold', 'Approved', 'Rejected', 'Under Review'];
 
-  const handleStatusPress = (item: TrainingDataItem) => {
-    if (item.status !== 'Approved' && item.status !== 'Rejected') {
-      setSelectedItem(item);
-      setModalVisible(true);
-    }
-  };
+  // const handleStatusPress = (item: TrainingDataItem) => {
+  //   if (item.status !== 'Approved' && item.status !== 'Rejected') {
+  //     setSelectedItem(item);
+  //     setModalVisible(true);
+  //   }
+  // };
 
-  const handleStatusSelect = (newStatus: string) => {
-    if (selectedItem) {
-      // updateStatus(selectedItem.noOfTrainees, newStatus);
-      setModalVisible(false);
-      setSelectedItem(null);
-    }
-  };
+  // const handleStatusSelect = (newStatus: string) => {
+  //   if (selectedItem) {
+  //     // updateStatus(selectedItem.noOfTrainees, newStatus);
+  //     setModalVisible(false);
+  //     setSelectedItem(null);
+  //   }
+  // };
 
   // Function to call API and fetch data
   const fetchData = async () => {
@@ -166,7 +166,7 @@ const TrainingList: React.FC = () => {
               No Of Trainees: {item.noOfTrainees}
             </Text>
             <TouchableOpacity
-              onPress={() => handleStatusPress(item)}
+              // onPress={() => handleStatusPress(item)}
               style={[styles.statusButton, getStatusBackgroundColor(item.status)]}>
               <Text style={styles.statusText}>
                 {item.status}
@@ -216,8 +216,10 @@ const TrainingList: React.FC = () => {
             <FlatList
               data={statusOptions.filter(option => option !== (selectedItem ? selectedItem.status : ''))}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleStatusSelect(item)} style={styles.modalItem}>
-                  <Text style={styles.modalItemText}>{item}</Text>
+                <TouchableOpacity 
+                // onPress={() => handleStatusSelect(item)} 
+                style={styles.modalItem}>
+                <Text style={styles.modalItemText}>{item}</Text>
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item}

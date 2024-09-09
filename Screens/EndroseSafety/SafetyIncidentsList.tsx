@@ -65,13 +65,13 @@ const SafetyIncidentsList: React.FC = () => {
     fetchData();  // Call the API when the component mounts
   }, []);
 
-  const updateStatus = (badgeNumber: number, newStatus: string) => {
-    // Logic to update status can go here (if needed)
-    const updatedData = data.map(item =>
-      item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
-    );
-    setData(updatedData);
-  };
+  // const updateStatus = (badgeNumber: number, newStatus: string) => {
+  //   // Logic to update status can go here (if needed)
+  //   const updatedData = data.map(item =>
+  //     item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
+  //   );
+  //   setData(updatedData);
+  // };
 
   const renderItem = ({ item }: { item: DataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
@@ -85,17 +85,17 @@ const SafetyIncidentsList: React.FC = () => {
       }
     };
 
-    const handleStatusPress = (item: DataItem) => {
-      if (item.status === 'Open') {
-        Alert.alert(
-          'Would you like to close this incident?',
-          '',
-          [{ text: 'Okay', onPress: () => updateStatus(item.badgeNumber, 'Closed'), },
-          { text: 'Cancel', style: 'cancel', },],
-          { cancelable: true }
-        );
-      }
-    };
+    // const handleStatusPress = (item: DataItem) => {
+    //   if (item.status === 'Open') {
+    //     Alert.alert(
+    //       'Would you like to close this incident?',
+    //       '',
+    //       [{ text: 'Okay', onPress: () => updateStatus(item.badgeNumber, 'Closed'), },
+    //       { text: 'Cancel', style: 'cancel', },],
+    //       { cancelable: true }
+    //     );
+    //   }
+    // };
 
     return (
       <View style={[styles.container]}>
@@ -108,7 +108,7 @@ const SafetyIncidentsList: React.FC = () => {
               Badge Number: {item.badgeNumber}
             </Text>
             <TouchableOpacity
-              onPress={() => handleStatusPress(item)}
+              // onPress={() => handleStatusPress(item)}
               style={[styles.statusButton,
               getStatusBackgroundColor(item.status)]}
             >
