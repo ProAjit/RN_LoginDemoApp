@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 interface DataItem {
@@ -11,7 +11,7 @@ interface DataItem {
 }
 
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/incidentsList.json';
-const apiURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getIncidentList?BadgeNumber=67541'
+const getIncidentURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getIncidentList?BadgeNumber=67541'
 
 const SafetyIncidentsList: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
@@ -20,7 +20,7 @@ const SafetyIncidentsList: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
-      const response = await fetch(apiURL);
+      const response = await fetch(getIncidentURL);
       const json = await response.json();
       // Parse the response to map to DataItem format
       const parsedData: DataItem[] = json["Incidents  "].map((incident: any) => ({
@@ -39,7 +39,7 @@ const SafetyIncidentsList: React.FC = () => {
       setTimeout(() => {
         processIncidents(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 1000);
+      }, 300);
     }
   };
 
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   container: {
-    marginTop: 10,
+    marginTop: 5,
     height: 180,
     marginBottom: 15,
     padding: 8,

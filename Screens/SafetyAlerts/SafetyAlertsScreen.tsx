@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { COLORS } from '../../Constants/GlobalData';
 
 // Sample data with random notifications
