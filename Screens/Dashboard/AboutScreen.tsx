@@ -13,7 +13,7 @@ const AboutScreen = () => {
 
       {/* Ministry Text */}
       <Text style={styles.ministryText}>
-        Ministry of National Guard Health Affairs Safety Management - cR
+        Ministry of National Guard Health Affairs {'\n'}Be Safe
       </Text>
 
       {/* Support Services Text */}

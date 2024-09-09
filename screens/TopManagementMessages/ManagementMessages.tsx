@@ -8,9 +8,9 @@ import { COLORS } from '../../Constants/GlobalData';
 const data = [
   { id: 'CEO Message', title: 'Here is expanded view for showing actual CEO message' },
   { id: 'COO Message', title: 'Here is expanded view for showing actual COO message' },
-  { id: 'ED Operations Message', title: 'Here is expanded view for showing actual ED Operations message' },
-  { id: 'DED SS Message', title: 'Here is expanded view for showing actual DED SS Message message' },
 ];
+// { id: 'ED Operations Message', title: 'Here is expanded view for showing actual ED Operations message' },
+// { id: 'DED SS Message', title: 'Here is expanded view for showing actual DED SS Message message' },
 
 const ManagementMessagesScreen = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);

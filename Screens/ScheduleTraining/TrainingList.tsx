@@ -12,6 +12,7 @@ interface TrainingDataItem {
   fromDate: string;
   toDate: string;
   status: string;
+  subject: string;
   region: string;
 }
 
@@ -58,6 +59,7 @@ const TrainingList: React.FC = () => {
         supervisor: training["Supervisor"],
         location: training["Location"],
         toDate: training["ToDate"],
+        subject: training["Subject"],
         fromDate: training["FromDate"],
         status: training["Status"],
         region: training["Region"],
@@ -87,6 +89,7 @@ const TrainingList: React.FC = () => {
         toDate: training["ToDate"],
         fromDate: training["FromDate"],
         status: training["Status"],
+        subject: training["Subject"],
         region: training["Region"],
       }));
       // Set the parsed local data
@@ -171,6 +174,9 @@ const TrainingList: React.FC = () => {
             </TouchableOpacity>
           </View>
           <Text style={styles.numberText}>
+            Subject: {item.subject}
+          </Text>
+          <Text style={styles.numberText}>
             Location: {item.location}
           </Text>
           <Text style={styles.dateText}>
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 10,
-    height: 200,
+    height: 230,
     margin: 5,
     padding: 8,
     borderRadius: 8,

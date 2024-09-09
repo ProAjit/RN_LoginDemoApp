@@ -32,7 +32,7 @@ export const CATEGORY = {
 };
 
 export const SCREEN_NAME = {
-  dashboard: "Safety 24/7",
+  dashboard: "Be Safe",
   updateTrainings: "Update Trainings",
   updateIncidents: "Update Incidents",
 };
