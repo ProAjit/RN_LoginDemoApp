@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
@@ -110,7 +110,7 @@ const ScheduleClassTraining = () => {
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.log('SUCCESS RESPONSE', response)
+      console.log('SUCCESS RESPONSE', response.json())
     } catch (error) {
       console.log('ERROR', error)
       Alert.alert('Error', 'Network error occurred while submitting data.');
@@ -152,8 +152,8 @@ const ScheduleClassTraining = () => {
       <View style={styles.container}>
         {loading && (
           <View style={styles.loaderContainer}>
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
+          <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+         </View>
         )}
         {/* Region Dropdown */}
         <Text style={styles.label}>Region</Text>
@@ -412,11 +412,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: 0,
+    top: DEVICE.height/2,
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     zIndex: 10,
   },
   historyView: {
