@@ -1,30 +1,88 @@
 {
-    "TrainingSchedules": [
-      {
-        "TrainingId": "27",
-        "Badgenumber": "67542",
-        "Department": "HRMS",
-        "Supervisor": "Mr. Ajit S",
-        "NumberOfTrainees": 15,
-        "Location": "NGHA Campus",
-        "FromDate": "2024-08-27T13:26:33.000+03:00",
-        "ToDate": "2024-08-27T13:26:33.000+03:00",
-        "Status": "Under Review",
-        "Subject": "About NGHA Campus training",
-        "Region": "Riyadh"
-      },
-      {
-        "TrainingId": "28",
-        "Badgenumber": "67542",
-        "Department": "ADMIN",
-        "Supervisor": "Mr. Ajit S",
-        "NumberOfTrainees": 10,
-        "Location": "NGHA Campus",
-        "FromDate": "2024-08-27T13:26:33.000+03:00",
-        "ToDate": "2024-08-27T13:26:33.000+03:00",
-        "Subject": "About NGHA Campus training",
-        "Status": "On Hold",
-        "Region": "Riyadh"
-      }
-    ]
-  }
+  "TrainingSchedules": [
+    {
+      "TrainingId": "25",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "32",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "26",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "28",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "29",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "30",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    },
+    {
+      "TrainingId": "31",
+      "Badgenumber": "67541",
+      "Department": "HRMS",
+      "Supervisor": "Mr. Imran M",
+      "NumberOfTrainees": 19,
+      "Location": "NGHA Campus",
+      "FromDate": "2024-08-27T13:26:33.000+03:00",
+      "ToDate": "2024-08-27T13:26:33.000+03:00",
+      "Status": "Under Review",
+      "Region": "Riyadh"
+    }
+  ]
+}

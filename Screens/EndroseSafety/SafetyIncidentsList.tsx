@@ -3,11 +3,14 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndi
 import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 interface DataItem {
-  badgeNumber: number;
+  incidentId: Number
   name: string;
   location: string;
   description: string;
   status: string;
+  incidentdate: string;
+  region: String
+  badgeNumber: string;
 }
 
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/incidentsList.json';
@@ -23,15 +26,19 @@ const SafetyIncidentsList: React.FC = () => {
       const response = await fetch(getIncidentURL);
       const json = await response.json();
       // Parse the response to map to DataItem format
-      const parsedData: DataItem[] = json["Incidents  "].map((incident: any) => ({
-        badgeNumber: Number(incident["Badgenumber  "].trim()),
-        name: incident["Name  "].trim(),
-        location: incident["Location  "].trim(),
-        description: incident["Description  "].trim(),
-        status: incident["incidentstatus  "].trim(),
+      const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
+        badgeNumber: incident["Badgenumber"].trim(),
+        name: incident["Name"].trim(),
+        location: incident["Location"].trim(),
+        description: incident["Description"].trim(),
+        status: incident["incidentstatus"].trim(),
+        region: incident["Region"].trim(),
+        incidentdate: incident["incidentdate"].trim(),
+        incidentId: Number(incident["incidentid"].trim()),
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
+      console.log('Resp JSON:', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('API call failed, loading local JSON:', error);
@@ -39,22 +46,26 @@ const SafetyIncidentsList: React.FC = () => {
       setTimeout(() => {
         processIncidents(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 300);
+      }, 100);
+      setShow(false);    // Set loading to false after data is fetched
     }
   };
-
+      
   const processIncidents = (data: any) => {
-    if (data && data['Incidents  '] && data['Incidents  '].length > 0) {
+    if (data && data['Incidents'] && data['Incidents'].length > 0) {
       // Parse the local JSON data to the DataItem format
-      const parsedData: DataItem[] = data['Incidents  '].map((incident: any) => ({
-        badgeNumber: Number(incident['Badgenumber  '].trim()),
-        name: incident['Name  '].trim(),
-        location: incident['Location  '].trim(),
-        description: incident['Description  '].trim(),
-        status: incident['incidentstatus  '].trim(),
+      const parsedData: DataItem[] = data['Incidents'].map((incident: any) => ({
+        badgeNumber: incident["Badgenumber"].trim(),
+        name: incident["Name"].trim(),
+        location: incident["Location"].trim(),
+        description: incident["Description"].trim(),
+        status: incident["incidentstatus"].trim(),
+        region: incident["Region"].trim(),
+        incidentdate: incident["incidentdate"].trim(),
+        incidentId: Number(incident["incidentid"].trim()),
       }));
       // Set the parsed local data
-      setData(parsedData);
+     setData(parsedData);
     } else {
       Alert.alert('No Incidents', 'No incidents found in the local JSON');
     }
@@ -136,7 +147,7 @@ const SafetyIncidentsList: React.FC = () => {
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.badgeNumber.toString()}
+      keyExtractor={(item) => item.incidentId.toString()}
       contentContainerStyle={styles.listContainer} />
     </>
   );

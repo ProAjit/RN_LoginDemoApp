@@ -22,7 +22,7 @@ interface TrainingListProps {
 }
 
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/trainingsList.json';
-const getTrainingsURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getTrainingList?BadgeNumber=67542'
+const getTrainingsURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getTrainingList?BadgeNumber=67541'
 
 const TrainingList: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -73,7 +73,7 @@ const TrainingList: React.FC = () => {
       setTimeout(() => {
         processTrainings(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 300);
+      }, 100);
     }
   };
 
