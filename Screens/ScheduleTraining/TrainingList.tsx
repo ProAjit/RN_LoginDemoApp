@@ -6,7 +6,7 @@ interface TrainingDataItem {
   noOfTrainees: number;
   badgeNumber: string;
   location: string;
-  trainingId: string;
+  trainingId: number;
   department: string;
   supervisor: string;
   fromDate: string;
@@ -63,6 +63,7 @@ const TrainingList: React.FC = () => {
         fromDate: training["FromDate"],
         status: training["Status"],
         region: training["Region"],
+        trainingId: Number(training["TrainingId"]),
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
@@ -91,6 +92,7 @@ const TrainingList: React.FC = () => {
         status: training["Status"],
         subject: training["Subject"],
         region: training["Region"],
+        trainingId: Number(training["TrainingId"]),
       }));
       // Set the parsed local data
       setData(parsedData);
@@ -202,7 +204,7 @@ const TrainingList: React.FC = () => {
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.noOfTrainees.toString()}
+        keyExtractor={(item) => item.trainingId.toString()}
         contentContainerStyle={styles.listContainer}
       />
       <Modal

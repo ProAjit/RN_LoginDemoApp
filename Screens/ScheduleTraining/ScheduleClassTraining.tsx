@@ -60,7 +60,7 @@ const ScheduleClassTraining = () => {
   };
 
   const handleSubmit = async () => {
-    if (region.trim() === '' || department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '') {
+    if (region.trim() === '' || department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '' || subject.trim() === '') {
       Alert.alert('Error', 'Please enter values in all fields.');
       return;
     }
@@ -77,6 +77,7 @@ const ScheduleClassTraining = () => {
       const data = {
         department,
         supervisor,
+        subject,
         noOfTrainees: numTrainees,
         location,
         fromDate: fromDate as Date,
