@@ -60,7 +60,14 @@ const ScheduleClassTraining = () => {
   };
 
   const handleSubmit = async () => {
-    if (region.trim() === '' || department.trim() === '' || supervisor.trim() === '' || noOfTrainees.trim() === '' || location.trim() === '' || subject.trim() === '') {
+    if (
+      region.trim() === '' ||
+      department.trim() === '' ||
+      supervisor.trim() === '' ||
+      noOfTrainees.trim() === '' ||
+      location.trim() === '' ||
+      subject.trim() === ''
+    ) {
       Alert.alert('Error', 'Please enter values in all fields.');
       return;
     }
@@ -71,32 +78,44 @@ const ScheduleClassTraining = () => {
       return;
     }
 
-    setLoading(true); // Show loader
+    setLoading(true);
+
+    const requestBody = {
+      Badgenumber: '67541',
+      Department: department,
+      Supervisor: supervisor,
+      NumberOfTrainees: numTrainees,
+      Location: location,
+      Subject: subject,
+      FromDate: fromDate?.toISOString(),
+      ToDate: toDate?.toISOString(),
+      Region: region,
+    };
+
+    console.log('REQUEST BODY', requestBody)
 
     try {
-      const data = {
-        department,
-        supervisor,
-        subject,
-        noOfTrainees: numTrainees,
-        location,
-        fromDate: fromDate as Date,
-        toDate: toDate as Date,
-      };
-      const response = await submitTrainingData(data);
-      // Check the status code and show a message
-      if (response.status === 200) {
-        Alert.alert('Success', 'Data submitted successfully.');
-        handleCancel();
+      const response = await fetch('http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/submitTraining', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const responseData = await response.json();
+      if (response.ok && responseData.TrainingRequestId) {
+        Alert.alert('Success', `Training Request ID: ${responseData.TrainingRequestId}`);
+        //handleCancel();
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
+      console.log('SUCCESS RESPONSE', response)
     } catch (error) {
-      Alert.alert('Error', 'Failed to submit training data.');
+      console.log('ERROR', error)
+      Alert.alert('Error', 'Network error occurred while submitting data.');
     } finally {
-      setTimeout(() => {
-        setLoading(false); // Hide loader after 0.5 seconds
-      }, 500);
+      setLoading(false);
     }
   };
 
