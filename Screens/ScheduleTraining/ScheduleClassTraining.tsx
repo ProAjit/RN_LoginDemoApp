@@ -110,10 +110,11 @@ const ScheduleClassTraining = () => {
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.log('SUCCESS RESPONSE', response.json())
+      console.warn('submitTraining SUCCESS');
+      console.log('\n SUCCESS RESPONSE', response.json())
     } catch (error) {
-      console.log('ERROR', error)
-      Alert.alert('Error', 'Network error occurred while submitting data.');
+      console.warn('submitTraining Failed');
+      console.warn('Error', 'Network error occurred while submitting data.');
     } finally {
       setLoading(false);
     }

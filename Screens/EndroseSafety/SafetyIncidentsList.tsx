@@ -38,10 +38,11 @@ const SafetyIncidentsList: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.log('Resp JSON:', json);
+      console.warn('getIncidentList SUCCESS');
+      console.log('\n getIncidentList JSON:', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('API call failed, loading local JSON:', error);
+      console.warn('\n API call failed, loading local JSON:', error);
       const localData = require(jsonFilePath);
       setTimeout(() => {
         processIncidents(localData);
@@ -67,7 +68,7 @@ const SafetyIncidentsList: React.FC = () => {
       // Set the parsed local data
      setData(parsedData);
     } else {
-      Alert.alert('No Incidents', 'No incidents found in the local JSON');
+      console.warn('\n No Incidents', 'No incidents found in the local JSON');
     }
   };
 

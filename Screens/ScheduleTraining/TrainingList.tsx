@@ -67,9 +67,12 @@ const TrainingList: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
+      console.warn('getTrainingList SUCCESS');
+      console.log('\n getTrainingList SUCCESS', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('API call failed, loading local JSON:', error);
+      console.warn('getTrainingList Failed');
+      console.log('\n API call failed, loading local JSON:', error);
       const localData = require(jsonFilePath);
       setTimeout(() => {
         processTrainings(localData);
