@@ -7,11 +7,11 @@ import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import { COLORS } from '../../Constants/GlobalData';
 
 const QueriesScreen = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState('');
+  const [name, setName] = useState('Ajit S');
+  const [email, setEmail] = useState('ajit@test.com');
+  const [phone, setPhone] = useState('+9191');
+  const [subject, setSubject] = useState('');
+  const [title, setTitle] = useState('ios developer');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
@@ -19,45 +19,56 @@ const QueriesScreen = () => {
   const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   const handleSubmit = async () => {
-    if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || title.trim() === '' || type.trim() === '') {
+    if (region.trim() === '' || description.trim() === '' || subject.trim() === '' ) {
       Alert.alert('Error', 'Please enter values in all fields.');
       return;
     }
 
-    setLoading(true); // Show loader
+    setLoading(true);
+
+    const requestBody = {
+      Badgenumber: '67541',
+      Region: region,
+      Name: name,
+      Email: email,
+      Phone: phone,
+      Title: title,
+      Subject: subject,
+      Description: description,
+      Status: 'New',
+      BadgeId: '0048690',
+    };
+
+    console.log('REQUEST BODY', requestBody)
 
     try {
-      const data = {
-        name,
-        email,
-        phone,
-        description,
-        type,
-        title,
-      };
-      const response = await submitQueriesData(data);
-      // Check the status code and show a message
-      if (response.status === 200) {
-        Alert.alert('Success', 'Data submitted successfully.');
+      const response = await fetch('http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/createQuery', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const responseData = await response.json();
+      if (response.ok && responseData.Status) {
+        Alert.alert('Success', `Query ID: ${responseData.Status}`);
         handleCancel();
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
+      console.warn('createQuery SUCCESS');
+      console.log('\n SUCCESS RESPONSE', responseData)
     } catch (error) {
-      Alert.alert('Error', 'Failed to submit training data.');
+      console.warn('createQuery Failed');
+      console.log('Error', error);
     } finally {
-      setTimeout(() => {
-        setLoading(false); // Hide loader after 0.5 seconds
-      }, 500);
+      setLoading(false);
     }
   };
 
   const handleCancel = () => {
-    setName('');
-    setEmail('');
-    setPhone('');
-    setTitle('');
-    setType('');
+    setSubject('')
     setDescription('');
     setRegion('');
     setIsDropdownVisible(false)
@@ -149,8 +160,8 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Subject</Text>
         <TextInput 
         style={styles.input} 
-        value={type} 
-        onChangeText={setType} 
+        value={subject} 
+        onChangeText={setSubject} 
         autoCorrect={false} 
         spellCheck={false} 
         placeholder="Enter Subject" 
