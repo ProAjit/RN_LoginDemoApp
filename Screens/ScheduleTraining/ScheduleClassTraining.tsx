@@ -106,7 +106,7 @@ const ScheduleClassTraining = () => {
       const responseData = await response.json();
       if (response.ok && responseData.TrainingRequestId) {
         Alert.alert('Success', `Training Request ID: ${responseData.TrainingRequestId}`);
-        //handleCancel();
+        handleCancel();
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
