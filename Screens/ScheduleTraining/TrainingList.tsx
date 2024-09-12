@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -22,7 +22,7 @@ interface TrainingListProps {
 }
 
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/trainingsList.json';
-const getTrainingsURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getTrainingList?BadgeNumber=67541'
+const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + USER.badgeNumber
 
 const TrainingList: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);

@@ -47,3 +47,18 @@ export const DEVICE = {
  height: Dimensions.get('window').height,
  width: Dimensions.get('window').width,
 }
+
+export const USER = {
+  badgeId: '0048690',
+  badgeNumber: '67541',
+  email: 'ajit.s@mail.com',
+  phone: '+9191',
+  title: 'app developer',
+  name: 'Mr. Ajit S',
+  status: 'New',
+}
+
+export const API = {
+  TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
+  TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
+}

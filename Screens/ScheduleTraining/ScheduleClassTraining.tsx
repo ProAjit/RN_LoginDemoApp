@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
@@ -95,7 +95,7 @@ const ScheduleClassTraining = () => {
     console.log('REQUEST BODY', requestBody)
 
     try {
-      const response = await fetch('http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/submitTraining', {
+      const response = await fetch(API.TestBaseURL+ '/submitTraining', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

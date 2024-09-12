@@ -4,14 +4,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, USER, API } from '../../Constants/GlobalData';
 
 const QueriesScreen = () => {
-  const [name, setName] = useState('Ajit S');
-  const [email, setEmail] = useState('ajit@test.com');
-  const [phone, setPhone] = useState('+9191');
+  const [name, setName] = useState(USER.name);
+  const [email, setEmail] = useState(USER.email);
+  const [phone, setPhone] = useState(USER.phone);
   const [subject, setSubject] = useState('');
-  const [title, setTitle] = useState('ios developer');
+  const [title, setTitle] = useState(USER.title);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
@@ -27,7 +27,7 @@ const QueriesScreen = () => {
     setLoading(true);
 
     const requestBody = {
-      Badgenumber: '67541',
+      Badgenumber: USER.badgeNumber,
       Region: region,
       Name: name,
       Email: email,
@@ -35,14 +35,14 @@ const QueriesScreen = () => {
       Title: title,
       Subject: subject,
       Description: description,
-      Status: 'New',
-      BadgeId: '0048690',
+      Status: USER.status,
+      BadgeId: USER.badgeId,
     };
 
     console.log('REQUEST BODY', requestBody)
 
     try {
-      const response = await fetch('http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/createQuery', {
+      const response = await fetch(API.TestBaseURL + '/createQuery', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

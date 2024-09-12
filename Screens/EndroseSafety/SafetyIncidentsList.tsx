@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
 
 interface DataItem {
   incidentId: Number
@@ -14,7 +14,7 @@ interface DataItem {
 }
 
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/incidentsList.json';
-const getIncidentURL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getIncidentList?BadgeNumber=67541'
+const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + USER.badgeNumber
 
 const SafetyIncidentsList: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
