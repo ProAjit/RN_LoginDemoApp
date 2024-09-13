@@ -60,12 +60,14 @@ const EndorseSafetyScreen = () => {
     setLoading(true);
     try {
       const response = await submitSafetyEndorsement(name, badgeNumber, location, description, region, image);
-      if (response?.result?.statusCode === 200) {
-        Alert.alert('Success', response.result.message);
+      console.log('submitTraining RESPONSE', response)
+      if (response?.result?.statusCode === 200 && response.data) {
+        Alert.alert('Success', `Training Request ID: ${response.data.IncidentId}`);
         handleCancel(); // Reset the form on success
       } else {
-        Alert.alert('Error', 'There was an issue with your submission. Please try again.');
+        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
+      console.warn('submitTraining SUCCESS');
     } catch (error) {
       Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');
     } finally {

@@ -27,11 +27,10 @@ export const submitSafetyEndorsement = async ( name: string, badgeNumber: string
         Accept: 'application/json',
       },
     });
-    console.log('submitEndorsement Success:', response);
-    console.warn('submitEndorsement Success');
     return response.data;
   } catch (error) {
     console.error('API call error:', error);
     throw error;
   }
 };
+
