@@ -23,6 +23,7 @@ const SafetyIncidentsList: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
+      console.log('\n getIncidentList URL:', getIncidentURL);
       const response = await fetch(getIncidentURL);
       const json = await response.json();
       // Parse the response to map to DataItem format

@@ -59,6 +59,8 @@ export const USER = {
 }
 
 export const API = {
+  // TestBaseURL: 'http://riysvlcm-003.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
+  // TestBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
   TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
   TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
 }

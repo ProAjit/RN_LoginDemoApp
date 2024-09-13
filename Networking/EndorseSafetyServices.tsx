@@ -1,16 +1,16 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://example.com/api'; // Replace with your actual API base URL
+import { API } from '../Constants/GlobalData';
 
 export const submitSafetyEndorsement = async ( name: string, badgeNumber: string, location: string,
-  description: string, imageUri: string | null ) => {
+  description: string, region: string, imageUri: string | null ) => {
     
   const formData = new FormData();
 
-  formData.append('name', name);
-  formData.append('badgeNumber', badgeNumber);
-  formData.append('location', location);
-  formData.append('description', description);
+  formData.append('Name', name);
+  formData.append('Badgenumber', badgeNumber);
+  formData.append('Location', location);
+  formData.append('Description', description);
+  formData.append('Region', region);
 
   if (imageUri) {
     formData.append('image', {
@@ -21,12 +21,14 @@ export const submitSafetyEndorsement = async ( name: string, badgeNumber: string
   }// Check appropriate MIME type and Change the file name if need be
 
   try {
-    const response = await axios.post(`${BASE_URL}/submitEndorsement`, formData, {
+    const response = await axios.post(`${API.TestBaseURL}/submitEndorsement`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Accept: 'application/json',
       },
     });
+    console.log('submitEndorsement Success:', response);
+    console.warn('submitEndorsement Success');
     return response.data;
   } catch (error) {
     console.error('API call error:', error);

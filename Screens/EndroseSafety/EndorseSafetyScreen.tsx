@@ -52,14 +52,14 @@ const EndorseSafetyScreen = () => {
   };
 
   const handleSubmit = async () => {
-    if (location.trim() === '' || description.trim() === '') {
-      Alert.alert('Error', 'Location and Description are mandatory fields.');
+    if (region.trim() === '' || location.trim() === '' || description.trim() === '') {
+      Alert.alert('Error', 'Please fill mandatory fields.');
       return;
     }
 
     setLoading(true);
     try {
-      const response = await submitSafetyEndorsement(name, badgeNumber, location, description, image);
+      const response = await submitSafetyEndorsement(name, badgeNumber, location, description, region, image);
       if (response?.result?.statusCode === 200) {
         Alert.alert('Success', response.result.message);
         handleCancel(); // Reset the form on success
