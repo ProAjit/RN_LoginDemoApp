@@ -1,7 +1,7 @@
 // ClassTrainingServices.ts
 
 import axios from 'axios';
-import { API } from '../Constants/GlobalData';
+import { API } from '../../Constants/GlobalData';
 
 const API_BASE_URL = API.TestBaseURL
 

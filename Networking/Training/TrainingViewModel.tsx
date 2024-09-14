@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { submitTraining } from './ClassTrainingServices';
-import { USER } from '../Constants/GlobalData';
+import { USER } from '../../Constants/GlobalData';
 
 export const handleSubmit = async (
   region: string,

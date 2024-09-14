@@ -10,7 +10,7 @@ import QueriesScreen from '../Screens/Queries/Queris';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E-Training/E_TrainingScreen';
-import ScheduleClassTraining from '../Screens/ScheduleTraining/ScheduleClassTraining';
+import ScheduleClassTraining from '../Screens/Training/ScheduleClassTraining';
 import PdfViewer from '../Screens/SafetyNews/PdfViewer';
 import AdminScreen from '../Screens/Admin/AdminScreen';
 import UpdateTrainingScreen from '../Screens/Admin/UpdateTrainingScreen';

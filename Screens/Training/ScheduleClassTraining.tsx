@@ -4,7 +4,7 @@ import {
   KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { handleSubmit } from '../../Networking/TrainingViewModel';
+import { handleSubmit } from '../../Networking/Training/TrainingViewModel';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';

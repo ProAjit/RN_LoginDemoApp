@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import TrainingList from '../ScheduleTraining/TrainingList';
+import TrainingList from '../Training/TrainingList';
 import { COLORS } from '../../Constants/GlobalData';
 
 const initialData = [

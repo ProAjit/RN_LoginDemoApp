@@ -7,7 +7,7 @@ import AppSingleton from '../../AppSingleton/AppSingleton';
 import ManagementMessagesScreen from '../TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../EndroseSafety/EndorseSafetyScreen';
 import QueriesScreen from '../Queries/Queris';
-import ScheduleClassTraining from '../ScheduleTraining/ScheduleClassTraining';
+import ScheduleClassTraining from '../Training/ScheduleClassTraining';
 import E_TrainingScreen from '../E-Training/E_TrainingScreen';
 import AboutScreen from './AboutScreen';
 import AdminScreen from '../Admin/AdminScreen';

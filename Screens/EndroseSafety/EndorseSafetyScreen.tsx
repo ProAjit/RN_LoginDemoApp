@@ -5,7 +5,7 @@ import {
   FlatList, TouchableWithoutFeedback} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
-import { submitSafetyEndorsement } from '../../Networking/EndorseSafetyServices';
+import { submitSafetyEndorsement } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
