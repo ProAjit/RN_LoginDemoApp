@@ -4,19 +4,15 @@ import {
   KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { submitTrainingData } from '../../Networking/ClassTrainingServices';
+import { handleSubmit } from '../../Networking/TrainingViewModel';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
-
-// const TrainingDataArr = [
-//   { noOfTrainees: 111111, department: 'Department 1', supervisor: 'Supervisor 1', location: 'Riyadh office', status: 'Rescheduled', fromDate: '20 Aug 2024 10:30 AM', toDate: '21 Aug 2024 11:30 AM' },
-// ];
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -57,67 +53,6 @@ const ScheduleClassTraining = () => {
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
     return `${day}/${month}/${year} \n ${formattedHours}:${minutes} ${ampm}`;
-  };
-
-  const handleSubmit = async () => {
-    if (
-      region.trim() === '' ||
-      department.trim() === '' ||
-      supervisor.trim() === '' ||
-      noOfTrainees.trim() === '' ||
-      location.trim() === '' ||
-      subject.trim() === ''
-    ) {
-      Alert.alert('Error', 'Please enter values in all fields.');
-      return;
-    }
-
-    const numTrainees = parseInt(noOfTrainees);
-    if (isNaN(numTrainees) || numTrainees < 5 || numTrainees > 30) {
-      Alert.alert('Invalid Input', 'Please enter a number between 5 and 30.');
-      return;
-    }
-
-    setLoading(true);
-
-    const requestBody = {
-      Badgenumber: '67541',
-      Department: department,
-      Supervisor: supervisor,
-      NumberOfTrainees: numTrainees,
-      Location: location,
-      Subject: subject,
-      FromDate: fromDate?.toISOString(),
-      ToDate: toDate?.toISOString(),
-      Region: region,
-    };
-
-    console.log('REQUEST BODY', requestBody)
-
-    try {
-      const response = await fetch(API.TestBaseURL+ '/submitTraining', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      const responseData = await response.json();
-      if (response.ok && responseData.TrainingRequestId) {
-        Alert.alert('Success', `Training Request ID: ${responseData.TrainingRequestId}`);
-        handleCancel();
-      } else {
-        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
-      }
-      console.warn('submitTraining SUCCESS');
-      console.log('\n SUCCESS RESPONSE', response.json())
-    } catch (error) {
-      console.warn('submitTraining Failed');
-      console.warn('Error', 'Network error occurred while submitting data.');
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleCancel = () => {
@@ -289,7 +224,20 @@ const ScheduleClassTraining = () => {
 
       {selectedIndex === 0 && (
         <View style={bottomButtonStyles.buttonContainer}>
-          <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
+          <TouchableOpacity style={bottomButtonStyles.button} onPress={() => {
+          handleSubmit(
+            region,
+            department,
+            supervisor,
+            noOfTrainees,
+            location,
+            subject,
+            fromDate,
+            toDate,
+            setLoading,
+            handleCancel
+          );
+        }} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={bottomButtonStyles.whiteButton} onPress={handleCancel} disabled={loading}>

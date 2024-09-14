@@ -1,28 +1,20 @@
 // ClassTrainingServices.ts
 
 import axios from 'axios';
+import { API } from '../Constants/GlobalData';
 
-interface TrainingData {
-  department: string;
-  supervisor: string;
-  noOfTrainees: number;
-  location: string;
-  fromDate: Date;
-  toDate: Date;
-}
+const API_BASE_URL = API.TestBaseURL
 
-const API_URL = 'https://dummyapi.com/submitTraining'; 
-
-export const submitTrainingData = async (data: TrainingData) => {
+export const submitTraining = async (requestBody: any) => {
   try {
-    const response = await axios.post(API_URL, data, {
+    const response = await axios.post(`${API_BASE_URL}/submitTraining`, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error submitting training data:', error);
+    console.error('Error while submitting training data:', error);
     throw error;
   }
 };
