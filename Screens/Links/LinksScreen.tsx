@@ -65,7 +65,7 @@ const LinksScreen: React.FC = () => {
       <Text style={styles.description}>Description: {item.LinkDescription}</Text>
       <Text style={styles.creationDate}>Created on: {item.CreationDate}</Text>
       <TouchableOpacity onPress={() => openLink(item.Link1)}>
-        <Text style={styles.link}>{item.Link1}</Text>
+        <Text style={styles.link}>Click here to visit link</Text>
       </TouchableOpacity>
     </View>
   );
