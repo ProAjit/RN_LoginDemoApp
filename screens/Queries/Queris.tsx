@@ -4,14 +4,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
-import { COLORS, USER, API } from '../../Constants/GlobalData';
+import { COLORS, USER } from '../../Constants/GlobalData';
 
 const QueriesScreen = () => {
-  const [name, setName] = useState(USER.name);
-  const [email, setEmail] = useState(USER.email);
-  const [phone, setPhone] = useState(USER.phone);
+  const name = USER.name;
+  const email = USER.email;
+  const phone = USER.phone;
+  const title = USER.title;
   const [subject, setSubject] = useState('');
-  const [title, setTitle] = useState(USER.title);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
@@ -19,49 +19,25 @@ const QueriesScreen = () => {
   const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   const handleSubmit = async () => {
-    if (region.trim() === '' || description.trim() === '' || subject.trim() === '' ) {
-      Alert.alert('Error', 'Please enter values in all fields.');
+    if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
+      Alert.alert('Error', 'Please fill mandatory fields.');
       return;
     }
 
     setLoading(true);
-
-    const requestBody = {
-      Badgenumber: USER.badgeNumber,
-      Region: region,
-      Name: name,
-      Email: email,
-      Phone: phone,
-      Title: title,
-      Subject: subject,
-      Description: description,
-      Status: USER.status,
-      BadgeId: USER.badgeId,
-    };
-
-    console.log('REQUEST BODY', requestBody)
-
     try {
-      const response = await fetch(API.TestBaseURL + '/createQuery', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      const responseData = await response.json();
-      if (response.ok && responseData.Status) {
-        Alert.alert('Success', `Query ID: ${responseData.Status}`);
-        handleCancel();
+      const response = await submitQueriesData(name, email, phone, description, region, title, subject )
+      console.log('submitQuery response', response);
+      if (response?.result?.statusCode === 200 && response.data) {
+        Alert.alert('Success', `Query Id: ${response.data.QueryId}`);
+        handleCancel(); // Reset the form on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.warn('createQuery SUCCESS');
-      console.log('\n SUCCESS RESPONSE', responseData)
+      console.warn('submitQuery SUCCESS');
+      handleCancel()
     } catch (error) {
-      console.warn('createQuery Failed');
-      console.log('Error', error);
+      Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API } from '../Constants/GlobalData';
+import { API } from '../../Constants/GlobalData';
 
 export const submitSafetyEndorsement = async ( name: string, badgeNumber: string, location: string,
   description: string, region: string, imageUri: string | null ) => {

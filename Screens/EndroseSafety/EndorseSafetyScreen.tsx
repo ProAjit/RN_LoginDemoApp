@@ -4,7 +4,7 @@ import {
   StyleSheet, Alert, KeyboardAvoidingView, Switch, 
   FlatList, TouchableWithoutFeedback} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { launchCamera, CameraOptions } from 'react-native-image-picker';
+// import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import { submitSafetyEndorsement } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import SafetyIncidentsList from './SafetyIncidentsList';
@@ -14,9 +14,6 @@ import { COLORS, DEVICE } from '../../Constants/GlobalData';
 
 const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
-// const data = [
-//   { badgeNumber: 111111, name: 'Employee Name 1', description: '', location: 'Riyadh office', status: 'Open' },
-// ];
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -30,26 +27,26 @@ const EndorseSafetyScreen = () => {
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
 
-  const openCamera = () => {
-    const options: CameraOptions = {
-      mediaType: 'photo',
-      cameraType: 'back',
-      quality: 1,
-      includeBase64: true,
-      saveToPhotos: false,
-    };
+  // const openCamera = () => {
+  //   const options: CameraOptions = {
+  //     mediaType: 'photo',
+  //     cameraType: 'back',
+  //     quality: 1,
+  //     includeBase64: true,
+  //     saveToPhotos: false,
+  //   };
 
-    launchCamera(options, (response) => {
-      if (response.didCancel) {
-        Alert.alert('User cancelled image picker');
-      } else if (response.errorCode) {
-        Alert.alert('ImagePicker Error: camera_unavailable');
-      } else if (response.assets) {
-        const uri = response.assets[0].uri;
-        setImage(uri || null);
-      }
-    });
-  };
+  //   launchCamera(options, (response) => {
+  //     if (response.didCancel) {
+  //       Alert.alert('User cancelled image picker');
+  //     } else if (response.errorCode) {
+  //       Alert.alert('ImagePicker Error: camera_unavailable');
+  //     } else if (response.assets) {
+  //       const uri = response.assets[0].uri;
+  //       setImage(uri || null);
+  //     }
+  //   });
+  // };
 
   const handleSubmit = async () => {
     if (region.trim() === '' || location.trim() === '' || description.trim() === '') {
@@ -125,13 +122,13 @@ const EndorseSafetyScreen = () => {
           editable={false}
           style={styles.regionText}>{region}
         </TextInput>
-        {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
       </TouchableOpacity>
       {isDropdownVisible && renderRegionDropdown()}
 
       <View style={styles.topView}>
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
-        <Button title="Take A Picture" onPress={openCamera} />
+        <Button title="Take A Picture" />
+        {/* onPress={openCamera} /> */}
       </View>
 
       {/* New Switch View */}
