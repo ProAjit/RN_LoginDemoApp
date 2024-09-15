@@ -1,53 +1,93 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
-import RNFetchBlob from 'react-native-blob-util';
-import { COLORS } from '../../Constants/GlobalData';
+// src/screens/SafetyNewsScreen.js
 
-const { width, height } = Dimensions.get('window');
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from 'react-native';
+import RNFetchBlob from 'react-native-blob-util';
+import { COLORS, FormatDate } from '../../Constants/GlobalData';
+import { fetchSafetyNews } from '../../Networking/SafetyNews/NewsService';
+const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/newsList.json';
+
+interface NewsData {
+  titleEn: string;
+  detailsEn: string;
+  msgId: number;
+  titleAr: string;
+  detailsAr: string;
+  effectiveStartDate: string;
+  effectiveEndDate: string;
+  status: string;
+  createdBy: number;
+  creationDate: string;
+  lastUpdateDate: string;
+  lastUpdatedBy: number;
+  attribute1: string;
+  attribute2: string;
+  attribute3: string;
+  attribute4: string;
+  attribute5: string;
+  processFlag: string;
+  errorMsg: string;
+}
 
 const SafetyNewsScreen = () => {
-  const handleDownload = async () => {
-    console.log('Download started')
-    const uri = 'https://www.sharedfilespro.com/shared-files/38/?sample.pdf';
+  const [data, setData] = useState<NewsData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const responseData = await fetchSafetyNews();
+        setData(responseData.ActiveNews); // Set the fetched data
+        console.warn('getNewsList SUCCESS');
+        console.log('\n getNewsList JSON:', responseData);  
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        const localData = require(jsonFilePath);
+        setData(localData.ActiveNews); // Set the fetched data
+        console.warn('getLinksList local');
+        setTimeout(() => {
+      }, 100);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  // Handle download of PDF using RNFetchBlob
+  const handleDownload = async (pdfUrl: string) => {
     const fileUri = RNFetchBlob.fs.dirs.DocumentDir + '/sample.pdf';
     try {
       const res = await RNFetchBlob.config({
         path: fileUri,
-      }).fetch('GET', uri);
-      console.log('Download completed:', res.path());
+      }).fetch('GET', pdfUrl);
       Alert.alert('Download completed');
     } catch (error) {
-      console.error('Download failed:', error);
       Alert.alert('Download failed');
     }
   };
 
+  const renderNewsItem = ({ item }: { item: NewsData }) => (
+    <View style={styles.newsItem}>
+      <Text style={styles.title}>Message ID: {item.msgId}</Text>
+      <Text style={styles.newsDetails}>Description: {item.detailsEn}</Text>
+      <Text style={styles.creationDate}>Created on: {FormatDate(item.creationDate)}</Text>
+      {item.attribute2 && (
+        <TouchableOpacity onPress={() => handleDownload(item.attribute2)}>
+          <Text style={styles.downloadLink}>Download PDF</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://farm2.staticflickr.com/1533/26541536141_41abe98db3_z_d.jpg' }}
-        style={styles.image}
+      <FlatList
+        data={data}
+        renderItem={renderNewsItem}
+        keyExtractor={(item) => item.msgId.toString()}
+        contentContainerStyle={styles.notificationContainer}
       />
-      <Text style={styles.title}>Announcement</Text>
-      <ScrollView style={styles.scrollView}>
-        <Text style={styles.description}>
-          1. React State Management:
-          {'\n'}- State and state management are essential aspects of a React application.
-          {'\n'}- State can be managed using native hooks, external libraries, or third-party libraries.
-          {'\n'}2. Zustand Overview:
-          {'\n'}- Zustand is a compact, fast, and scalable state management library.
-          {'\n'}- It is based on simplified flux principles and primarily makes use of hooks.
-          {'\n'}3. Advantages of Zustand:
-          {'\n'}- Zustand is faster than context and allows for specific state selection.
-          {'\n'}- It does state merging by default and is extendable and less opinionated than other libraries.
-          {'\n'}4. Zustand vs. Redux:
-          {'\n'}- Comparing the architectural designs of Zustand and Redux shows the simplified nature of Zustand's diagram.
-          {'\n'}- Zustand is a lightweight alternative to Redux for simple and lightweight state management.
-        </Text>
-      </ScrollView>
-      <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
-        <Text style={styles.downloadText}>Download Document</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -58,9 +98,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: COLORS.appBackground,
   },
-  image: {
-    width: width * 0.9,
-    height: height * 0.15,
+  notificationContainer: {
+    marginVertical: 8,
+    width: '95%',
     alignSelf: 'center',
   },
   title: {
@@ -69,25 +109,36 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   scrollView: {
-    flex: 1,
+    paddingBottom: 20,
   },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  downloadButton: {
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.appThemeBlue,
-    marginTop: 10,
+  newsItem: {
     marginBottom: 20,
-    marginLeft: 50,
-    marginRight: 50,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
   },
-  downloadText: {
-    color: '#FFFFFF',
+  newsTitle: {
     fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  newsDetails: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  downloadLink: {
+    fontSize: 16,
+    color: COLORS.appThemeBlue,
+    textDecorationLine: 'underline',
+  },
+  creationDate: {
+    fontSize: 14,
+    color: 'gray',
   },
 });
 

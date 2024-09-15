@@ -1,0 +1,46 @@
+{
+  "ActiveNews": [
+    {
+      "msgId": 26,
+      "titleEn": "TEST1",
+      "titleAr": null,
+      "detailsEn": "A paragraph (from Ancient Greek &#960;&#945;&#961;&#940;&#947;&#961;&#945;&#966;&#959;&#962; (par&#225;graphos) 'to write beside'). This style can be seen in the (handwritten) Unit",
+      "detailsAr": null,
+      "effectiveStartDate": "2024-06-11T00:00:00.000+03:00",
+      "effectiveEndDate": "2024-06-12T00:00:00.000+03:00",
+      "status": null,
+      "createdBy": 60094,
+      "creationDate": "2024-06-10T00:00:00.000+03:00",
+      "lastUpdateDate": "2024-06-10T00:00:00.000+03:00",
+      "lastUpdatedBy": 60094,
+      "attribute1": "NEWS",
+      "attribute2": "https://www.sharedfilespro.com/shared-files/38/?sample.pdf",
+      "attribute3": null,
+      "attribute4": null,
+      "attribute5": null,
+      "processFlag": null,
+      "errorMsg": null
+    },
+    {
+      "msgId": 27,
+      "titleEn": "TEST1",
+      "titleAr": null,
+      "detailsEn": "A paragraph (from Ancient Greek &#960;&#945;&#961;&#940;&#947;&#961;&#945;&#966;&#959;&#962; (par&#225;graphos) 'to write beside') is a self-contained unit of discourse in writing dealing with a particular point or idea. Outdenting is still used in English typography, though not commonly.[3] Modern English typography usually indicates a new paragraph by indenting the first line. This style can be seen in the (handwritten) Unit",
+      "detailsAr": null,
+      "effectiveStartDate": "2024-06-11T00:00:00.000+03:00",
+      "effectiveEndDate": "2024-10-12T00:00:00.000+03:00",
+      "status": null,
+      "createdBy": 60094,
+      "creationDate": "2024-06-10T00:00:00.000+03:00",
+      "lastUpdateDate": "2024-06-10T00:00:00.000+03:00",
+      "lastUpdatedBy": 60094,
+      "attribute1": "NEWS",
+      "attribute2": "https://www.sharedfilespro.com/shared-files/38/?sample.pdf",
+      "attribute3": null,
+      "attribute4": null,
+      "attribute5": null,
+      "processFlag": null,
+      "errorMsg": null
+    }
+  ]
+}
