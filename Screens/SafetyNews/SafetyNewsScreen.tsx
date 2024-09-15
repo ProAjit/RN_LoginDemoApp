@@ -44,7 +44,7 @@ const SafetyNewsScreen = () => {
         console.error('Error fetching data:', error);
         const localData = require(jsonFilePath);
         setData(localData.ActiveNews); // Set the fetched data
-        console.warn('getLinksList local');
+        console.warn('getNewsList local');
         setTimeout(() => {
       }, 100);
       } finally {
