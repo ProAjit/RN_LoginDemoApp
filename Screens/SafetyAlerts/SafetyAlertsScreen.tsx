@@ -1,50 +1,73 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { COLORS } from '../../Constants/GlobalData';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { fetchAlertsData } from '../../Networking/SafetyAlerts/AlertsServices'; 
+import { COLORS, FormatDate } from '../../Constants/GlobalData';
+const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/alertsList.json';
 
-// Sample data with random notifications
-const notifications = [
-  {
-    id: '1',
-    title: 'New Update Available',
-    description: 'A new update is available for download. Please update your app to the latest version for new features and improvements.',
-  },
-  {
-    id: '2',
-    title: 'Scheduled Maintenance',
-    description: 'Our servers will undergo scheduled maintenance from 1:00 AM to 3:00 AM. During this time, the app may be unavailable.',
-  },
-  {
-    id: '3',
-    title: 'Account Security Alert',
-    description: 'We detected a login attempt from an unfamiliar device. If this wasn’t you, please change your password immediately.',
-  },
-  {
-    id: '4',
-    title: 'Welcome to Our App',
-    description: 'Thank you for signing up! We hope you enjoy our service. If you have any questions, feel free to reach out to our support team.',
-  },
-  {
-    id: '5',
-    title: 'Reminder: Complete Your Profile',
-    description: 'Please complete your profile to get the most out of our app. It only takes a few minutes!',
-  },
-];
+interface AlertData {
+  titleEn: number;
+  msgId: number;
+  titleAr: string;
+  detailsEn: string;
+  detailsAr: string;
+  effectiveStartDate: string;
+  effectiveEndDate: string;
+  status: string;
+  createdBy: number;
+  creationDate: string;
+  lastUpdatedBy: number;
+}
 
 const SafetyAlertsScreen: React.FC = () => {
-  const renderItem = ({ item }: { item: { id: string; title: string; description: string } }) => (
-    <View style={styles.notificationContainer}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
+  const [data, setData] = useState<AlertData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Fetch data from API on component mount
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const responseData = await fetchAlertsData();
+        setData(responseData.Alerts); // Set the fetched data
+        console.warn('getAlertList SUCCESS');
+        console.log('\n getAlertList JSON:', responseData);  
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        const localData = require(jsonFilePath);
+        setData(localData.Alerts); // Set the fetched data
+        console.warn('getAlertList local');
+        setTimeout(() => {
+      }, 100);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  // Render each item in FlatList
+  const renderItem = ({ item }: { item: AlertData }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>ID: {item.msgId}</Text>
+      <Text numberOfLines={3} style={styles.description}>Description: {item.detailsEn}</Text>
+      <Text style={styles.creationDate}>Created on: {FormatDate(item.creationDate)}</Text>
     </View>
   );
+
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={notifications}
+        data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.msgId.toString()}
+        contentContainerStyle={styles.notificationContainer}
       />
     </View>
   );
@@ -58,26 +81,38 @@ const styles = StyleSheet.create({
     paddingHorizontal: '2.5%',
   },
   notificationContainer: {
-    backgroundColor: COLORS.white,
-    padding: 15,
     marginVertical: 8,
-    borderRadius: 10,
     width: '95%',
     alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
   },
   description: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  creationDate: {
     fontSize: 14,
-    color: '#555555',
+    color: 'gray',
+  },
+  item: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#f9f9f9',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
