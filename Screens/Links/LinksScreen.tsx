@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Linking } from 'react-native';
 import { fetchLinksData } from '../../Networking/Links/LinksServices'; 
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, FormatDate } from '../../Constants/GlobalData';
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/linksList.json';
 
 interface LinkData {
@@ -66,7 +66,7 @@ const LinksScreen: React.FC = () => {
     <View style={styles.item}>
       <Text style={styles.title}>ID: {item.LinkId}</Text>
       <Text style={styles.description}>Description: {item.LinkDescription}</Text>
-      <Text style={styles.creationDate}>Created on: {item.CreationDate}</Text>
+      <Text style={styles.creationDate}>Created on: {FormatDate(item.CreationDate)}</Text>
       <TouchableOpacity onPress={() => openLink(item.Link1)}>
         <Text style={styles.link}>Click here to visit link</Text>
       </TouchableOpacity>

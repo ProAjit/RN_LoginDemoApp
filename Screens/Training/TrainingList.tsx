@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -127,36 +127,6 @@ const TrainingList: React.FC = () => {
       }
     };
 
-    const formatDate = (dateString: string): string => {
-      // Create a new Date object from the input date string
-      const date = new Date(dateString);
-
-      // Define month names
-      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-      // Extract the day, month, and year
-      const day = date.getDate();
-      const month = monthNames[date.getMonth()];
-      const year = date.getFullYear();
-
-      // Extract the hours and minutes
-      let hours = date.getHours();
-      const minutes = date.getMinutes();
-
-      // Determine AM or PM suffix
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-
-      // Convert 24-hour format to 12-hour format
-      hours = hours % 12;
-      hours = hours ? hours : 12; // Handle the case for 0 hours
-
-      // Format the minutes with leading zeros if necessary
-      const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
-
-      // Return the formatted date string
-      return `${day}-${month}-${year} ${hours}:${minutesFormatted}${ampm}`;
-    };
-
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
@@ -185,11 +155,11 @@ const TrainingList: React.FC = () => {
             Location: {item.location}
           </Text>
           <Text style={styles.dateText}>
-            From: {formatDate(item.fromDate)}
+            From: {FormatDate(item.fromDate)}
           </Text>
           <View style={styles.rowContainer}>
             <Text style={styles.dateText}>
-              To: {formatDate(item.toDate)}
+              To: {FormatDate(item.toDate)}
             </Text>
           </View>
         </View>

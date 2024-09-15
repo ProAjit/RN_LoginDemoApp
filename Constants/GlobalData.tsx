@@ -64,3 +64,33 @@ export const API = {
   TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
   TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
 }
+
+export const FormatDate = (dateString: string): string => {
+  // Create a new Date object from the input date string
+  const date = new Date(dateString);
+
+  // Define month names
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // Extract the day, month, and year
+  const day = date.getDate();
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+
+  // Extract the hours and minutes
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  // Determine AM or PM suffix
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  // Convert 24-hour format to 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; // Handle the case for 0 hours
+
+  // Format the minutes with leading zeros if necessary
+  const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+
+  // Return the formatted date string
+  return `${day}-${month}-${year} ${hours}:${minutesFormatted}${ampm}`;
+};
