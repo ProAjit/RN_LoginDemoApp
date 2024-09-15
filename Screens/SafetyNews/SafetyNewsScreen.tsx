@@ -70,7 +70,7 @@ const SafetyNewsScreen = () => {
   const renderNewsItem = ({ item }: { item: NewsData }) => (
     <View style={styles.newsItem}>
       <Text style={styles.title}>Message ID: {item.msgId}</Text>
-      <Text style={styles.newsDetails}>Description: {item.detailsEn}</Text>
+      <Text numberOfLines={3} style={styles.newsDetails}>Description: {item.detailsEn}</Text>
       <Text style={styles.creationDate}>Created on: {FormatDate(item.creationDate)}</Text>
       {item.attribute2 && (
         <TouchableOpacity onPress={() => handleDownload(item.attribute2)}>
