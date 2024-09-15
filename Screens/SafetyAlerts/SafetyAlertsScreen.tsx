@@ -47,7 +47,7 @@ const SafetyAlertsScreen: React.FC = () => {
   // Render each item in FlatList
   const renderItem = ({ item }: { item: AlertData }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>ID: {item.msgId}</Text>
+      <Text style={styles.title}>Message Id: {item.msgId}</Text>
       <Text numberOfLines={3} style={styles.description}>Description: {item.detailsEn}</Text>
       <Text style={styles.creationDate}>Created on: {FormatDate(item.creationDate)}</Text>
     </View>
