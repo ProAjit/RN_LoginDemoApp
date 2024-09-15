@@ -1,0 +1,52 @@
+{
+    "Links": [
+      {
+        "LinkId": 1,
+        "LinkDescription": "LinkDescription1",
+        "LinkDescriptionAr": "LinkDescriptionAr2",
+        "EffectiveStartDate": "2024-09-04T14:17:29.000+03:00",
+        "EffectiveEndDate": "2024-09-04T14:17:29.000+03:00",
+        "Status": "Status3",
+        "Link1": "Link14",
+        "Link2": "Link25",
+        "Link3": "Link36",
+        "Link4": "Link47",
+        "Link5": "Link58",
+        "createdBy": 9,
+        "CreationDate": "2024-09-04T14:17:29.000+03:00",
+        "LastUpdateDate": "2024-09-04T14:17:29.000+03:00",
+        "LastUpdatedBy": 10,
+        "Attribute1": "Attribute111",
+        "Attribute2": "Attribute212",
+        "Attribute3": "Attribute313",
+        "Attribute4": "Attribute414",
+        "Attribute5": "Attribute515",
+        "ProcessFlag": "ProcessFlag16",
+        "ErrorMsg": "ErrorMsg17"
+      },
+      {
+        "LinkId": 3,
+        "LinkDescription": "LinkDescription1",
+        "LinkDescriptionAr": "LinkDescriptionAr2",
+        "EffectiveStartDate": "2024-09-04T14:17:29.000+03:00",
+        "EffectiveEndDate": "2024-09-04T14:17:29.000+03:00",
+        "Status": "Status3",
+        "Link1": "Link14",
+        "Link2": "Link25",
+        "Link3": "Link36",
+        "Link4": "Link47",
+        "Link5": "Link58",
+        "createdBy": 9,
+        "CreationDate": "2024-09-04T14:17:29.000+03:00",
+        "LastUpdateDate": "2024-09-04T14:17:29.000+03:00",
+        "LastUpdatedBy": 10,
+        "Attribute1": "Attribute111",
+        "Attribute2": "Attribute212",
+        "Attribute3": "Attribute313",
+        "Attribute4": "Attribute414",
+        "Attribute5": "Attribute515",
+        "ProcessFlag": "ProcessFlag16",
+        "ErrorMsg": "ErrorMsg17"
+      }
+    ]
+  }

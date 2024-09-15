@@ -1,47 +1,91 @@
-import React from 'react';
-import { View, Text, Linking, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { Linking } from 'react-native';
+import { fetchLinksData } from '../../Networking/Links/LinksServices'; 
 import { COLORS } from '../../Constants/GlobalData';
+const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/linksList.json';
 
-interface DataItem {
-  title: string;
-  url: string;
+interface LinkData {
+  Status: number;
+  LinkId: number;
+  Link1: string;
+  Link2: string;
+  Link3: string;
+  Link4: string;
+  Link5: string;
+  LinkDescription: string;
+  LinkDescriptionAr: string;
+  EffectiveStartDate: string;
+  EffectiveEndDate: string;
+  createdBy: Number;
+  CreationDate: string;
+  LastUpdateDate: string;
+  LastUpdatedBy: Number;
+  Attribute1: string;
+  Attribute2: string;
+  Attribute3: string;
+  Attribute4: string;
+  Attribute5: string;
+  ProcessFlag: string;
+  ErrorMsg: string;
 }
 
-const data: DataItem[] = [
-  { title: 'Link -> 1', url: 'https://react.dev/blog/2023/03/16/introducing-react-dev' },
-  { title: 'Link -> 2', url: 'https://react.dev/blog/2023/03/16/introducing-react-dev' },
-  { title: 'Link -> 3', url: 'https://react.dev/blog/2023/03/16/introducing-react-dev' },
-  { title: 'Link -> 4', url: 'https://react.dev/blog/2023/03/16/introducing-react-dev' },
-  { title: 'Link -> 5', url: 'https://react.dev/blog/2023/03/16/introducing-react-dev' },
-];
-
 const LinksScreen: React.FC = () => {
+  const [data, setData] = useState<LinkData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Fetch data from API on component mount
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const responseData = await fetchLinksData();
+        setData(responseData.Links); // Set the fetched data
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        const localData = require(jsonFilePath);
+        setData(localData.Links); // Set the fetched data
+        setTimeout(() => {
+      }, 100);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  // Handle opening links
   const openLink = (url: string) => {
     Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
   };
 
-  const renderItem = ({ item }: { item: DataItem }) => (
+  // Render each item in FlatList
+  const renderItem = ({ item }: { item: LinkData }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{item.title}</Text>
-      <TouchableOpacity onPress={() => openLink(item.url)}>
-        <Text style={styles.link}>{item.url}</Text>
+      <Text style={styles.title}>ID: {item.LinkId}</Text>
+      <Text style={styles.description}>Description: {item.LinkDescription}</Text>
+      <Text style={styles.creationDate}>Created on: {item.CreationDate}</Text>
+      <TouchableOpacity onPress={() => openLink(item.Link1)}>
+        <Text style={styles.link}>{item.Link1}</Text>
       </TouchableOpacity>
     </View>
   );
 
-  const renderSeparator = () => (
-    <View style={styles.separator} />
-  );
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      ItemSeparatorComponent={renderSeparator}
-      contentContainerStyle={styles.notificationContainer}
-    />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.LinkId.toString()}
+        contentContainerStyle={styles.notificationContainer}
+      />
     </View>
   );
 };
@@ -54,43 +98,44 @@ const styles = StyleSheet.create({
     paddingHorizontal: '2.5%',
   },
   notificationContainer: {
-    backgroundColor: COLORS.white,
-    padding: 10,
     marginVertical: 8,
-    borderRadius: 10,
     width: '95%',
     alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#CED0CE',
-    marginVertical: 10,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  description: {
+    fontSize: 16,
     marginBottom: 5,
+  },
+  creationDate: {
+    fontSize: 14,
+    color: 'gray',
   },
   link: {
     color: 'blue',
     textDecorationLine: 'underline',
+    marginTop: 5,
     fontSize: 14,
   },
   item: {
     marginTop: 10,
     marginBottom: 10,
-    width: '95%',
-    alignSelf: 'center',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#f9f9f9',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 3,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

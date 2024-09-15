@@ -59,7 +59,6 @@ export const handleSubmit = async (
     console.log('submitTraining SUCCESS', responseData);
   } catch (error) {
     console.warn('submitTraining Failed');
-    Alert.alert('Error', 'Network error occurred while submitting data.');
   } finally {
     setLoading(false);
   }
