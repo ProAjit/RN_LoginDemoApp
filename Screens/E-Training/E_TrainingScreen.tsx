@@ -77,12 +77,12 @@ const E_TrainingScreen = () => {
             )}
             {item.Attachment2 && (
               <TouchableOpacity onPress={() => handleAttachmentPress(item.Attachment2)}>
-                <Text style={{ color: 'blue' }}>Attachment 2</Text>
+                <Text style={{ color: 'blue', marginTop: 10 }}>Attachment 2</Text>
               </TouchableOpacity>
             )}
             {item.Attachment3 && (
               <TouchableOpacity onPress={() => handleAttachmentPress(item.Attachment3)}>
-                <Text style={{ color: 'blue' }}>Attachment 3</Text>
+                <Text style={{ color: 'blue', marginTop: 10 }}>Attachment 3</Text>
               </TouchableOpacity>
             )}
           </View>
