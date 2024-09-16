@@ -39,8 +39,8 @@ const SafetyIncidentsList: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.warn('getIncidentList SUCCESS');
-      console.log('\n getIncidentList JSON:', json);
+      console.warn('IncidentList SUCCESS');
+      console.log('\n IncidentList JSON:', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.warn('\n API call failed, loading local JSON:', error);
