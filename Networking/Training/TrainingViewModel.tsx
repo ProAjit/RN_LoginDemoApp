@@ -46,7 +46,7 @@ export const handleSubmit = async (
     Region: region,
   };
 
-  console.log('REQUEST BODY', requestBody);
+  console.log('\nREQUEST BODY', requestBody);
 
   try {
     const responseData = await submitTraining(requestBody);
@@ -56,9 +56,9 @@ export const handleSubmit = async (
     } else {
       Alert.alert('Error', 'Failed to submit data.');
     }
-    console.log('submitTraining SUCCESS', responseData);
+    console.log('\nsubmitTraining SUCCESS', responseData);
   } catch (error) {
-    console.log('submitTraining Failed');
+    console.log('\nsubmitTraining Failed');
   } finally {
     setLoading(false);
   }

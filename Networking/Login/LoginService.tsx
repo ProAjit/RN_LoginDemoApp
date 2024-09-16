@@ -25,12 +25,12 @@ export const loginApi = async (userName: string, password: string) => {
         fullName: resp?.data?.Fullname,
         mobileNumber: resp?.data?.MobileNumber,
       };
-      console.log('Login Success with Resp', data)
+      console.log('\nLogin Success with Resp', data)
       return data
     })
     .catch((err: any) => {
       // 'Something_went_wrong_Please_try_again'
-      console.log('Login Success with an error', err)
+      console.log('\nLogin Success with an error', err)
       throw new Error('Login failed');
     });
 };

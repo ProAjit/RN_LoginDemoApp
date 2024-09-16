@@ -35,11 +35,11 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
       setShow(true); // Show loading indicator
       try {
         const response = await loginApi(name, password); // Call the login API
-        console.log('Login successful', name)
+        console.log('\nLogin successful', name)
         setUserNameValue()
         props.navigation.navigate("Main", { screen: 'Home', params: { name } });
       } catch (error) {
-        console.log('\nLogin Error', error)
+        console.log('Login Error', error)
         props.navigation.navigate("Main", { screen: 'Home', params: { name } });
       } finally {
         setShow(false); // Hide loading indicator

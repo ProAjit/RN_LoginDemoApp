@@ -40,7 +40,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       setData(parsedData);
       setShow(false);
     } catch (error) {
-      console.log('API call failed, loading local JSON:', error);
+      console.log('\nAPI call failed, loading local JSON:', error);
       // const localData = require(jsonFilePath);
       setTimeout(() => {
         // processIncidents(localData);
@@ -65,7 +65,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       // Set the parsed local data
      setData(parsedData);
     } else {
-      console.log('\n No Incidents', 'No incidents found in the local JSON');
+      console.log('\nNo Incidents', 'No incidents found in the local JSON');
     }
   };
 

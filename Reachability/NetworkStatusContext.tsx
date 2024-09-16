@@ -15,11 +15,11 @@ export const NetworkStatusProvider: React.FC<{ children: ReactNode }> = ({ child
     // Subscribe to network state changes
     const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
       setIsConnected(state.isConnected);
-      console.log('Network state changed:', state.isConnected); // Debugging/logging
+      console.log('\nNetwork state changed:', state.isConnected); // Debugging/logging
       if (state.isConnected == false) {
-        console.log('Unable to connect internet')
+        console.log('\nUnable to connect internet')
       } else {
-        console.log('Internet connection resumed')
+        console.log('\nInternet connection resumed')
       }
     });
 

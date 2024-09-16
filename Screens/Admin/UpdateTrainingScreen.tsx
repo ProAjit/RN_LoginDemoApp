@@ -41,7 +41,7 @@ const UpdateTrainingScreen: React.FC = () => {
 
   const handleStatusSelect = async (newStatus: string) => {
     setModalVisible(false)
-    console.log('\n handleStatusSelect', newStatus)
+    console.log('\nhandleStatusSelect', newStatus)
     if (selectedItem) {
       setShow(true)
       // Create the request body for the API call
@@ -100,12 +100,12 @@ const UpdateTrainingScreen: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.log('TrainingList SUCCESS');
-      console.log('\n getTrainingList SUCCESS', json);
+      console.log('\nTrainingList SUCCESS');
+      console.log('\ngetTrainingList SUCCESS', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('TrainingList Failed');
-      console.log('\n API call failed, loading local JSON:', error);
+      console.log('\nTrainingList Failed');
+      console.log('\nAPI call failed, loading local JSON:', error);
       // const localData = require(jsonFilePath);
       setTimeout(() => {
         // processTrainings(localData);

@@ -27,14 +27,14 @@ const QueriesScreen = () => {
     setLoading(true);
     try {
       const response = await submitQueriesData(name, email, phone, description, region, title, subject )
-      console.log('submitQuery response', response);
+      console.log('\nsubmitQuery response', response);
       if (response?.result?.statusCode === 200 && response.data) {
         Alert.alert('Success', `Query Id: ${response.data.QueryId}`);
         handleCancel(); // Reset the form on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.log('submitQuery SUCCESS');
+      console.log('\nsubmitQuery SUCCESS');
       handleCancel()
     } catch (error) {
       Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');
