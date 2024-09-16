@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Linking } from 'react-native';
-import { fetchLinksData } from '../../Networking/Links/LinksServices'; 
+import { fetchLinksData } from '../../Networking/Links/LinksServices';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/linksList.json';
 
@@ -41,14 +41,14 @@ const LinksScreen: React.FC = () => {
         const responseData = await fetchLinksData();
         setData(responseData.Links); // Set the fetched data
         console.warn('getLinksList SUCCESS');
-        console.log('\n getIncidentList JSON:', responseData);  
+        console.log('\n getIncidentList JSON:', responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
-        const localData = require(jsonFilePath);
-        setData(localData.Links); // Set the fetched data
-        console.warn('getLinksList local');
+        // const localData = require(jsonFilePath);
+        // setData(localData.Links); // Set the fetched data
+        // console.warn('getLinksList local');
         setTimeout(() => {
-      }, 100);
+        }, 10);
       } finally {
         setLoading(false);
       }
@@ -67,9 +67,11 @@ const LinksScreen: React.FC = () => {
       <Text style={styles.title}>ID: {item.LinkId}</Text>
       <Text style={styles.description}>Description: {item.LinkDescription}</Text>
       <Text style={styles.creationDate}>Created on: {FormatDate(item.CreationDate)}</Text>
-      <TouchableOpacity onPress={() => openLink(item.Link1)}>
-        <Text style={styles.link}>Click here to visit link</Text>
-      </TouchableOpacity>
+      {item.Link1 && (
+        <TouchableOpacity onPress={() => openLink(item.Link1)}>
+          <Text style={styles.link}>Click here to visit link</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 

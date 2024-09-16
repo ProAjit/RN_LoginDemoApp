@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Linking, Alert } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
 import { getETrainingData } from '../../Networking/E_Training/E_TrainingService';
+import { COLORS } from '../../Constants/GlobalData';
 const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/eTrainingList.json';
 
 interface ETrainingItem {
@@ -22,16 +23,16 @@ const E_TrainingScreen = () => {
     const getData = async () => {
       try {
         const responseData = await getETrainingData();
-        setTrainingData(responseData.Training);
+        setTrainingData(responseData);
         console.warn('getE_TrainingList SUCCESS');
         console.log('\n getE_TrainingList JSON:', responseData);  
       } catch (error) {
         console.error('Error fetching data:', error);
-        const localData = require(jsonFilePath);
-        setTrainingData(localData.Training);
-        console.warn('getE_TrainingList local');
+        // const localData = require(jsonFilePath);
+        // setTrainingData(localData);
+        // console.warn('getE_TrainingList local');
         setTimeout(() => {
-      }, 100);
+      }, 10);
       } finally {
         setLoading(false);
       }
@@ -92,7 +93,7 @@ const E_TrainingScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <View style={{ flex: 1, padding: 10, backgroundColor: COLORS.appBackground }}>
       {loading ? (
         <Text>Loading...</Text>
       ) : (

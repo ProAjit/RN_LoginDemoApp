@@ -44,12 +44,11 @@ const SafetyIncidentsList: React.FC = () => {
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.warn('\n API call failed, loading local JSON:', error);
-      const localData = require(jsonFilePath);
+      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        processIncidents(localData);
+        // processIncidents(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 100);
-      setShow(false);    // Set loading to false after data is fetched
+      }, 10);
     }
   };
       

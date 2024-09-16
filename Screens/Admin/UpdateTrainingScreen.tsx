@@ -30,7 +30,7 @@ const UpdateTrainingScreen: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<TrainingDataItem | null>(null);
   const [data, setData] = useState<TrainingDataItem[]>([]);
   const [show, setShow] = useState(false);
-  const statusOptions = ['Rescheduled', 'On Hold', 'Approved', 'Rejected', 'Under Review'];
+  const statusOptions = ['Rescheduled', 'OnHold', 'Approved', 'Rejected', 'Under Review'];
 
   const handleStatusPress = (item: TrainingDataItem) => {
     if (item.status !== 'Approved' && item.status !== 'Rejected') {
@@ -40,7 +40,10 @@ const UpdateTrainingScreen: React.FC = () => {
   };
 
   const handleStatusSelect = async (newStatus: string) => {
+    setModalVisible(false)
+    console.log('\n handleStatusSelect', newStatus)
     if (selectedItem) {
+      setShow(true)
       // Create the request body for the API call
       const requestBody = {
         TrainingRequestId: selectedItem.trainingId,
@@ -58,20 +61,20 @@ const UpdateTrainingScreen: React.FC = () => {
       try {
         // Call the POST API
         const response = await postTrainingStatus(requestBody);
-  
         // Check if the response is successful
         if (response.success) {
           // Close the modal and reset the selected item
           setModalVisible(false);
           setSelectedItem(null);
-          
           // Refresh the data list by calling fetchData
           await fetchData();
         } else {
           Alert.alert('Error', 'Failed to update training status.');
         }
+        setShow(false)
       } catch (error) {
         Alert.alert('Error', 'An error occurred while updating the training status.');
+        setShow(false)
       }
     }
   };
@@ -103,36 +106,36 @@ const UpdateTrainingScreen: React.FC = () => {
       // If the API call fails, load from local JSON file
       console.warn('getTrainingList Failed');
       console.log('\n API call failed, loading local JSON:', error);
-      const localData = require(jsonFilePath);
+      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        processTrainings(localData);
+        // processTrainings(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 100);
+      }, 10);
     }
   };
 
-  const processTrainings = (data: any) => {
-    if (data && data['TrainingSchedules'] && data['TrainingSchedules'].length > 0) {
-      // Parse the local JSON data to the DataItem format
-      const parsedData: TrainingDataItem[] = data['TrainingSchedules'].map((training: any) => ({
-        noOfTrainees: Number(training["NumberOfTrainees"]),
-        badgeNumber: Number(training["Badgenumber"]),
-        department: training["Department"],
-        supervisor: training["Supervisor"],
-        location: training["Location"],
-        toDate: training["ToDate"],
-        fromDate: training["FromDate"],
-        status: training["Status"],
-        subject: training["Subject"],
-        region: training["Region"],
-        trainingId: Number(training["TrainingId"]),
-      }));
-      // Set the parsed local data
-      setData(parsedData);
-    } else {
-      Alert.alert('No Trainings', 'No trainings found in the local JSON');
-    }
-  };
+  // const processTrainings = (data: any) => {
+  //   if (data && data['TrainingSchedules'] && data['TrainingSchedules'].length > 0) {
+  //     // Parse the local JSON data to the DataItem format
+  //     const parsedData: TrainingDataItem[] = data['TrainingSchedules'].map((training: any) => ({
+  //       noOfTrainees: Number(training["NumberOfTrainees"]),
+  //       badgeNumber: Number(training["Badgenumber"]),
+  //       department: training["Department"],
+  //       supervisor: training["Supervisor"],
+  //       location: training["Location"],
+  //       toDate: training["ToDate"],
+  //       fromDate: training["FromDate"],
+  //       status: training["Status"],
+  //       subject: training["Subject"],
+  //       region: training["Region"],
+  //       trainingId: Number(training["TrainingId"]),
+  //     }));
+  //     // Set the parsed local data
+  //     setData(parsedData);
+  //   } else {
+  //     Alert.alert('No Trainings', 'No trainings found in the local JSON');
+  //   }
+  // };
 
   useEffect(() => {
     setShow(true)
@@ -146,7 +149,7 @@ const UpdateTrainingScreen: React.FC = () => {
           return styles.approvedBackground;
         case 'Rejected':
           return styles.rejectedBackground;
-        case 'On Hold':
+        case 'OnHold':
           return styles.onHoldBackground;
         case 'Rescheduled':
           return styles.rescheduledBackground;

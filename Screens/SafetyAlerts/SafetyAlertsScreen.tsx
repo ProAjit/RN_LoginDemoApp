@@ -32,11 +32,11 @@ const SafetyAlertsScreen: React.FC = () => {
         console.log('\n getAlertList JSON:', responseData);  
       } catch (error) {
         console.error('Error fetching data:', error);
-        const localData = require(jsonFilePath);
-        setData(localData.Alerts); // Set the fetched data
-        console.warn('getAlertList local');
+        // const localData = require(jsonFilePath);
+        // setData(localData.Alerts); // Set the fetched data
+        // console.warn('getAlertList local');
         setTimeout(() => {
-      }, 100);
+      }, 10);
       } finally {
         setLoading(false);
       }

@@ -29,7 +29,7 @@ const TrainingList: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<TrainingDataItem | null>(null);
   const [data, setData] = useState<TrainingDataItem[]>([]);
   const [show, setShow] = useState(false);
-  const statusOptions = ['Rescheduled', 'On Hold', 'Approved', 'Rejected', 'Under Review'];
+  const statusOptions = ['Rescheduled', 'OnHold', 'Approved', 'Rejected', 'Under Review'];
 
   // const handleStatusPress = (item: TrainingDataItem) => {
   //   if (item.status !== 'Approved' && item.status !== 'Rejected') {
@@ -73,11 +73,11 @@ const TrainingList: React.FC = () => {
       // If the API call fails, load from local JSON file
       console.warn('getTrainingList Failed');
       console.log('\n API call failed, loading local JSON:', error);
-      const localData = require(jsonFilePath);
+      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        processTrainings(localData);
+        // processTrainings(localData);
         setShow(false);  // Stop loading in case of an error
-      }, 100);
+      }, 10);
     }
   };
 
@@ -116,7 +116,7 @@ const TrainingList: React.FC = () => {
           return styles.approvedBackground;
         case 'Rejected':
           return styles.rejectedBackground;
-        case 'On Hold':
+        case 'OnHold':
           return styles.onHoldBackground;
         case 'Rescheduled':
           return styles.rescheduledBackground;

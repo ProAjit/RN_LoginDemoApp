@@ -41,11 +41,11 @@ const UpdateIncidentsScreen: React.FC = () => {
       setShow(false);
     } catch (error) {
       console.warn('API call failed, loading local JSON:', error);
-      const localData = require(jsonFilePath);
+      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        processIncidents(localData);
+        // processIncidents(localData);
         setShow(false);
-      }, 100);
+      }, 10);
     }
   };
       

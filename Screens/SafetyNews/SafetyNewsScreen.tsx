@@ -37,16 +37,16 @@ const SafetyNewsScreen = () => {
     const getData = async () => {
       try {
         const responseData = await fetchSafetyNews();
-        setData(responseData.ActiveNews); // Set the fetched data
+        setData(responseData); // Set the fetched data
         console.warn('getNewsList SUCCESS');
         console.log('\n getNewsList JSON:', responseData);  
       } catch (error) {
         console.error('Error fetching data:', error);
-        const localData = require(jsonFilePath);
-        setData(localData.ActiveNews); // Set the fetched data
-        console.warn('getNewsList local');
+        // const localData = require(jsonFilePath);
+        // setData(localData); // Set the fetched data
+        // console.warn('getNewsList local');
         setTimeout(() => {
-      }, 100);
+      }, 10);
       } finally {
         setLoading(false);
       }

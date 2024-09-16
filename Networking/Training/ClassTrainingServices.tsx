@@ -21,11 +21,15 @@ export const submitTraining = async (requestBody: any) => {
 
 export const postTrainingStatus = async (trainingData: any) => {
   const url = API.TestBaseURL + '/updateTraining';
+  console.log('postTrainingStatus URL', url)
+  console.log('postTrainingStatus body', trainingData)
   try {
     const response = await axios.post(url, trainingData);
+    console.log('postTrainingStatus data', response.data)
     return response.data;
   } catch (error) {
     console.error('Error updating training status:', error);
+    console.log('postTrainingStatus error', error)
     throw error;
   }
 };
