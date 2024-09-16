@@ -6,6 +6,7 @@ import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
 import { COLORS } from './Constants/GlobalData';
+import { loginApi } from './Networking/Login/LoginService';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -18,7 +19,7 @@ const NetworkComponent: React.FC = () => {
 };
 
 const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any) => void; }; }) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('IMRANM');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
@@ -27,16 +28,20 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     singleton.setUserName(name);
   };
 
-  const displayLoader = () => {
+  const loginApiCall = async () => {
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
     } else {
-      setShow(true);
-      setUserNameValue()
-      setTimeout(() => {
-      setShow(false);
-      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-     }, 3000);
+      setShow(true); // Show loading indicator
+      try {
+        const response = await loginApi(name, password); // Call the login API
+        console.warn('Login successful', name)
+        setUserNameValue()
+        props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+      } catch (error) {
+      } finally {
+        setShow(false); // Hide loading indicator
+      }
     }
   };
 
@@ -44,12 +49,12 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     setShow(true);
     setTimeout(() => {
       setShow(false);
-    }, 3000);
+    }, 300);
   };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground}} behavior="padding">
-    <KeyboardAwareScrollView
+      <KeyboardAwareScrollView
         contentContainerStyle={componentStyle.scrollContainer}
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled>        
@@ -58,10 +63,10 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
           <View style={componentStyle.container}>
             <View style={logoStyles.outerContainer}>
               <View style={logoStyles.innerContainer}>
-                <Image
+                { <Image
                   source={require('/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/logo.png')}
                   style={logoStyles.logo}
-                />
+                /> }
               </View>
             </View>
             <View style={componentStyle.innerView}>
@@ -71,6 +76,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
                 style={componentStyle.inputText}
                 placeholder="Enter User Name here"
                 onChangeText={(text) => setName(text)}
+                defaultValue={name}
               />
               <Text style={componentStyle.text}>Password</Text>
               <TextInput
@@ -78,8 +84,9 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
                 secureTextEntry={true}
                 placeholder="Enter your password"
                 onChangeText={setPassword}
+                defaultValue={password}
               />
-              <TouchableOpacity style={componentStyle.loginButton} onPress={displayLoader}>
+              <TouchableOpacity style={componentStyle.loginButton} onPress={loginApiCall}>
                 <Text style={componentStyle.buttonText}>Login</Text>
               </TouchableOpacity>
               <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
@@ -87,8 +94,8 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
               </TouchableOpacity>
             </View>
           </View>
-          </NetworkStatusProvider>
-        </KeyboardAwareScrollView>
+        </NetworkStatusProvider>
+      </KeyboardAwareScrollView>
       <OverlayActivityIndicator show={show} />
     </KeyboardAvoidingView>
   );
@@ -108,7 +115,6 @@ const logoStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.appBackground, // Background color for inner container
-
   },
   logo: {
     width: 80,
