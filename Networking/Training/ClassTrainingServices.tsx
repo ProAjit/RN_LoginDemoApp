@@ -18,3 +18,14 @@ export const submitTraining = async (requestBody: any) => {
     throw error;
   }
 };
+
+export const postTrainingStatus = async (trainingData: any) => {
+  const url = API.TestBaseURL + '/updateTraining';
+  try {
+    const response = await axios.post(url, trainingData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating training status:', error);
+    throw error;
+  }
+};

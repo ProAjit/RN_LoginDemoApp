@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
+import { postTrainingStatus } from '../../Networking/Training/ClassTrainingServices';
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -38,11 +39,40 @@ const UpdateTrainingScreen: React.FC = () => {
     }
   };
 
-  const handleStatusSelect = (newStatus: string) => {
+  const handleStatusSelect = async (newStatus: string) => {
     if (selectedItem) {
-      //  updateStatus(selectedItem.noOfTrainees, newStatus);
-      setModalVisible(false);
-      setSelectedItem(null);
+      // Create the request body for the API call
+      const requestBody = {
+        TrainingRequestId: selectedItem.trainingId,
+        Badgenumber: selectedItem.badgeNumber,
+        Department: selectedItem.department,
+        Supervisor: selectedItem.supervisor,
+        NumberOfTrainees: selectedItem.noOfTrainees,
+        Location: selectedItem.location,
+        FromDate: selectedItem.fromDate,
+        ToDate: selectedItem.toDate,
+        Status: newStatus,   // New status selected
+        Region: selectedItem.region
+      };
+  
+      try {
+        // Call the POST API
+        const response = await postTrainingStatus(requestBody);
+  
+        // Check if the response is successful
+        if (response.success) {
+          // Close the modal and reset the selected item
+          setModalVisible(false);
+          setSelectedItem(null);
+          
+          // Refresh the data list by calling fetchData
+          await fetchData();
+        } else {
+          Alert.alert('Error', 'Failed to update training status.');
+        }
+      } catch (error) {
+        Alert.alert('Error', 'An error occurred while updating the training status.');
+      }
     }
   };
 
