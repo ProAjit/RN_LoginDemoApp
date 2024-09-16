@@ -34,3 +34,18 @@ export const submitSafetyEndorsement = async ( name: string, badgeNumber: string
   }
 };
 
+// Import the new API function
+export const updateIncidentStatus = async (incidentData: any) => {
+  try {
+    const response = await axios.post(`${API.TestBaseURL}/updateIncidentStatus`, incidentData);
+    if (response.data.success) {
+      return true;
+    } else {
+      console.error('Failed to update incident status:', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error while updating incident status:', error);
+    return false;
+  }
+};

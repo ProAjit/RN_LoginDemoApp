@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
+import { updateIncidentStatus } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 
 interface DataItem {
   incidentId: Number
@@ -21,12 +22,11 @@ const UpdateIncidentsScreen: React.FC = () => {
   const [show, setShow] = useState(false);
 
   // Function to call API and fetch data
+  // Function to call API and fetch data
   const fetchData = async () => {
     try {
-      console.log('\n getIncidentList URL:', getIncidentURL);
       const response = await fetch(getIncidentURL);
       const json = await response.json();
-      // Parse the response to map to DataItem format
       const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
         badgeNumber: incident["Badgenumber"].trim(),
         name: incident["Name"].trim(),
@@ -37,19 +37,15 @@ const UpdateIncidentsScreen: React.FC = () => {
         incidentdate: incident["incidentdate"].trim(),
         incidentId: Number(incident["incidentid"].trim()),
       }));
-      setData(parsedData);  // Set parsed data
-      setShow(false);    // Set loading to false after data is fetched
-      console.warn('getIncidentList SUCCESS');
-      console.log('\n getIncidentList JSON:', json);
+      setData(parsedData);
+      setShow(false);
     } catch (error) {
-      // If the API call fails, load from local JSON file
-      console.warn('\n API call failed, loading local JSON:', error);
+      console.warn('API call failed, loading local JSON:', error);
       const localData = require(jsonFilePath);
       setTimeout(() => {
         processIncidents(localData);
-        setShow(false);  // Stop loading in case of an error
+        setShow(false);
       }, 100);
-      setShow(false);    // Set loading to false after data is fetched
     }
   };
       
@@ -78,12 +74,38 @@ const UpdateIncidentsScreen: React.FC = () => {
     fetchData();  // Call the API when the component mounts
   }, []);
 
-  const updateStatus = (badgeNumber: string, newStatus: string) => {
-    // Logic to update status can go here (if needed)
-    const updatedData = data.map(item =>
-      item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
-    );
-    setData(updatedData);
+  const updateStatus = async (badgeNumber: string, newStatus: string) => {
+    const incidentToUpdate = data.find(item => item.badgeNumber === badgeNumber);
+
+    if (!incidentToUpdate) {
+      console.error('Incident not found');
+      return;
+    }
+
+    // Create the request body for the API
+    const incidentData = {
+      incidentid: incidentToUpdate.incidentId.toString(),
+      Name: incidentToUpdate.name,
+      Badgenumber: incidentToUpdate.badgeNumber,
+      Location: incidentToUpdate.location,
+      Description: incidentToUpdate.description,
+      incidentstatus: newStatus, // Status being updated here
+      assignedto: 8, // Example value, you can adjust this
+      actiontaken: 'testing an update',
+      remarks: 'testing an update',
+      Imageuri: ' ', // Assuming no image for now
+      Region: incidentToUpdate.region,
+    };
+
+    // Call the API to update the status
+    const success = await updateIncidentStatus(incidentData);
+
+    if (success) {
+      // Refresh the incident list on success
+      fetchData();
+    } else {
+      Alert.alert('Failed to update the incident status');
+    }
   };
 
   const renderItem = ({ item }: { item: DataItem }) => {
