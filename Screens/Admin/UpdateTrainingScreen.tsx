@@ -100,11 +100,11 @@ const UpdateTrainingScreen: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.warn('TrainingList SUCCESS');
+      console.log('TrainingList SUCCESS');
       console.log('\n getTrainingList SUCCESS', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.warn('TrainingList Failed');
+      console.log('TrainingList Failed');
       console.log('\n API call failed, loading local JSON:', error);
       // const localData = require(jsonFilePath);
       setTimeout(() => {

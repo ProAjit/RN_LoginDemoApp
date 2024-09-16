@@ -34,7 +34,7 @@ const QueriesScreen = () => {
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.warn('submitQuery SUCCESS');
+      console.log('submitQuery SUCCESS');
       handleCancel()
     } catch (error) {
       Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');

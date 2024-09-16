@@ -40,13 +40,13 @@ const LinksScreen: React.FC = () => {
       try {
         const responseData = await fetchLinksData();
         setData(responseData.Links); // Set the fetched data
-        console.warn('LinksList SUCCESS');
+        console.log('LinksList SUCCESS');
         console.log('\nIncidentList JSON:', responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);
         // setData(localData.Links); // Set the fetched data
-        // console.warn('LinksList local');
+        // console.log('LinksList local');
         setTimeout(() => {
         }, 10);
       } finally {

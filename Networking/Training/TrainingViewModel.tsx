@@ -58,7 +58,7 @@ export const handleSubmit = async (
     }
     console.log('submitTraining SUCCESS', responseData);
   } catch (error) {
-    console.warn('submitTraining Failed');
+    console.log('submitTraining Failed');
   } finally {
     setLoading(false);
   }

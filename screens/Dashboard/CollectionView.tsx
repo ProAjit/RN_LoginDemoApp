@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, 
-  faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../Constants/GlobalData';
+import { getActiveAlertCount } from '../../Networking/SafetyAlerts/AlertsServices';
 
 interface Item {
   id: string;
@@ -49,6 +49,21 @@ const getIcon = (title: string) => {
 
 const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, onItemPress }) => {
   const shakeAnimation = useRef(new Animated.Value(0)).current;
+  const [alertCount, setAlertCount] = useState<string | null>(null); // State to store alert count
+
+  // Fetch active alert count from the API
+  useEffect(() => {
+    const fetchAlertCount = async () => {
+      try {
+        const response = await getActiveAlertCount();
+        console.log('\n Alert Count', response)
+        setAlertCount(response.ActiveAlertCount); // Update state with the alert count
+      } catch (error) {
+        console.error('Failed to fetch alert count:', error);
+      }
+    };
+    fetchAlertCount();
+  }, []); // Empty dependency array ensures this runs only once
 
   useEffect(() => {
     if (!alertsVisited) {
@@ -93,9 +108,10 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
           <FontAwesomeIcon icon={getIcon(item.title)} size={45} color={COLORS.white} />
         </Animated.View>
         <Text style={styles.title}>{item.title}</Text>
-        {item.title === 'SAFETY ALERTS' && !alertsVisited && (
+        {item.title === 'SAFETY ALERTS' && (
           <View style={styles.badgeContainer}>
-            <Text style={styles.badgeText}>05</Text>
+            {/* Display the count dynamically */}
+            <Text style={styles.badgeText}>{alertCount !== null ? alertCount : '0'}</Text>
           </View>
         )}
       </TouchableOpacity>
@@ -157,16 +173,3 @@ const styles = StyleSheet.create({
 });
 
 export default CollectionView;
-
-/*
-// faMessage
-// faPersonShelter
-// faGraduationCap, faBuildingColumns
-// faClipboardQuestion, faFileCircleQuestion
-// faBlog, faSchoolCircleExclamation, faSchool,
-// faLink
-// faBellSlash, faBell
-// faNewspaper, faEnvelope
-// faUserTie
-// faAddressBook
-*/
