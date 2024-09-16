@@ -13,7 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-native-fontawesome": "^0.3.2",
-    "@react-native-community/datetimepicker": "^8.2.0",
+    "@react-native-community/datetimepicker": "^8.1.1",
     "@react-native-community/netinfo": "^11.3.2",
     "@react-native-segmented-control/segmented-control": "^2.5.2",
     "@react-navigation/bottom-tabs": "^6.6.1",
@@ -23,6 +23,7 @@
     "core-js": "^3.38.1",
     "expo-file-system": "^17.0.1",
     "expo-image-picker": "^15.0.7",
+    "node-fetch": "^3.3.2",
     "react": "18.2.0",
     "react-native": "^0.75.2",
     "react-native-blob-util": "^0.19.11",
@@ -61,5 +62,10 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "config": {
+    "android": {
+      "packageName": "com.logindemoapp"
+    }
   }
 }
