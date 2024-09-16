@@ -24,13 +24,13 @@ const E_TrainingScreen = () => {
       try {
         const responseData = await getETrainingData();
         setTrainingData(responseData);
-        console.warn('getE_TrainingList SUCCESS');
-        console.log('\n getE_TrainingList JSON:', responseData);  
+        console.warn('E_TrainingList SUCCESS');
+        console.log('\n E_TrainingList JSON:', responseData);  
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);
         // setTrainingData(localData);
-        // console.warn('getE_TrainingList local');
+        // console.warn('E_TrainingList local');
         setTimeout(() => {
       }, 10);
       } finally {

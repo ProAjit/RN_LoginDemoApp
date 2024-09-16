@@ -28,13 +28,13 @@ const SafetyAlertsScreen: React.FC = () => {
       try {
         const responseData = await fetchAlertsData();
         setData(responseData.Alerts); // Set the fetched data
-        console.warn('getAlertList SUCCESS');
-        console.log('\n getAlertList JSON:', responseData);  
+        console.warn('AlertList SUCCESS');
+        console.log('\n AlertList JSON:', responseData);  
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);
         // setData(localData.Alerts); // Set the fetched data
-        // console.warn('getAlertList local');
+        // console.warn('AlertList local');
         setTimeout(() => {
       }, 10);
       } finally {
