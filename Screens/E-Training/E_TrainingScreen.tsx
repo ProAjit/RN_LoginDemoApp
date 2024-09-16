@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Linking, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Linking, Alert, ActivityIndicator, StyleSheet } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
 import { getETrainingData } from '../../Networking/E_Training/E_TrainingService';
 import { COLORS } from '../../Constants/GlobalData';
@@ -92,19 +92,36 @@ const E_TrainingScreen = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+      </View>
+    );
+  }
+
   return (
-    <View style={{ flex: 1, padding: 10, backgroundColor: COLORS.appBackground }}>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <FlatList
+    <View style={styles.container}>
+      <FlatList
           data={trainingData}
           keyExtractor={(item) => item.ContentId.toString()}
           renderItem={renderItem}
         />
-      )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: COLORS.appBackground,
+  },
+  loader: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  },
+});
 
 export default E_TrainingScreen;

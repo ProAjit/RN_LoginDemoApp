@@ -1,7 +1,7 @@
 // src/screens/SafetyNewsScreen.js
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, ActivityIndicator } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 import { fetchSafetyNews } from '../../Networking/SafetyNews/NewsService';
@@ -80,6 +80,14 @@ const SafetyNewsScreen = () => {
     </View>
   );
 
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -139,6 +147,11 @@ const styles = StyleSheet.create({
   creationDate: {
     fontSize: 14,
     color: 'gray',
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
