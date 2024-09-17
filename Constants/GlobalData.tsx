@@ -1,5 +1,7 @@
 import { Dimensions } from "react-native";
-
+import AppSingleton from "../AppSingleton/AppSingleton";
+const shareInstance = AppSingleton.getInstance();
+  
 export interface Item {
   id: string;
   title: string;
@@ -50,11 +52,11 @@ export const DEVICE = {
 
 export const USER = {
   badgeId: '0048690',
-  badgeNumber: '67541',
+  badgeNumber: shareInstance.getBadgeNumber,
   email: 'ajit.s@mail.com',
-  phone: '+9191',
+  phone: shareInstance.getMobileNumber,
   title: 'app developer',
-  name: 'Mr. Ajit S',
+  name: shareInstance.getUserName,
   status: 'New',
 }
 
