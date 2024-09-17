@@ -38,7 +38,8 @@ class AppSingleton {
 
   // Method to set badge number
   public setBadgeNumber(value: string): void {
-    this.badgeNumber = value;
+    const extractedNumber = extractNumberFromString(value);
+    this.badgeNumber = extractedNumber;
   }
 
   public getBadgeNumber(): string {
@@ -62,6 +63,12 @@ class AppSingleton {
   public getToken(): string {
     return this.token;
   }
+  
 }
+
+const extractNumberFromString = (input: string): string => {
+  const numberMatch = input.match(/\d+/);
+  return numberMatch ? numberMatch[0] : '';
+};
 
 export default AppSingleton;
