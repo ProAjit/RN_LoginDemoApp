@@ -3,7 +3,6 @@ import { View, Text, FlatList, TouchableOpacity, Linking, Alert, ActivityIndicat
 import RNFetchBlob from 'react-native-blob-util';
 import { getETrainingData } from '../../Networking/E_Training/E_TrainingService';
 import { COLORS } from '../../Constants/GlobalData';
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/eTrainingList.json';
 
 interface ETrainingItem {
   ContentId: number;

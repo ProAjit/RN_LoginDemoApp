@@ -3,7 +3,6 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator }
 import { Linking } from 'react-native';
 import { fetchLinksData } from '../../Networking/Links/LinksServices';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/linksList.json';
 
 interface LinkData {
   Status: number;

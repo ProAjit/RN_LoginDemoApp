@@ -7,7 +7,7 @@ const AboutScreen = () => {
     <View style={styles.container}>
       {/* Top Image */}
       <Image
-        source={{ uri: '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/images/login/logo.png' }} // Replace with your image source
+        source={{ uri: '/Users/ajitsatarkar/Desktop/AwesomeProject/images/login/logo.png' }} // Replace with your image source
         style={styles.image}
       />
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { fetchAlertsData } from '../../Networking/SafetyAlerts/AlertsServices'; 
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/alertsList.json';
 
 interface AlertData {
   titleEn: number;

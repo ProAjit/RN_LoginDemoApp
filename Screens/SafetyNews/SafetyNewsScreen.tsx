@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, ActivityIndi
 import RNFetchBlob from 'react-native-blob-util';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 import { fetchSafetyNews } from '../../Networking/SafetyNews/NewsService';
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/newsList.json';
 
 interface NewsData {
   titleEn: string;

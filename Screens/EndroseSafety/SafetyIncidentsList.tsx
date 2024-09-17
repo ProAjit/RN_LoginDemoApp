@@ -13,7 +13,6 @@ interface DataItem {
   badgeNumber: string;
 }
 
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/incidentsList.json';
 const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + USER.badgeNumber
 
 const SafetyIncidentsList: React.FC = () => {

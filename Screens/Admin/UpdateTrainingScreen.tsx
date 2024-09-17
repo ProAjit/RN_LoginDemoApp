@@ -22,7 +22,6 @@ interface TrainingListProps {
   updateStatus: (noOfTrainees: number, newStatus: string) => void;
 }
 
-const jsonFilePath = '/Users/ajitsatarkar/Documents/React_Native_Git/RN_LoginPOC/RN_LoginDemoApp/JsonFiles/trainingsList.json';
 const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + USER.badgeNumber
 
 const UpdateTrainingScreen: React.FC = () => {
