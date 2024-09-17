@@ -1,28 +1,67 @@
-// Singleton.ts
+// AppSingleton.ts
 class AppSingleton {
-    private static instance: AppSingleton;
-    private userName: string = '';
-  
-    // Private constructor to prevent direct class instantiation
-    private constructor() {}
-  
-    // Static method to get the single instance of the class
-    public static getInstance(): AppSingleton {
-      if (!AppSingleton.instance) {
-        AppSingleton.instance = new AppSingleton();
-      }
-      return AppSingleton.instance;
+  private static instance: AppSingleton;
+  private username: string = '';
+  private fullName: string = '';
+  private badgeNumber: string = '';
+  private mobileNumber: string = '';
+  private token: string = '';
+
+  // Private constructor to prevent direct class instantiation
+  private constructor() { }
+
+  // Static method to get the single instance of the class
+  public static getInstance(): AppSingleton {
+    if (!AppSingleton.instance) {
+      AppSingleton.instance = new AppSingleton();
     }
-  
-    // Method to set the string value
-    public setUserName(value: string): void {
-      this.userName = value;
-    }
-  
-    // Method to get the string value
-    public getUserName(): string {
-      return this.userName;
-    }
+    return AppSingleton.instance;
   }
-  
-  export default AppSingleton;
+
+  // Method to set username
+  public setUserName(value: string): void {
+    this.username = value;
+  }
+
+  public getUserName(): string {
+    return this.username;
+  }
+
+  // Method to set full name
+  public setFullName(value: string): void {
+    this.fullName = value;
+  }
+
+  public getFullName(): string {
+    return this.fullName;
+  }
+
+  // Method to set badge number
+  public setBadgeNumber(value: string): void {
+    this.badgeNumber = value;
+  }
+
+  public getBadgeNumber(): string {
+    return this.badgeNumber;
+  }
+
+  // Method to set mobile number
+  public setMobileNumber(value: string): void {
+    this.mobileNumber = value;
+  }
+
+  public getMobileNumber(): string {
+    return this.mobileNumber;
+  }
+
+  // Method to set token
+  public setToken(value: string): void {
+    this.token = value;
+  }
+
+  public getToken(): string {
+    return this.token;
+  }
+}
+
+export default AppSingleton;

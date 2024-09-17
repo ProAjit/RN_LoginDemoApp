@@ -23,29 +23,36 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
-  const setUserNameValue = () => {
-    const singleton = AppSingleton.getInstance();
-    singleton.setUserName(name);
-  };
+  // LoginScreen.tsx
+const loginApiCall = async () => {
+  if (name.trim() === '' || password.trim() === '') {
+    Alert.alert('Error', 'Please enter both username and password.');
+  } else {
+    setShow(true); // Show loading indicator
+    try {
+      const response = await loginApi(name, password); // Call the login API
+      console.log('\nLogin successful', response);
 
-  const loginApiCall = async () => {
-    if (name.trim() === '' || password.trim() === '') {
-      Alert.alert('Error', 'Please enter both username and password.');
-    } else {
-      setShow(true); // Show loading indicator
-      try {
-        const response = await loginApi(name, password); // Call the login API
-        console.log('\nLogin successful', name)
-        setUserNameValue()
-        props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-      } catch (error) {
-        console.log('Login Error', error)
-        props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-      } finally {
-        setShow(false); // Hide loading indicator
-      }
+      // Get the singleton instance
+      const singleton = AppSingleton.getInstance();
+      // Set values to AppSingleton
+      singleton.setUserName(response.username);
+      singleton.setFullName(response.fullName);
+      singleton.setBadgeNumber(response.fullName); // Assuming the badgeNumber is part of the fullName here
+      singleton.setMobileNumber(response.mobileNumber);
+      singleton.setToken(response.token);
+      console.log('\nUser Data', singleton);
+
+      // Navigate to Home screen with params
+      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+    } catch (error) {
+      console.log('Login Error', error);
+      Alert.alert('Login Failed', 'Please check your username and password.');
+    } finally {
+      setShow(false); // Hide loading indicator
     }
-  };
+  }
+};
 
   const forgotPasswordPressed = () => {
     setShow(true);

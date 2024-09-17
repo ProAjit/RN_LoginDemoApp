@@ -1,10 +1,10 @@
+// LoginService.tsx
 import axios from 'axios';
 
 const BASE_URL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser';
 
 export const loginApi = async (userName: string, password: string) => {
-
-  const data = {
+  const postData = {
     UserName: String(userName).toUpperCase(),
     Password: 'EvLUHwePskmmbPOXBMbwag==',
     InFuture1: `ANDROID`,
@@ -14,23 +14,22 @@ export const loginApi = async (userName: string, password: string) => {
     InFuture5: ' ',
   };
 
-  axios
-    .post(BASE_URL, data, {
-      headers: {UsernameToken: String(userName).toUpperCase()},
+  return axios
+    .post(BASE_URL, postData, {
+      headers: { UsernameToken: String(userName).toUpperCase() },
     })
     .then(resp => {
       const data = {
         username: userName?.toUpperCase(),
-        token: resp?.data?.InFuture1,
-        fullName: resp?.data?.Fullname,
-        mobileNumber: resp?.data?.MobileNumber,
+        token: resp?.data?.token,
+        fullName: resp?.data?.fullName,
+        mobileNumber: resp?.data?.mobileNumber,
       };
-      console.log('\nLogin Success with Resp', data)
-      return data
+      console.log('Login Success with Resp', data);
+      return data;
     })
     .catch((err: any) => {
-      // 'Something_went_wrong_Please_try_again'
-      console.log('\nLogin Success with an error', err)
+      console.log('Login Error', JSON.stringify(err));
       throw new Error('Login failed');
     });
 };
