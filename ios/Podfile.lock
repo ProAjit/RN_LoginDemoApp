@@ -1268,27 +1268,6 @@ PODS:
     - React-Core
   - react-native-segmented-control (2.5.2):
     - React-Core
-  - react-native-webview (13.12.2):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
   - React-nativeconfig (0.75.3)
   - React-NativeModulesApple (0.75.3):
     - glog
@@ -1598,27 +1577,6 @@ PODS:
     - Yoga
   - RNSVG (15.6.0):
     - React-Core
-  - RNVectorIcons (10.2.0):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1666,7 +1624,6 @@ DEPENDENCIES:
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
-  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1698,7 +1655,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1789,8 +1745,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-segmented-control:
     :path: "../node_modules/@react-native-segmented-control/segmented-control"
-  react-native-webview:
-    :path: "../node_modules/react-native-webview"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1853,8 +1807,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
-  RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1900,7 +1852,6 @@ SPEC CHECKSUMS:
   react-native-pdf: 103940c90d62adfd259f63cca99c7c0c306b514c
   react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   react-native-segmented-control: b92809e9111013dfa266e1168ba366d62898d9a4
-  react-native-webview: 7aaf4bb5b2ec08901c821aceb4b55908ad012b04
   React-nativeconfig: 4a9543185905fe41014c06776bf126083795aed9
   React-NativeModulesApple: 0506da59fc40d2e1e6e12a233db5e81c46face27
   React-perflogger: 3bbb82f18e9ac29a1a6931568e99d6305ef4403b
@@ -1932,7 +1883,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: 3b6fa2bfa341c413d3d08444b838515b58e48ee7
   RNScreens: 19719a9c326e925498ac3b2d35c4e50fe87afc06
   RNSVG: 5da7a24f31968ec74f0b091e3440080f347e279b
-  RNVectorIcons: 6382277afab3c54658e9d555ee0faa7a37827136
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 4ef80d96a5534f0e01b3055f17d1e19a9fc61b63
 
