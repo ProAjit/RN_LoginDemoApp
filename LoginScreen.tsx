@@ -46,8 +46,8 @@ const loginApiCall = async () => {
       // Navigate to Home screen with params
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });
     } catch (error) {
-      console.log('Login Error', error);
-      Alert.alert('Login Failed', 'Please check your username and password.');
+      console.log('\nLogin Error', error);
+      Alert.alert('Login Failed', JSON.stringify(error));
     } finally {
       setShow(false); // Hide loading indicator
     }
