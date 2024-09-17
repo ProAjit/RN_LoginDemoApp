@@ -47,7 +47,7 @@ const loginApiCall = async () => {
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });
     } catch (error) {
       console.log('\nLogin Error', error);
-      Alert.alert('Login Failed', JSON.stringify(error));
+      Alert.alert('Login Failed, Network failure');
     } finally {
       setShow(false); // Hide loading indicator
     }
