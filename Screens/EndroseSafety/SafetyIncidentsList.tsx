@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 interface DataItem {
   incidentId: Number
@@ -13,8 +15,6 @@ interface DataItem {
   badgeNumber: string;
 }
 
-const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + USER.badgeNumber
-
 const SafetyIncidentsList: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [show, setShow] = useState(false);
@@ -22,9 +22,12 @@ const SafetyIncidentsList: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
-      console.log('\ngetIncidentList URL:', getIncidentURL);
+      const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + singleton.badgeNumber
+      console.log('\nAPI call getIncidentURL', getIncidentURL);
       const response = await fetch(getIncidentURL);
       const json = await response.json();
+      console.log('\nIncidentList SUCCESS');
+      console.log('\nIncidentList JSON:', json);
       // Parse the response to map to DataItem format
       const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
         badgeNumber: incident["Badgenumber"].trim(),
@@ -38,8 +41,6 @@ const SafetyIncidentsList: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.log('\nIncidentList SUCCESS');
-      console.log('\nIncidentList JSON:', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('\nAPI call failed, loading local JSON:', error);

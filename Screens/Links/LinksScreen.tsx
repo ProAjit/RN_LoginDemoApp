@@ -38,9 +38,9 @@ const LinksScreen: React.FC = () => {
     const getData = async () => {
       try {
         const responseData = await fetchLinksData();
-        setData(responseData.Links); // Set the fetched data
         console.log('\nLinksList SUCCESS');
-        console.log('\nIncidentList JSON:', responseData);
+        console.log('\nLinksList JSON:', responseData);
+        setData(responseData.Links); // Set the fetched data
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);

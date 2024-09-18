@@ -36,9 +36,9 @@ const SafetyNewsScreen = () => {
     const getData = async () => {
       try {
         const responseData = await fetchSafetyNews();
-        setData(responseData); // Set the fetched data
         console.log('\nNewsList SUCCESS');
         console.log('\nNewsList JSON:', responseData);  
+        setData(responseData); // Set the fetched data
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);
@@ -55,14 +55,15 @@ const SafetyNewsScreen = () => {
 
   // Handle download of PDF using RNFetchBlob
   const handleDownload = async (pdfUrl: string) => {
+    console.warn('Download started');
     const fileUri = RNFetchBlob.fs.dirs.DocumentDir + '/sample.pdf';
     try {
       const res = await RNFetchBlob.config({
         path: fileUri,
       }).fetch('GET', pdfUrl);
-      Alert.alert('Download completed');
+      console.warn('Download completed');
     } catch (error) {
-      Alert.alert('Download failed');
+      console.warn('Download failed');
     }
   };
 

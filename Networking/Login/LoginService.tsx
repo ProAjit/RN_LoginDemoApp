@@ -3,7 +3,8 @@ import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 
 export const loginApi = async (userName: string, password: string) => {
-  const postData = {
+
+  const requestBody = {
     UserName: String(userName).toUpperCase(),
     Password: 'EvLUHwePskmmbPOXBMbwag==',
     InFuture1: `ANDROID`,
@@ -12,23 +13,18 @@ export const loginApi = async (userName: string, password: string) => {
     InFuture4: ' ',
     InFuture5: ' ',
   };
+  console.log('\nREQUEST BODY', requestBody);
 
-  return axios
-    .post(API.Login_URL1, postData, {
-      headers: { UsernameToken: String(userName).toUpperCase() },
-    })
-    .then(resp => {
-      const data = {
-        username: userName?.toUpperCase(),
-        token: resp?.data?.token,
-        fullName: resp?.data?.fullName,
-        mobileNumber: resp?.data?.mobileNumber,
-      };
-      console.log('\nLogin Success with Resp', data);
-      return data;
-    })
-    .catch((err: any) => {
-      console.log('\nLogin Error', JSON.stringify(err));
-      throw new Error('\nLogin failed');
+  try {
+    const response = await axios.post(`${API.Login_URL1}`, requestBody, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+    console.log('\nLOGIN RESPONSE:\n', response);
+    return response;
+  } catch (error) {
+    console.error('Error while submitting training data:', error);
+    throw error;
+  }
 };

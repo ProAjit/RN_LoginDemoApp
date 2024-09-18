@@ -1,11 +1,10 @@
-// AppSingleton.ts
 class AppSingleton {
   private static instance: AppSingleton;
-  private username: string = '';
-  private fullName: string = '';
-  private badgeNumber: string = '';
-  private mobileNumber: string = '';
-  private token: string = '';
+  username: string = '';
+  fullName: string = '';
+  badgeNumber: string = '';
+  mobileNumber: string = '';
+  token: string = '';
 
   // Private constructor to prevent direct class instantiation
   private constructor() { }
@@ -30,6 +29,7 @@ class AppSingleton {
   // Method to set full name
   public setFullName(value: string): void {
     this.fullName = value;
+    console.log('\nUser setBadgeNumber', this.fullName);
   }
 
   public getFullName(): string {
@@ -40,6 +40,7 @@ class AppSingleton {
   public setBadgeNumber(value: string): void {
     const extractedNumber = extractNumberFromString(value);
     this.badgeNumber = extractedNumber;
+    console.log('\nUser setBadgeNumber', this.badgeNumber);
   }
 
   public getBadgeNumber(): string {
@@ -68,7 +69,9 @@ class AppSingleton {
 
 const extractNumberFromString = (input: string): string => {
   const numberMatch = input.match(/\d+/);
+  console.log('\nextractNumberFromString', numberMatch ? numberMatch[0] : '')
   return numberMatch ? numberMatch[0] : '';
 };
+
 
 export default AppSingleton;

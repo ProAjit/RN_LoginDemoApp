@@ -3,7 +3,6 @@ import { API } from '../../Constants/GlobalData';
 
 const API_URL = API.TestTwoBaseURL + '/getTrainingContent'; 
 
-
 export const getETrainingData = async () => {
   try {
     const response = await axios.get(`${API_URL}`);

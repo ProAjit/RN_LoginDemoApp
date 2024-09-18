@@ -22,9 +22,9 @@ const E_TrainingScreen = () => {
     const getData = async () => {
       try {
         const responseData = await getETrainingData();
-        setTrainingData(responseData);
         console.log('\nE_TrainingList SUCCESS');
         console.log('\nE_TrainingList JSON:', responseData);  
+        setTrainingData(responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);
@@ -52,10 +52,10 @@ const E_TrainingScreen = () => {
       })
         .fetch('GET', attachment)
         .then((res) => {
-          Alert.alert('Download complete', `File saved to ${res.path()}`);
+          console.warn('File Download complete', `File saved to ${res.path()}`);
         })
         .catch((err) => {
-          Alert.alert('Download error', 'Failed to download file.');
+          console.warn('File Download error', 'Failed to download file.');
         });
     }
   };

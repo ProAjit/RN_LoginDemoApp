@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
 import { updateIncidentStatus } from '../../Networking/EndorseSafety/EndorseSafetyServices';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 interface DataItem {
   incidentId: Number
@@ -14,8 +16,6 @@ interface DataItem {
   badgeNumber: string;
 }
 
-const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + USER.badgeNumber
-
 const UpdateIncidentsScreen: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [show, setShow] = useState(false);
@@ -24,6 +24,8 @@ const UpdateIncidentsScreen: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
+      const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + singleton.badgeNumber
+      console.log('\nAPI call getIncidentURL', getIncidentURL);
       const response = await fetch(getIncidentURL);
       const json = await response.json();
       const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({

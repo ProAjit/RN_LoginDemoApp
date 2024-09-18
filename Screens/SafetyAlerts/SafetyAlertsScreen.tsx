@@ -26,9 +26,9 @@ const SafetyAlertsScreen: React.FC = () => {
     const getData = async () => {
       try {
         const responseData = await fetchAlertsData();
-        setData(responseData.Alerts); // Set the fetched data
         console.log('\nAlertList SUCCESS');
         console.log('\nAlertList JSON:', responseData);  
+        setData(responseData.Alerts); // Set the fetched data
       } catch (error) {
         console.error('Error fetching data:', error);
         // const localData = require(jsonFilePath);

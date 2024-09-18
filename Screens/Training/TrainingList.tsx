@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -21,8 +23,6 @@ interface TrainingListProps {
   updateStatus: (noOfTrainees: number, newStatus: string) => void;
 }
 
-const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + USER.badgeNumber
-
 const TrainingList: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<TrainingDataItem | null>(null);
@@ -30,26 +30,14 @@ const TrainingList: React.FC = () => {
   const [show, setShow] = useState(false);
   const statusOptions = ['Rescheduled', 'OnHold', 'Approved', 'Rejected', 'Under Review'];
 
-  // const handleStatusPress = (item: TrainingDataItem) => {
-  //   if (item.status !== 'Approved' && item.status !== 'Rejected') {
-  //     setSelectedItem(item);
-  //     setModalVisible(true);
-  //   }
-  // };
-
-  // const handleStatusSelect = (newStatus: string) => {
-  //   if (selectedItem) {
-  //     // updateStatus(selectedItem.noOfTrainees, newStatus);
-  //     setModalVisible(false);
-  //     setSelectedItem(null);
-  //   }
-  // };
-
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
+      const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + singleton.badgeNumber
+      console.log('\nTrainingList getTrainingsURL', getTrainingsURL);
       const response = await fetch(getTrainingsURL);
       const json = await response.json();
+      console.log('\nTrainingList SUCCESS', json);
       // Parse the response to map to DataItem format
       const parsedData: TrainingDataItem[] = json["TrainingSchedules"].map((training: any) => ({
         noOfTrainees: Number(training["NumberOfTrainees"]),
@@ -66,8 +54,6 @@ const TrainingList: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.log('\nTrainingList SUCCESS');
-      console.log('\nTrainingList SUCCESS', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('\nTrainingList Failed');

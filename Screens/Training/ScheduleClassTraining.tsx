@@ -117,10 +117,11 @@ const ScheduleClassTraining = () => {
 
         <Text style={styles.label}>Training on Date & Time</Text>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => setShowFromDatePicker(true)} style={styles.dateInput}>
+          {/*onPress={() => setShowFromDatePicker(true)} */}
+          <TouchableOpacity style={styles.dateInput}>
             <Text>{fromDate ? formatDateTime(fromDate) : 'From Date'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowToDatePicker(true)} style={styles.dateInput}>
+          <TouchableOpacity style={styles.dateInput}>
             <Text>{toDate ? formatDateTime(toDate) : 'To Date'}</Text>
           </TouchableOpacity>
         </View>

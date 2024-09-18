@@ -19,29 +19,30 @@ const NetworkComponent: React.FC = () => {
 };
 
 const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any) => void; }; }) => {
-  const [name, setName] = useState('IMRANM');
+  const [name, setName] = useState('ALASIRIAH');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
   // LoginScreen.tsx
 const loginApiCall = async () => {
+  console.log('\nloginApiCall started');
+
   if (name.trim() === '' || password.trim() === '') {
     Alert.alert('Error', 'Please enter both username and password.');
   } else {
     setShow(true); // Show loading indicator
     try {
       const response = await loginApi(name, password); // Call the login API
-      console.log('\nLogin successful', response);
-
+      console.log('\nLogin Only User Data', response.data);
       // Get the singleton instance
       const singleton = AppSingleton.getInstance();
       // Set values to AppSingleton
-      singleton.setUserName(response.username);
-      singleton.setFullName(response.fullName);
-      singleton.setBadgeNumber(response.fullName); // Assuming the badgeNumber is part of the fullName here
-      singleton.setMobileNumber(response.mobileNumber);
-      singleton.setToken(response.token);
-      console.log('\nUser Data', singleton);
+      singleton.setUserName(response.data.Fullname);
+      singleton.setFullName(response.data.Fullname);
+      singleton.setBadgeNumber(response.data.Fullname); 
+      singleton.setMobileNumber(response.data.MobileNumber);
+      // singleton.setToken(response.data.InFuture4);
+      console.log('\nLogin Badge number', singleton.badgeNumber);
 
       // Navigate to Home screen with params
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });
@@ -95,7 +96,7 @@ const loginApiCall = async () => {
                 defaultValue={password}
               />
               <TouchableOpacity style={componentStyle.loginButton} onPress={loginApiCall}>
-                <Text style={componentStyle.buttonText}>Login123</Text>
+                <Text style={componentStyle.buttonText}>Login</Text>
               </TouchableOpacity>
               <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
                 <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>

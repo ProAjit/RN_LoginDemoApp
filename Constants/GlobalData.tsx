@@ -1,6 +1,7 @@
 import { Dimensions } from "react-native";
 import AppSingleton from "../AppSingleton/AppSingleton";
-  
+const singleton = AppSingleton.getInstance();
+
 export interface Item {
   id: string;
   title: string;
@@ -56,19 +57,12 @@ export const DEVICE = {
 }
 
 export const USER = {
-  // badgeId: '0048690',
-  // badgeNumber: '67541',
-  // email: 'ajit.s@mail.com',
-  // phone: '+9191',
-  // title: 'app developer',
-  // name: 'Mr. Ajit S',
-  // status: 'New',
-  badgeId: '0048690',
-  badgeNumber: AppSingleton.getInstance().getBadgeNumber,
-  email: 'ajit.s@mail.com',
-  phone: AppSingleton.getInstance().getMobileNumber,
-  title: 'app developer',
-  name: AppSingleton.getInstance().getUserName,
+  badgeId: singleton.badgeNumber,
+  badgeNumber: singleton.badgeNumber,
+  email: 'ajit.s@test.com',
+  phone: singleton.mobileNumber,
+  title: 'App developer',
+  name: singleton.fullName,
   status: 'New',
 }
 

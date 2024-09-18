@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
 import { postTrainingStatus } from '../../Networking/Training/ClassTrainingServices';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -21,8 +23,6 @@ interface TrainingListProps {
   data: TrainingDataItem[];
   updateStatus: (noOfTrainees: number, newStatus: string) => void;
 }
-
-const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + USER.badgeNumber
 
 const UpdateTrainingScreen: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -81,8 +81,12 @@ const UpdateTrainingScreen: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
+      const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + singleton.badgeNumber
+      console.log('\nAPI call getTrainingsURL', getTrainingsURL);
       const response = await fetch(getTrainingsURL);
       const json = await response.json();
+      console.log('\nTrainingList SUCCESS');
+      console.log('\ngetTrainingList SUCCESS', json);
       // Parse the response to map to DataItem format
       const parsedData: TrainingDataItem[] = json["TrainingSchedules"].map((training: any) => ({
         noOfTrainees: Number(training["NumberOfTrainees"]),
@@ -99,8 +103,6 @@ const UpdateTrainingScreen: React.FC = () => {
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
-      console.log('\nTrainingList SUCCESS');
-      console.log('\ngetTrainingList SUCCESS', json);
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('\nTrainingList Failed');
