@@ -16,7 +16,7 @@ export const loginApi = async (userName: string, password: string) => {
   console.log('\nREQUEST BODY', requestBody);
 
   try {
-    const response = await axios.post(`${API.Login_URL1}`, requestBody, {
+    const response = await axios.post(`${API.Login_URL}`, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
