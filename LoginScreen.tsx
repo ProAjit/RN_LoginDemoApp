@@ -47,7 +47,6 @@ const loginApiCall = async () => {
       props.navigation.navigate("Main", { screen: 'Home', params: { name } });
     } catch (error) {
       console.log('\nLogin Error', error);
-      Alert.alert('Login Failed, Network failure');
     } finally {
       setShow(false); // Hide loading indicator
     }
@@ -96,7 +95,7 @@ const loginApiCall = async () => {
                 defaultValue={password}
               />
               <TouchableOpacity style={componentStyle.loginButton} onPress={loginApiCall}>
-                <Text style={componentStyle.buttonText}>Login</Text>
+                <Text style={componentStyle.buttonText}>Login123</Text>
               </TouchableOpacity>
               <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
                 <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>

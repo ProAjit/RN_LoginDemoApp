@@ -1,7 +1,6 @@
 // LoginService.tsx
 import axios from 'axios';
-
-const BASE_URL = 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser';
+import { API } from '../../Constants/GlobalData';
 
 export const loginApi = async (userName: string, password: string) => {
   const postData = {
@@ -15,7 +14,7 @@ export const loginApi = async (userName: string, password: string) => {
   };
 
   return axios
-    .post(BASE_URL, postData, {
+    .post(API.Login_URL1, postData, {
       headers: { UsernameToken: String(userName).toUpperCase() },
     })
     .then(resp => {

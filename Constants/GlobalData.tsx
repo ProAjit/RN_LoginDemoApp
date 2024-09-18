@@ -6,6 +6,12 @@ export interface Item {
   title: string;
 }
 
+export const API = {
+  Login_URL1: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
+  TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
+  TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
+}
+
 export const HomeCategoriesArr: Item[] = [
   { id: '1', title: 'TOP MANAGEMENT MESSAGES' },
   { id: '2', title: 'ENDORSE YOUR SAFETY ISSUE' },
@@ -50,6 +56,13 @@ export const DEVICE = {
 }
 
 export const USER = {
+  // badgeId: '0048690',
+  // badgeNumber: '67541',
+  // email: 'ajit.s@mail.com',
+  // phone: '+9191',
+  // title: 'app developer',
+  // name: 'Mr. Ajit S',
+  // status: 'New',
   badgeId: '0048690',
   badgeNumber: AppSingleton.getInstance().getBadgeNumber,
   email: 'ajit.s@mail.com',
@@ -57,13 +70,6 @@ export const USER = {
   title: 'app developer',
   name: AppSingleton.getInstance().getUserName,
   status: 'New',
-}
-
-export const API = {
-  // TestBaseURL: 'http://riysvlcm-003.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
-  // TestBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
-  TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
-  TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
 }
 
 export const FormatDate = (dateString: string): string => {
