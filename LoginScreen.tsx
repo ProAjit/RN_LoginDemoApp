@@ -26,32 +26,33 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   // LoginScreen.tsx
 const loginApiCall = async () => {
   console.log('\nloginApiCall started');
+  props.navigation.navigate("Main", { screen: 'Home', params: { name } });
 
-  if (name.trim() === '' || password.trim() === '') {
-    Alert.alert('Error', 'Please enter both username and password.');
-  } else {
-    setShow(true); // Show loading indicator
-    try {
-      const response = await loginApi(name, password); // Call the login API
-      console.log('\nLogin Only User Data', response.data);
-      // Get the singleton instance
-      const singleton = AppSingleton.getInstance();
-      // Set values to AppSingleton
-      singleton.setUserName(response.data.Fullname);
-      singleton.setFullName(response.data.Fullname);
-      singleton.setBadgeNumber(response.data.Fullname); 
-      singleton.setMobileNumber(response.data.MobileNumber);
-      // singleton.setToken(response.data.InFuture4);
-      console.log('\nLogin Badge number', singleton.badgeNumber);
+  // if (name.trim() === '' || password.trim() === '') {
+  //   Alert.alert('Error', 'Please enter both username and password.');
+  // } else {
+  //   setShow(true); // Show loading indicator
+  //   try {
+  //     const response = await loginApi(name, password); // Call the login API
+  //     console.log('\nLogin Only User Data', response.data);
+  //     // Get the singleton instance
+  //     const singleton = AppSingleton.getInstance();
+  //     // Set values to AppSingleton
+  //     singleton.setUserName(response.data.Fullname);
+  //     singleton.setFullName(response.data.Fullname);
+  //     singleton.setBadgeNumber(response.data.Fullname); 
+  //     singleton.setMobileNumber(response.data.MobileNumber);
+  //     singleton.setToken(response.data.InFuture4);
+  //     console.log('\nLogin Badge number', singleton.badgeNumber);
 
-      // Navigate to Home screen with params
-      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-    } catch (error) {
-      console.log('\nLogin Error', error);
-    } finally {
-      setShow(false); // Hide loading indicator
-    }
-  }
+  //     // Navigate to Home screen with params
+  //     props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+  //   } catch (error) {
+  //     console.log('\nLogin Error', error);
+  //   } finally {
+  //     setShow(false); // Hide loading indicator
+  //   }
+  // }
 };
 
   const forgotPasswordPressed = () => {
