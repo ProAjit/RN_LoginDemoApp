@@ -68,7 +68,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         style={componentStyle.container}
       >
      <View style={{ alignItems: 'center', marginTop: 10 }}>
-       <Text style={{ fontSize: 18 }}> Welcome Mr. {name} </Text> 
+       <Text style={{ fontSize: 18 }}>Welcome {name} </Text> 
         <View style={homeStyles.collectionContainer}>
           <CollectionView 
            data={HomeCategoriesArr} 
