@@ -13,8 +13,8 @@ export const loginApi = async (userName: string, password: string) => {
     InFuture4: ' ',
     InFuture5: ' ',
   };
-  console.log('\nREQUEST BODY', requestBody);
-
+  console.log('\nProfile REQUEST URL', `${API.Login_URL}`);
+  console.log('\nLogin REQUEST BODY', requestBody);
   try {
     const response = await axios.post(`${API.Login_URL}`, requestBody, {
       headers: {
@@ -26,5 +26,28 @@ export const loginApi = async (userName: string, password: string) => {
   } catch (error) {
     console.error('Error while submitting training data:', error);
     throw error;
+  }
+};
+
+export const profileApi = async (userName: string, sessionId: string, sessionToken: string) => {
+  const requestBody = {
+    UserName: String(userName).toUpperCase(),
+      lang: 'AR',
+      session_id: sessionId,
+      session_token: sessionToken,
+  };
+  console.log('\nProfile REQUEST URL', `${API.PROFILE_URL}`);
+  console.log('\nProfile REQUEST BODY', requestBody);
+  try {
+    const response = await axios.post(`${API.PROFILE_URL}`, requestBody, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('\nPrfoile RESPONSE:\n', response);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching employee profile:', error);
+    throw error; // Re-throw the error to handle it in the calling function
   }
 };

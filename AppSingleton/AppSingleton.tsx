@@ -29,7 +29,7 @@ class AppSingleton {
   // Method to set full name
   public setFullName(value: string): void {
     this.fullName = value;
-    console.log('\nUser setBadgeNumber', this.fullName);
+    console.log('\nUser setFullName', this.fullName);
   }
 
   public getFullName(): string {

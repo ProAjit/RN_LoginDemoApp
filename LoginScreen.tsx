@@ -6,7 +6,7 @@ import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
 import { COLORS } from './Constants/GlobalData';
-import { loginApi } from './Networking/Login/LoginService';
+import { loginApi, profileApi } from './Networking/Login/LoginService';
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -23,11 +23,9 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
-  // LoginScreen.tsx
 const loginApiCall = async () => {
   console.log('\nloginApiCall started');
-  props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-
+  /* 
   // if (name.trim() === '' || password.trim() === '') {
   //   Alert.alert('Error', 'Please enter both username and password.');
   // } else {
@@ -53,6 +51,51 @@ const loginApiCall = async () => {
   //     setShow(false); // Hide loading indicator
   //   }
   // }
+  */
+  if (name.trim() === '' || password.trim() === '') {
+    Alert.alert('Error', 'Please enter both username and password.');
+  } else {
+    setShow(true); // Show loading indicator
+    try {
+      console.log('\Login Api Call started');
+      const userResp = await loginApi(name, password); // Call the login API
+      console.log('\nLogin Only User Data', userResp.data);    
+
+      if (userResp.data.InFuture1 && userResp.data.Fullname) { 
+        // Check for session_id and session_token
+        const onlyName = userResp.data.Fullname.split(/\d+/)[0].trim();  // Split by number and take the first part
+        console.log('\nLogin Api onlyName', onlyName);
+        const [session_id, session_token] = userResp.data.InFuture1.split('~');
+        console.log('\nLogin Api session_id', session_id);    
+        console.log('\nLogin Api session_token', session_token); 
+
+        // On successful login, call the profileApi
+        console.log('\nProfile Api Call started');
+        const profileResp = await profileApi(name, session_id, session_token);
+        console.log('\nUser Only Profile Data', profileResp.data);    
+        // Handle employee profile response
+        console.log('\nEmployee Profile', `\nName: ${profileResp.data.employeeName}\nEmail: ${profileResp.data.empEmail}`);
+        const singleton = AppSingleton.getInstance();
+
+        // Set values to AppSingleton
+        singleton.setUserName(onlyName);
+        singleton.setFullName(onlyName);
+        singleton.setBadgeNumber(userResp.data.Fullname); 
+        singleton.setMobileNumber(userResp.data.MobileNumber);
+        singleton.setToken(userResp.data.InFuture4);
+        console.log('\nLogin Badge number', singleton.badgeNumber);
+        props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+      } else {
+        console.error('Login failed', 'Please check your credentials.');
+      }
+      // Navigate to Home screen with params
+      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+    } catch (error) {
+      console.log('\nLogin Error', error);
+    } finally {
+      setShow(false); // Hide loading indicator
+    }
+  }
 };
 
   const forgotPasswordPressed = () => {
