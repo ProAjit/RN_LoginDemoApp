@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 
 const alert_url = API.TestTwoBaseURL + '/getAllActiveAlert'; 
-const count_url = API.TestTwoBaseURL + '/getActiveNewsCount'; 
+const count_url = API.TestTwoBaseURL + '/getActiveAlertCount'; 
 
 // Function to fetch alerts data from the API
 export const fetchAlertsData = async () => {

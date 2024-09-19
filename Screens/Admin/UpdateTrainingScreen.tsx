@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
 import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
-import { postTrainingStatus } from '../../Networking/Training/ClassTrainingServices';
+import { updateTrainingStatus } from '../../Networking/Training/ClassTrainingServices';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
@@ -40,28 +40,22 @@ const UpdateTrainingScreen: React.FC = () => {
 
   const handleStatusSelect = async (newStatus: string) => {
     setModalVisible(false)
-    console.log('\nhandleStatusSelect', newStatus)
+    console.log('\nhandleStatusfor', selectedItem?.trainingId)
     if (selectedItem) {
       setShow(true)
       // Create the request body for the API call
       const requestBody = {
-        TrainingRequestId: selectedItem.trainingId,
-        Badgenumber: selectedItem.badgeNumber,
-        Department: selectedItem.department,
-        Supervisor: selectedItem.supervisor,
-        NumberOfTrainees: selectedItem.noOfTrainees,
-        Location: selectedItem.location,
-        FromDate: selectedItem.fromDate,
-        ToDate: selectedItem.toDate,
-        Status: newStatus,   // New status selected
-        Region: selectedItem.region
+        TrainingId: selectedItem.trainingId,
+        NewStatus: newStatus,   // New status selected
       };
   
       try {
         // Call the POST API
-        const response = await postTrainingStatus(requestBody);
+        const response = await updateTrainingStatus(requestBody);
         // Check if the response is successful
-        if (response.success) {
+        if (response.TrainingSchedule.Status) {
+          const msg = `Training# ` + selectedItem.trainingId + ` has been updated to ` + response.TrainingSchedule.Status
+          Alert.alert('Success', msg);
           // Close the modal and reset the selected item
           setModalVisible(false);
           setSelectedItem(null);
@@ -107,36 +101,12 @@ const UpdateTrainingScreen: React.FC = () => {
       // If the API call fails, load from local JSON file
       console.log('\nTrainingList Failed');
       console.log('\nAPI call failed, loading local JSON:', error);
-      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        // processTrainings(localData);
         setShow(false);  // Stop loading in case of an error
       }, 10);
     }
   };
 
-  // const processTrainings = (data: any) => {
-  //   if (data && data['TrainingSchedules'] && data['TrainingSchedules'].length > 0) {
-  //     // Parse the local JSON data to the DataItem format
-  //     const parsedData: TrainingDataItem[] = data['TrainingSchedules'].map((training: any) => ({
-  //       noOfTrainees: Number(training["NumberOfTrainees"]),
-  //       badgeNumber: Number(training["Badgenumber"]),
-  //       department: training["Department"],
-  //       supervisor: training["Supervisor"],
-  //       location: training["Location"],
-  //       toDate: training["ToDate"],
-  //       fromDate: training["FromDate"],
-  //       status: training["Status"],
-  //       subject: training["Subject"],
-  //       region: training["Region"],
-  //       trainingId: Number(training["TrainingId"]),
-  //     }));
-  //     // Set the parsed local data
-  //     setData(parsedData);
-  //   } else {
-  //     Alert.alert('No Trainings', 'No trainings found in the local JSON');
-  //   }
-  // };
 
   useEffect(() => {
     setShow(true)
@@ -165,10 +135,13 @@ const UpdateTrainingScreen: React.FC = () => {
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
           <Text style={styles.nameText}>
-            Supervisor: {item.supervisor}
+            Training Id: {item.trainingId}
           </Text>
-          <Text style={styles.nameText}>
+          <Text style={styles.numberText}>
             Department: {item.department}
+          </Text>
+          <Text style={styles.numberText}>
+            Supervisor: {item.supervisor}
           </Text>
           <View style={[styles.innerContainer]}>
             <Text style={styles.numberText}>
@@ -247,7 +220,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 10,
-    height: 230,
+    height: 275,
     margin: 5,
     padding: 8,
     borderRadius: 8,
