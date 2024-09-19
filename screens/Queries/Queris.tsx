@@ -6,19 +6,20 @@ import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import { COLORS, USER } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 const QueriesScreen = () => {
-  const name = USER.name;
-  const email = USER.email;
-  const phone = USER.phone;
-  const title = USER.title;
+  const name = singleton.username;
+  const email = singleton.eMail;
+  const phone = singleton.mobileNumber;
+  const title = singleton.title;
+  const badgeId = singleton.badgeNumber;
   const [subject, setSubject] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
   const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
-  const singleton = AppSingleton.getInstance();
 
   const handleSubmit = async () => {
     if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
@@ -28,10 +29,10 @@ const QueriesScreen = () => {
 
     setLoading(true);
     try {
-      const response = await submitQueriesData(name, email, phone, description, region, title, subject )
-      console.log('\nsubmitQuery response', response);
-      if (response?.result?.statusCode === 200 && response.data) {
-        Alert.alert('Success', `Query Id: ${response.data.QueryId}`);
+      const response = await submitQueriesData(name, email, phone, description, region, title, subject, badgeId)
+      console.log('\nsubmitQuery response', response.Status);
+      if (response.Status) {
+        Alert.alert('Success', `${response.Status}`);
         handleCancel(); // Reset the form on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);

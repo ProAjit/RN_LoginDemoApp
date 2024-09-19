@@ -32,9 +32,9 @@ export const loginApi = async (userName: string, password: string) => {
 export const profileApi = async (userName: string, sessionId: string, sessionToken: string) => {
   const requestBody = {
     UserName: String(userName).toUpperCase(),
-      lang: 'AR',
-      session_id: sessionId,
-      session_token: sessionToken,
+    lang: 'EN',
+    session_id: sessionId,
+    session_token: sessionToken,
   };
   console.log('\nProfile REQUEST URL', `${API.PROFILE_URL}`);
   console.log('\nProfile REQUEST BODY', requestBody);
