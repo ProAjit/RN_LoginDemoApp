@@ -21,7 +21,6 @@ const UpdateIncidentsScreen: React.FC = () => {
   const [show, setShow] = useState(false);
 
   // Function to call API and fetch data
-  // Function to call API and fetch data
   const fetchData = async () => {
     try {
       const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + singleton.badgeNumber
@@ -39,34 +38,13 @@ const UpdateIncidentsScreen: React.FC = () => {
         incidentId: Number(incident["incidentid"].trim()),
       }));
       setData(parsedData);
+      console.log('\nDATA set', data);
       setShow(false);
     } catch (error) {
       console.log('\nAPI call failed, loading local JSON:', error);
-      // const localData = require(jsonFilePath);
       setTimeout(() => {
-        // processIncidents(localData);
         setShow(false);
       }, 10);
-    }
-  };
-      
-  const processIncidents = (data: any) => {
-    if (data && data['Incidents'] && data['Incidents'].length > 0) {
-      // Parse the local JSON data to the DataItem format
-      const parsedData: DataItem[] = data['Incidents'].map((incident: any) => ({
-        badgeNumber: incident["Badgenumber"].trim(),
-        name: incident["Name"].trim(),
-        location: incident["Location"].trim(),
-        description: incident["Description"].trim(),
-        status: incident["incidentstatus"].trim(),
-        region: incident["Region"].trim(),
-        incidentdate: incident["incidentdate"].trim(),
-        incidentId: Number(incident["incidentid"].trim()),
-      }));
-      // Set the parsed local data
-     setData(parsedData);
-    } else {
-      console.log('\nNo Incidents', 'No incidents found in the local JSON');
     }
   };
 
@@ -75,32 +53,30 @@ const UpdateIncidentsScreen: React.FC = () => {
     fetchData();  // Call the API when the component mounts
   }, []);
 
-  const updateStatus = async (badgeNumber: string, newStatus: string) => {
-    const incidentToUpdate = data.find(item => item.badgeNumber === badgeNumber);
+  const updateStatus = async (item: DataItem) => {
 
-    if (!incidentToUpdate) {
+    if (!item.incidentId) {
       console.error('Incident not found');
       return;
     }
 
     // Create the request body for the API
     const incidentData = {
-      incidentid: incidentToUpdate.incidentId.toString(),
-      Name: incidentToUpdate.name,
-      Badgenumber: incidentToUpdate.badgeNumber,
-      Location: incidentToUpdate.location,
-      Description: incidentToUpdate.description,
-      incidentstatus: newStatus, // Status being updated here
+      incidentid: item.incidentId.toString(),
+      Name: item.name,
+      Badgenumber: item.badgeNumber,
+      Location: item.location,
+      Description: item.description,
+      incidentstatus: 'Closed', // Status being updated here
       assignedto: 8, // Example value, you can adjust this
       actiontaken: 'testing an update',
       remarks: 'testing an update',
       Imageuri: ' ', // Assuming no image for now
-      Region: incidentToUpdate.region,
+      Region: item.region,
     };
 
     // Call the API to update the status
     const success = await updateIncidentStatus(incidentData);
-
     if (success) {
       // Refresh the incident list on success
       fetchData();
@@ -123,11 +99,12 @@ const UpdateIncidentsScreen: React.FC = () => {
 
     const handleStatusPress = (item: DataItem) => {
       if (item.status === 'Open') {
+        const msg = 'Would you like to close this incident with id = ' + item.incidentId.toString() + `?`
         Alert.alert(
-          'Would you like to close this incident?',
+          msg,
           '',
-          [{ text: 'Okay', onPress: () => updateStatus(item.badgeNumber, 'Closed'), },
-          { text: 'Cancel', style: 'cancel', },],
+          [{ text: 'No', style: 'cancel', },{ text: 'Yes', onPress: () => updateStatus(item), },
+          ],
           { cancelable: true }
         );
       }
@@ -136,12 +113,12 @@ const UpdateIncidentsScreen: React.FC = () => {
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>
-            Name: {item.name}
-          </Text>
+          <Text style={styles.incidentText}>
+            Incident Id: {item.incidentId.toString()}
+            </Text>
           <View style={[styles.innerContainer]}>
-            <Text style={styles.badgeNumberText}>
-              Badge Number: {item.badgeNumber}
+            <Text style={styles.nameText}>
+              Name: {item.name}
             </Text>
             <TouchableOpacity
               onPress={() => handleStatusPress(item)}
@@ -184,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.appBackground,
   },
   container: {
-    marginTop: 5,
+    marginTop: 15,
     height: 180,
     marginBottom: 15,
     padding: 8,
@@ -207,6 +184,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   nameText: {
+    fontSize: 16,
+    marginTop: 10,
+    width: 250,
+  },
+  incidentText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,

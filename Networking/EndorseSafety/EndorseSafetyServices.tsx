@@ -1,16 +1,10 @@
 import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
+import { Alert } from 'react-native';
 
 export const submitSafetyEndorsement = async ( name: string, badgeNumber: string, location: string,
   description: string, region: string ) => {
-    
-  // const formData = new FormData();
-  // formData.append('Name', name);
-  // formData.append('Badgenumber', badgeNumber);
-  // formData.append('Location', location);
-  // formData.append('Description', description);
-  // formData.append('Region', region);
-  // formData.append('image', '');
+
 
   const requestBody = {
     Name: name,
@@ -48,8 +42,14 @@ export const submitSafetyEndorsement = async ( name: string, badgeNumber: string
 // Import the new API function
 export const updateIncidentStatus = async (incidentData: any) => {
   try {
-    const response = await axios.post(`${API.TestBaseURL}/updateIncidentStatus`, incidentData);
-    if (response.data.success) {
+    const apiURL = `${API.TestBaseURL}/updateIncident`
+    console.log('updateIncident URL', apiURL)
+    console.log('updateIncident request body', incidentData)
+    const response = await axios.post(`${API.TestBaseURL}/updateIncident`, incidentData);
+    console.log('updateIncident response', response.data.Status)
+    if (response.data.Status) {
+      console.log('Success in updating incident status:', response.data.Status);
+      Alert.alert('Success', response.data.Status);
       return true;
     } else {
       console.error('Failed to update incident status:', response.data);
