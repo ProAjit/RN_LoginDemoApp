@@ -36,10 +36,10 @@ export const profileApi = async (userName: string, sessionId: string, sessionTok
     session_id: sessionId,
     session_token: sessionToken,
   };
-  console.log('\nProfile REQUEST URL', `${API.PROFILE_URL}`);
+  console.log('\nProfile REQUEST URL', `${API.Profile_URL}`);
   console.log('\nProfile REQUEST BODY', requestBody);
   try {
-    const response = await axios.post(`${API.PROFILE_URL}`, requestBody, {
+    const response = await axios.post(`${API.Profile_URL}`, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
