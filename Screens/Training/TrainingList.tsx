@@ -8,7 +8,7 @@ interface TrainingDataItem {
   noOfTrainees: number;
   badgeNumber: string;
   location: string;
-  trainingId: number;
+  trainingId: string;
   department: string;
   supervisor: string;
   fromDate: string;
@@ -50,7 +50,7 @@ const TrainingList: React.FC = () => {
         fromDate: training["FromDate"],
         status: training["Status"],
         region: training["Region"],
-        trainingId: Number(training["TrainingId"]),
+        trainingId: training["TrainingId"],
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
@@ -80,7 +80,7 @@ const TrainingList: React.FC = () => {
         status: training["Status"],
         subject: training["Subject"],
         region: training["Region"],
-        trainingId: Number(training["TrainingId"]),
+        trainingId: training["TrainingId"],
       }));
       // Set the parsed local data
       setData(parsedData);
@@ -115,10 +115,13 @@ const TrainingList: React.FC = () => {
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>
+           <Text style={styles.nameText}>
+           Training Id: {item.trainingId}
+          </Text>
+          <Text style={styles.numberText}>
             Supervisor: {item.supervisor}
           </Text>
-          <Text style={styles.nameText}>
+          <Text style={styles.numberText}>
             Department: {item.department}
           </Text>
           <View style={[styles.innerContainer]}>
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 10,
-    height: 230,
+    height: 275,
     margin: 5,
     padding: 8,
     borderRadius: 8,
