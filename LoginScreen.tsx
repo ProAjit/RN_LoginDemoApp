@@ -84,12 +84,11 @@ const loginApiCall = async () => {
         singleton.setMobileNumber(userResp.data.MobileNumber);
         singleton.setToken(userResp.data.InFuture4);
         console.log('\nLogin Badge number', singleton.badgeNumber);
+        // Navigate to Home screen with params
         props.navigation.navigate("Main", { screen: 'Home', params: { name } });
       } else {
         console.error('Login failed', 'Please check your credentials.');
       }
-      // Navigate to Home screen with params
-      props.navigation.navigate("Main", { screen: 'Home', params: { name } });
     } catch (error) {
       console.log('\nLogin Error', error);
     } finally {
