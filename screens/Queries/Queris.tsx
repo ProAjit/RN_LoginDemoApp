@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import { COLORS, USER } from '../../Constants/GlobalData';
+import AppSingleton from '../../AppSingleton/AppSingleton';
 
 const QueriesScreen = () => {
   const name = USER.name;
@@ -17,6 +18,7 @@ const QueriesScreen = () => {
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
   const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
+  const singleton = AppSingleton.getInstance();
 
   const handleSubmit = async () => {
     if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
@@ -104,7 +106,7 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Name</Text>
         <TextInput
         style={styles.staticInput}
-        placeholder='Logged User Name'
+        defaultValue={singleton.fullName}
         editable={false}/>
       </View>      
 
@@ -112,7 +114,7 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Email</Text>
         <TextInput
         style={styles.staticInput}
-        placeholder='Logged User Email'
+        defaultValue={singleton.eMail}
         editable={false}/>
       </View>
 
@@ -120,7 +122,7 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Phone number</Text>
         <TextInput
         style={styles.staticInput}
-        placeholder='Logged User Phone'
+        defaultValue={singleton.mobileNumber}
         editable={false}/>
       </View>
 
@@ -128,7 +130,7 @@ const QueriesScreen = () => {
         <Text style={styles.label}>Title</Text>
         <TextInput
         style={styles.staticInput}
-        placeholder='Logged User Designation'
+        defaultValue={singleton.title}
         editable={false}/>
       </View>
 

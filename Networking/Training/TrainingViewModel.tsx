@@ -1,6 +1,8 @@
 import { Alert } from 'react-native';
 import { submitTraining } from './ClassTrainingServices';
 import { USER } from '../../Constants/GlobalData';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 export const handleSubmit = async (
   region: string,
@@ -35,7 +37,7 @@ export const handleSubmit = async (
   setLoading(true);
 
   const requestBody = {
-    Badgenumber: USER.badgeNumber,
+    Badgenumber: singleton.badgeNumber,
     Department: department,
     Supervisor: supervisor,
     NumberOfTrainees: numTrainees,

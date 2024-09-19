@@ -8,11 +8,14 @@ const API_BASE_URL = API.TestBaseURL
 export const submitTraining = async (requestBody: any) => {
   try {
     console.log('\nsubmitTraining started')
+    console.log('\submitTraining REQUEST URL', `${API.TestBaseURL}/submitEndorsement`);
+    console.log('\submitTraining REQUEST BODY', requestBody);  
     const response = await axios.post(`${API_BASE_URL}/submitTraining`, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
+    console.log('\submitTraining resp data', response.data);  
     return response.data;
   } catch (error) {
     console.error('Error while submitting training data:', error);

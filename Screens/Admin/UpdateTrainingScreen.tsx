@@ -242,7 +242,8 @@ const UpdateTrainingScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingHorizontal: 0,
+    padding: 10,
+    backgroundColor: COLORS.appBackground,
   },
   container: {
     marginTop: 10,

@@ -11,9 +11,7 @@ import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
 import { COLORS, DEVICE } from '../../Constants/GlobalData';
-
-const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
-
+import AppSingleton from '../../AppSingleton/AppSingleton';
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -26,6 +24,8 @@ const EndorseSafetyScreen = () => {
   const [isShareDataEnabled, setIsShareDataEnabled] = useState(true); // State for the switch
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
+  const singleton = AppSingleton.getInstance();
+  const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   // const openCamera = () => {
   //   const options: CameraOptions = {
@@ -53,13 +53,13 @@ const EndorseSafetyScreen = () => {
       Alert.alert('Error', 'Please fill mandatory fields.');
       return;
     }
-
+    console.log('\nsubmitTraining API call started')
     setLoading(true);
     try {
-      const response = await submitSafetyEndorsement(name, badgeNumber, location, description, region, image);
+      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region);
       console.log('\nsubmitTraining RESPONSE', response)
-      if (response?.result?.statusCode === 200 && response.data) {
-        Alert.alert('Success', `Training Request ID: ${response.data.IncidentId}`);
+      if (response.IncidentId) {
+        Alert.alert('Success', `IncidentId: ${response.IncidentId}`);
         handleCancel(); // Reset the form on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
@@ -148,7 +148,7 @@ const EndorseSafetyScreen = () => {
             <TextInput
               style={styles.staticInput}
               onChangeText={setName}
-              placeholder='Logged User Name'
+              defaultValue={singleton.username}
               editable={false}
             />
 
@@ -156,7 +156,7 @@ const EndorseSafetyScreen = () => {
             <TextInput
               style={styles.staticInput}
               onChangeText={setBadgeNumber}
-              placeholder='Logged User Badge'
+              defaultValue={singleton.badgeNumber}
               keyboardType="numeric"
               editable={false}
             />

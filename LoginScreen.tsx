@@ -19,7 +19,7 @@ const NetworkComponent: React.FC = () => {
 };
 
 const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any) => void; }; }) => {
-  const [name, setName] = useState('ALASIRIAH');
+  const [name, setName] = useState('IMRANM');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
@@ -52,6 +52,7 @@ const loginApiCall = async () => {
   //   }
   // }
   */
+
   if (name.trim() === '' || password.trim() === '') {
     Alert.alert('Error', 'Please enter both username and password.');
   } else {
@@ -72,9 +73,9 @@ const loginApiCall = async () => {
         // On successful login, call the profileApi
         console.log('\nProfile Api Call started');
         const profileResp = await profileApi(name, session_id, session_token);
-        console.log('\nUser Only Profile Data', profileResp.data);    
-        // Handle employee profile response
-        console.log('\nEmployee Profile', `\nName: ${profileResp.data.employeeName}\nEmail: ${profileResp.data.empEmail}`);
+        console.log('\nUser Only Profile Data', profileResp);    
+        // // Handle employee profile response
+        console.log('\nEmployee Profile', `\nName: ${profileResp.employeeName}\nEmail: ${profileResp.empEmail}`);
         const singleton = AppSingleton.getInstance();
 
         // Set values to AppSingleton
@@ -82,9 +83,11 @@ const loginApiCall = async () => {
         singleton.setFullName(onlyName);
         singleton.setBadgeNumber(userResp.data.Fullname); 
         singleton.setMobileNumber(userResp.data.MobileNumber);
-        singleton.setToken(userResp.data.InFuture4);
-        console.log('\nLogin Badge number', singleton.badgeNumber);
+        //singleton.setToken(userResp.data.InFuture4);
+        singleton.setTitle(profileResp.position)
+        singleton.setEmail(profileResp.empEmail)
         // Navigate to Home screen with params
+        console.log('\nEmp Badge number', singleton.badgeNumber);
         props.navigation.navigate("Main", { screen: 'Home', params: { name } });
       } else {
         console.error('Login failed', 'Please check your credentials.');

@@ -181,6 +181,7 @@ const UpdateIncidentsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10,
+    backgroundColor: COLORS.appBackground,
   },
   container: {
     marginTop: 5,

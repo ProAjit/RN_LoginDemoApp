@@ -5,7 +5,7 @@ import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
 interface DataItem {
-  incidentId: Number
+  incidentId: string
   name: string;
   location: string;
   description: string;
@@ -37,7 +37,7 @@ const SafetyIncidentsList: React.FC = () => {
         status: incident["incidentstatus"].trim(),
         region: incident["Region"].trim(),
         incidentdate: incident["incidentdate"].trim(),
-        incidentId: Number(incident["incidentid"].trim()),
+        incidentId: incident["incidentid"].trim(),
       }));
       setData(parsedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
@@ -63,7 +63,7 @@ const SafetyIncidentsList: React.FC = () => {
         status: incident["incidentstatus"].trim(),
         region: incident["Region"].trim(),
         incidentdate: incident["incidentdate"].trim(),
-        incidentId: Number(incident["incidentid"].trim()),
+        incidentId: incident["incidentid"].trim(),
       }));
       // Set the parsed local data
      setData(parsedData);
@@ -117,7 +117,7 @@ const SafetyIncidentsList: React.FC = () => {
           </Text>
           <View style={[styles.innerContainer]}>
             <Text style={styles.badgeNumberText}>
-              Badge Number: {item.badgeNumber}
+              Incident Id: {item.incidentId}
             </Text>
             <TouchableOpacity
               // onPress={() => handleStatusPress(item)}

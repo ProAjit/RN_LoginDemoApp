@@ -5,6 +5,8 @@ class AppSingleton {
   badgeNumber: string = '';
   mobileNumber: string = '';
   token: string = '';
+  eMail: string = '';
+  title: string = '';
 
   // Private constructor to prevent direct class instantiation
   private constructor() { }
@@ -22,18 +24,10 @@ class AppSingleton {
     this.username = value;
   }
 
-  public getUserName(): string {
-    return this.username;
-  }
-
   // Method to set full name
   public setFullName(value: string): void {
     this.fullName = value;
     console.log('\nUser setFullName', this.fullName);
-  }
-
-  public getFullName(): string {
-    return this.fullName;
   }
 
   // Method to set badge number
@@ -43,13 +37,29 @@ class AppSingleton {
     console.log('\nUser setBadgeNumber', this.badgeNumber);
   }
 
-  public getBadgeNumber(): string {
-    return this.badgeNumber;
-  }
-
   // Method to set mobile number
   public setMobileNumber(value: string): void {
     this.mobileNumber = value;
+  }
+
+  public setTitle(value: string): void {
+    this.title = value;
+  }
+
+  public setEmail(value: string): void {
+    this.eMail = value;
+  }
+
+  public getUserName(): string {
+    return this.username;
+  }
+
+  public getFullName(): string {
+    return this.fullName;
+  }
+
+  public getBadgeNumber(): string {
+    return this.badgeNumber;
   }
 
   public getMobileNumber(): string {
