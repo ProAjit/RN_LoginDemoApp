@@ -99,7 +99,7 @@ const UpdateIncidentsScreen: React.FC = () => {
 
     const handleStatusPress = (item: DataItem) => {
       if (item.status === 'Open') {
-        const msg = 'Would you like to close this incident with id = ' + item.incidentId.toString() + `?`
+        const msg = 'Would you like to close this incident# ' + item.incidentId.toString() + `?`
         Alert.alert(
           msg,
           '',
