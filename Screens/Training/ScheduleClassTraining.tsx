@@ -3,7 +3,7 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
   KeyboardAvoidingView, FlatList, TouchableWithoutFeedback
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker'; // Updated import for modal date picker
 import { handleSubmit } from '../../Networking/Training/TrainingViewModel';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
@@ -22,25 +22,28 @@ const ScheduleClassTraining = () => {
   const [location, setLocation] = useState('');
   const [fromDate, setFromDate] = useState<Date | undefined>(undefined);
   const [toDate, setToDate] = useState<Date | undefined>(undefined);
-  const [showFromDatePicker, setShowFromDatePicker] = useState(false);
-  const [showToDatePicker, setShowToDatePicker] = useState(false);
+  const [isFromDatePickerVisible, setFromDatePickerVisibility] = useState(false); // Modal Date Picker state
+  const [isToDatePickerVisible, setToDatePickerVisibility] = useState(false); // Modal Date Picker state
   const [loading, setLoading] = useState(false); // Loading state
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
 
-  const onFromDateChange = (event: any, selectedDate?: Date) => {
-    setShowFromDatePicker(false);
-    if (selectedDate) {
-      setFromDate(selectedDate);
-    }
+  // Date picker handlers
+  const showFromDatePicker = () => setFromDatePickerVisibility(true);
+  const hideFromDatePicker = () => setFromDatePickerVisibility(false);
+
+  const handleFromDateConfirm = (selectedDate: Date) => {
+    setFromDate(selectedDate);
+    hideFromDatePicker();
   };
 
-  const onToDateChange = (event: any, selectedDate?: Date) => {
-    setShowToDatePicker(false);
-    if (selectedDate) {
-      setToDate(selectedDate);
-    }
+  const showToDatePicker = () => setToDatePickerVisibility(true);
+  const hideToDatePicker = () => setToDatePickerVisibility(false);
+
+  const handleToDateConfirm = (selectedDate: Date) => {
+    setToDate(selectedDate);
+    hideToDatePicker();
   };
 
   const formatDateTime = (date?: Date) => {
@@ -79,7 +82,7 @@ const ScheduleClassTraining = () => {
 
   const handleScreenPress = () => {
     if (isDropdownVisible) {
-      setIsDropdownVisible(false)
+      setIsDropdownVisible(false);
     }
   };
 
@@ -117,41 +120,38 @@ const ScheduleClassTraining = () => {
 
         <Text style={styles.label}>Training on Date & Time</Text>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => setShowFromDatePicker(true)} style={styles.dateInput}>
+          <TouchableOpacity onPress={showFromDatePicker} style={styles.dateInput}>
             <Text>{fromDate ? formatDateTime(fromDate) : 'From Date'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowToDatePicker(true)} style={styles.dateInput}>
+          <TouchableOpacity onPress={showToDatePicker} style={styles.dateInput}>
             <Text>{toDate ? formatDateTime(toDate) : 'To Date'}</Text>
           </TouchableOpacity>
         </View>
 
-        {showFromDatePicker && (
-          <DateTimePicker
-            value={fromDate || new Date()}
-            mode="datetime"
-            display="default"
-            onChange={onFromDateChange}
-            minimumDate={new Date()} // Today's date
-            maximumDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))} // One year from today
-          />
-        )}
+        {/* Modal Date Pickers */}
+        <DateTimePickerModal
+          isVisible={isFromDatePickerVisible}
+          mode="datetime"
+          onConfirm={handleFromDateConfirm}
+          onCancel={hideFromDatePicker}
+          minimumDate={new Date()}
+          maximumDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        />
 
-        {showToDatePicker && (
-          <DateTimePicker
-            value={toDate || new Date()}
-            mode="datetime"
-            display="default"
-            onChange={onToDateChange}
-            minimumDate={fromDate || new Date()} // From date or today's date
-            maximumDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))} // One year from today
-          />
-        )}
+        <DateTimePickerModal
+          isVisible={isToDatePickerVisible}
+          mode="datetime"
+          onConfirm={handleToDateConfirm}
+          onCancel={hideToDatePicker}
+          minimumDate={fromDate || new Date()}
+          maximumDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        />
 
         <Text style={styles.label}>Subject</Text>
         <TextInput style={styles.input} value={subject}
           autoCorrect={false} spellCheck={false}
           onChangeText={setSubject} />
-          
+
         <Text style={styles.label}>No. of Trainees</Text>
         <TextInput
           style={styles.input}
@@ -172,11 +172,11 @@ const ScheduleClassTraining = () => {
 
   const renderHistoryRequestsContent = () => (
     <View style={styles.historyView}>
-      <TrainingList/>
+      <TrainingList />
     </View>
   );
 
-  const handleRegionSelect = (selectedRegion: React.SetStateAction<string>) => {
+  const handleRegionSelect = (selectedRegion: string) => {
     setRegion(selectedRegion);
     setIsDropdownVisible(false);
   };
