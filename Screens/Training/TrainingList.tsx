@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE, API, USER, FormatDate } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API, FormatDate } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
