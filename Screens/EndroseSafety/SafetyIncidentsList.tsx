@@ -77,14 +77,6 @@ const SafetyIncidentsList: React.FC = () => {
     fetchData();  // Call the API when the component mounts
   }, []);
 
-  // const updateStatus = (badgeNumber: number, newStatus: string) => {
-  //   // Logic to update status can go here (if needed)
-  //   const updatedData = data.map(item =>
-  //     item.badgeNumber === badgeNumber ? { ...item, status: newStatus } : item
-  //   );
-  //   setData(updatedData);
-  // };
-
   const renderItem = ({ item }: { item: DataItem }) => {
     const getStatusBackgroundColor = (status: string) => {
       switch (status) {
@@ -97,18 +89,6 @@ const SafetyIncidentsList: React.FC = () => {
       }
     };
 
-    // const handleStatusPress = (item: DataItem) => {
-    //   if (item.status === 'Open') {
-    //     Alert.alert(
-    //       'Would you like to close this incident?',
-    //       '',
-    //       [{ text: 'Okay', onPress: () => updateStatus(item.badgeNumber, 'Closed'), },
-    //       { text: 'Cancel', style: 'cancel', },],
-    //       { cancelable: true }
-    //     );
-    //   }
-    // };
-
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
@@ -120,7 +100,6 @@ const SafetyIncidentsList: React.FC = () => {
               Incident Id: {item.incidentId}
             </Text>
             <TouchableOpacity
-              // onPress={() => handleStatusPress(item)}
               style={[styles.statusButton,
               getStatusBackgroundColor(item.status)]}
             >
