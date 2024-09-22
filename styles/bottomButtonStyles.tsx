@@ -21,6 +21,14 @@ const bottomButtonStyles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 20,
       },
+      cameraButton: {
+        backgroundColor: COLORS.appThemeBlue,
+        padding: 10,
+        borderRadius: 4,
+        alignItems: 'center',
+        marginHorizontal: 20,
+        width: 150,
+      },
       buttonText: {
         color: COLORS.white,
         fontSize: 16,

@@ -125,7 +125,9 @@ const EndorseSafetyScreen = () => {
 
       <View style={styles.topView}>
         {image && <Image source={{ uri: image }} style={styles.imageView} />}
-        <Button title="Take A Picture" onPress={openCamera} />
+        <TouchableOpacity style={bottomButtonStyles.cameraButton} onPress={openCamera}>
+            <Text style={bottomButtonStyles.buttonText}>Take A Picture</Text>
+          </TouchableOpacity>
       </View>
 
       {/* New Switch View */}
@@ -308,7 +310,7 @@ const styles = StyleSheet.create({
     height: DEVICE.height * 0.50,
   },
   imageView: {
-    width: 100,
+    width: 120,
     height: 100,
   },
   regionLabel: {
