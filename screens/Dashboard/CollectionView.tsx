@@ -52,6 +52,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
   const [alertCount, setAlertCount] = useState<string | null>(null); // State to store alert count
 
   // Fetch active alert count from the API
+  
   useEffect(() => {
     const fetchAlertCount = async () => {
       try {
@@ -60,6 +61,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
         setAlertCount(response.ActiveAlertCount); // Update state with the alert count
       } catch (error) {
         console.error('Failed to fetch alert count:', error);
+        setAlertCount('4'); // Update state with the alert count
       }
     };
     fetchAlertCount();
@@ -89,6 +91,13 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
     }
   }, [alertsVisited]);
 
+  const handleItemPress = (title: string) => {
+    onItemPress(title); // Notify parent component about the click
+    if (title === 'SAFETY ALERTS') {
+      setAlertCount('0'); // Set alert count to zero
+    }
+  };
+
   const renderItem = ({ item }: { item: Item }) => {
     const iconStyle = [
       styles.iconStyle,
@@ -103,7 +112,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
     ];
 
     return (
-      <TouchableOpacity style={styles.item} onPress={() => onItemPress(item.title)}>
+      <TouchableOpacity style={styles.item} onPress={() => handleItemPress(item.title)}>
         <Animated.View style={iconStyle}>
           <FontAwesomeIcon icon={getIcon(item.title)} size={45} color={COLORS.white} />
         </Animated.View>
