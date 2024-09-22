@@ -1,6 +1,5 @@
 import { Alert } from 'react-native';
 import { submitTraining } from './ClassTrainingServices';
-import { USER } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
@@ -43,8 +42,8 @@ export const handleSubmit = async (
     NumberOfTrainees: numTrainees,
     Location: location,
     Subject: subject,
-    FromDate: "2024-09-18T13:26:33.345", //fromDate?.toISOString(),
-    ToDate: "2024-09-27T13:26:33.345", //toDate?.toISOString(),
+    FromDate: fromDate?.toISOString(),
+    ToDate: toDate?.toISOString(),
     Region: region,
   };
 
