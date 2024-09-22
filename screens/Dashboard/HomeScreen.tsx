@@ -91,7 +91,3 @@ const homeStyles = StyleSheet.create({
 }); 
 
 export default HomeScreen;
-
-// UIColor(red: 19/255, green: 172/255, blue: 232/255, alpha: 1.0) - Sky Blue - #13ACE8
-// UIColor(red: 211/255, green: 215/255, blue: 219/255, alpha: 1.0) - gray - #D3D7DB
-// UIColor(red: 244/255, green: 246/255, blue: 255/255, alpha: 1.0) - background white F4F6FF
