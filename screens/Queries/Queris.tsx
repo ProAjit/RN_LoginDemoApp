@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
-import { COLORS, USER } from '../../Constants/GlobalData';
+import { COLORS, USER, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
@@ -19,7 +19,6 @@ const QueriesScreen = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
-  const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   const handleSubmit = async () => {
     if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
@@ -67,7 +66,7 @@ const QueriesScreen = () => {
   const renderRegionDropdown = () => (
     <View style={styles.dropdownContainer}>
       <FlatList
-        data={regionsData}
+        data={REGIONS.data}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <TouchableOpacity

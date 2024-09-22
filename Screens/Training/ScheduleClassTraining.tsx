@@ -10,9 +10,8 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 
-const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -184,7 +183,7 @@ const ScheduleClassTraining = () => {
   const renderRegionDropdown = () => (
     <View style={styles.dropdownContainer}>
       <FlatList
-        data={regionsData}
+        data={REGIONS.data}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <TouchableOpacity

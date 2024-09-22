@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import SafetyIncidentsList from './SafetyIncidentsList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 
 const EndorseSafetyScreen = () => {
@@ -25,7 +25,6 @@ const EndorseSafetyScreen = () => {
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
   const singleton = AppSingleton.getInstance();
-  const regionsData = ['Riyadh', 'Jeddah', 'Macca', 'Madina', 'Hessa'];
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -94,7 +93,7 @@ const EndorseSafetyScreen = () => {
   const renderRegionDropdown = () => (
     <View style={styles.dropdownContainer}>
       <FlatList
-        data={regionsData}
+        data={REGIONS.data}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <TouchableOpacity

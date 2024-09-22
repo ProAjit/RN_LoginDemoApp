@@ -71,6 +71,10 @@ export const USER = {
   status: 'New',
 }
 
+export const REGIONS = {
+   data: ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Hessa']
+}
+
 export const FormatDate = (dateString: string): string => {
   // Create a new Date object from the input date string
   const date = new Date(dateString);
