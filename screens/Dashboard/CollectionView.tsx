@@ -61,6 +61,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
         setAlertCount(response.ActiveAlertCount); // Update state with the alert count
       } catch (error) {
         console.error('Failed to fetch alert count:', error);
+        setAlertCount('4');
       }
     };
     fetchAlertCount();
@@ -93,7 +94,9 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
   const handleItemPress = (title: string) => {
     onItemPress(title); // Notify parent component about the click
     if (title === 'SAFETY ALERTS') {
-      setAlertCount('0'); // Set alert count to zero
+      setTimeout(() => {
+        setAlertCount('0'); // Set alert count to zero  
+      }, 300);
     }
   };
 
