@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, 
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback } from 'react-native';
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
-import { COLORS, USER, REGIONS } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
@@ -159,6 +159,10 @@ const QueriesScreen = () => {
           multiline
         />
       </View>
+      {loading && (
+        <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        </View>)}
       </KeyboardAwareScrollView>
       <View style={bottomButtonStyles.buttonContainer}>
           <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
@@ -169,7 +173,7 @@ const QueriesScreen = () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -246,6 +250,16 @@ const styles = StyleSheet.create({
   },
   multilineInput: {
     height: 60,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: DEVICE.height/3,
+    left:  DEVICE.width/2,
+    zIndex: 10,
   },
 });
 

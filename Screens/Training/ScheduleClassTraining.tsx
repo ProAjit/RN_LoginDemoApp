@@ -88,11 +88,6 @@ const ScheduleClassTraining = () => {
   const renderNewRequestContent = () => (
     <TouchableWithoutFeedback onPress={handleScreenPress}>
       <View style={styles.container}>
-        {loading && (
-          <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
-         </View>
-        )}
         {/* Region Dropdown */}
         <Text style={styles.label}>Region</Text>
         <TouchableOpacity
@@ -165,6 +160,10 @@ const ScheduleClassTraining = () => {
         <TextInput style={styles.input} value={location}
           autoCorrect={false} spellCheck={false}
           onChangeText={setLocation} />
+        {loading && (
+        <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        </View>)}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -235,7 +234,6 @@ const ScheduleClassTraining = () => {
             toDate,
             setLoading,
             handleCancel,
-            renderHistoryRequestsContent,
           );
         }} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
@@ -358,16 +356,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.white,
   },
-  loaderContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: DEVICE.height/2,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,
-  },
   historyView: {
     flex: 1,
     padding: 2,
@@ -378,6 +366,16 @@ const styles = StyleSheet.create({
   historyText: {
     fontSize: 18,
     color: COLORS.appThemeBlue,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: DEVICE.height/3,
+    left:  DEVICE.width/2,
+    zIndex: 10,
   },
 });
 

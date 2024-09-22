@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View, TextInput, Text, Button, Image, TouchableOpacity,
+import { View, TextInput, Text, ActivityIndicator, Image, TouchableOpacity,
   StyleSheet, Alert, KeyboardAvoidingView, Switch, 
   FlatList, TouchableWithoutFeedback} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -185,6 +184,10 @@ const EndorseSafetyScreen = () => {
           multiline
         />
       </View>
+      {loading && (
+        <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        </View>)}
     </View>
     </TouchableWithoutFeedback>
   );
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
     height: DEVICE.height * 0.50,
   },
   imageView: {
-    width: 120,
+    width: 150,
     height: 100,
   },
   regionLabel: {
@@ -341,6 +344,16 @@ const styles = StyleSheet.create({
   },
   multilineInput: {
     height: 60,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: DEVICE.height/3,
+    left:  DEVICE.width/2,
+    zIndex: 10,
   },
 });
 
