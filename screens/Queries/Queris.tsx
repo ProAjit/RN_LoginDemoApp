@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 4,
     zIndex: 1000,
-    height: 200, // Height for all 5 items
+    height: 220, // Height for all 5 items
     width: '99%', // Full width of the parent container
     marginTop: 80,
     marginLeft: 16,
