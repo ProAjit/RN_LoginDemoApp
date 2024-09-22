@@ -60,6 +60,7 @@ const EndorseSafetyScreen = () => {
       if (response.IncidentId) {
         Alert.alert('Success', `IncidentId: ${response.IncidentId}`);
         handleCancel(); // Reset the form on success
+        renderHistoryRequestsContent()
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }

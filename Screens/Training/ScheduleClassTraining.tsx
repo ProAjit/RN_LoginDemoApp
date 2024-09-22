@@ -234,7 +234,8 @@ const ScheduleClassTraining = () => {
             fromDate,
             toDate,
             setLoading,
-            handleCancel
+            handleCancel,
+            renderHistoryRequestsContent,
           );
         }} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>

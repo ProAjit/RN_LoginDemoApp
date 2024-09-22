@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
-import { Alert } from 'react-native';
 
 const API_BASE_URL = API.TestBaseURL
 
