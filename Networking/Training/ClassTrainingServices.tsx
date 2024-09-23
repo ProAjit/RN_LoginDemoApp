@@ -30,12 +30,26 @@ export const updateTrainingStatus = async (trainingData: any) => {
   try {
     const response = await axios.put(url, trainingData);
     console.log('\nupdateTrainingStatus response', response)
-    console.log('\nupdateTrainingStatus data', response.data)
     console.log('\nupdateTrainingStatus response.data.TrainingSchedule.Status', response.data.TrainingSchedule.Status)
     return response.data;
   } catch (error) {
     console.error('Error updating training status:', error);
     console.log('\nupdateTrainingStatus error', error)
+    throw error;
+  }
+};
+
+export const getTrainingScheduleById = async (trainingId: string) => {
+  const url = API.TestBaseURL + '/getTrainingScheduleById';
+  console.log('\nupdateTrainingStatus URL', url)
+  try {
+    const response = await axios.get(url, {
+      params: { TrainingId: trainingId },
+    });
+    console.log('\ngetTrainingScheduleById response', response.data)
+    return response.data;
+  } catch (error) {
+    console.log('\ngetTrainingScheduleById error', JSON.stringify(error))
     throw error;
   }
 };
