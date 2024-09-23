@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, HomeCategoriesArr } from '../../Constants/GlobalData';
 import { getActiveAlertCount } from '../../Networking/SafetyAlerts/AlertsServices';
 
 interface Item {
@@ -22,25 +22,25 @@ const itemWidth = width / numColumns;
 
 const getIcon = (title: string) => {
   switch (title) {
-    case 'TOP MANAGEMENT MESSAGES':
+    case HomeCategoriesArr[0].title:
       return faMessage;
-    case 'ENDORSE YOUR SAFETY ISSUE':
+    case HomeCategoriesArr[1].title:
       return faPersonShelter;
-    case 'SCHEDULE IN CLASS TRAINING':
+    case HomeCategoriesArr[2].title:
       return faGraduationCap;
-    case 'QUERIES':
+    case HomeCategoriesArr[3].title:
       return faClipboardQuestion;
-    case 'E-TRAINING':
+    case HomeCategoriesArr[4].title:
       return faBlog;
-    case 'LINKS':
+    case HomeCategoriesArr[5].title:
       return faLink;
-    case 'SAFETY NEWS':
+    case HomeCategoriesArr[6].title:
       return faNewspaper;
-    case 'SAFETY ALERTS':
+    case HomeCategoriesArr[7].title:
       return faBellSlash;
-    case 'ABOUT':
+    case HomeCategoriesArr[8].title:
       return faAddressBook;
-    case 'ADMIN':
+    case HomeCategoriesArr[9].title:
       return faUserTie;
     default:
       return faAddressCard;
@@ -61,7 +61,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
         setAlertCount(response.ActiveAlertCount); // Update state with the alert count
       } catch (error) {
         console.error('Failed to fetch alert count:', error);
-        setAlertCount('4');
+        setAlertCount('0');
       }
     };
     fetchAlertCount();
