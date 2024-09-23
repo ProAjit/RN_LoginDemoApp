@@ -53,25 +53,34 @@ const EndorseSafetyScreen = () => {
     }
     console.log('\nsubmitTraining API call started')
     setLoading(true);
+  
     try {
-      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region);
-      console.log('\nsubmitTraining RESPONSE', response)
+      // Prepare image data in base64 format if image is present
+      let base64Image = null;
+      if (image) {
+        base64Image = image.startsWith('data:image/') ? image : `data:image/jpeg;base64,${image}`;
+      }
+  
+      // Call the API with the base64 image data
+      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image);
+      
       if (response.IncidentId) {
         Alert.alert('Success', `IncidentId: ${response.IncidentId}`);
         setSelectedIndex(1);
         setTimeout(() => {
-          handleCancel()
+          handleCancel();
         }, 300);
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
-      console.log('\nsubmitSafetyEndorsement SUCCESS');
     } catch (error) {
-      console.log('\nsubmitSafetyEndorsement Failed');
+      console.log('submitSafetyEndorsement Failed', error);
+      Alert.alert('Error', 'Failed to submit data.');
     } finally {
+      // Stop loading
       setLoading(false);
     }
-  };
+  };  
 
   const handleCancel = () => {
     setLocation('');

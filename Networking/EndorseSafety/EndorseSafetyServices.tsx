@@ -2,26 +2,23 @@ import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 import { Alert } from 'react-native';
 
-export const submitSafetyEndorsement = async ( name: string, badgeNumber: string, location: string,
-  description: string, region: string ) => {
-
-
+export const submitSafetyEndorsement = async (
+  name: string, 
+  badgeNumber: string, 
+  location: string,
+  description: string, 
+  region: string, 
+  image: string | null // Include image parameter
+) => {
   const requestBody = {
     Name: name,
     Badgenumber: badgeNumber,
     Location: location,
     Description: description,
-    Imageuri: ' ',
+    Imageuri: image,
     Region: region
-  };
+  }
 
-  // if (imageUri) {
-  //   formData.append('image', {
-  //     uri: imageUri,
-  //     type: 'image/jpeg', 
-  //     name: 'photo.jpg', 
-  //   } as any);
-  // }// Check appropriate MIME type and Change the file name if need be
   console.log('\nsubmitEndorsement REQUEST URL', `${API.TestBaseURL}/submitEndorsement`);
   console.log('\nsubmitEndorsement REQUEST BODY', requestBody);
 
