@@ -11,7 +11,9 @@ import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
 import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
+type TrainingScreenNavigationProp = NavigationProp<{ TrainingDetailsScreen: undefined }>;
 
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
@@ -27,6 +29,7 @@ const ScheduleClassTraining = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
+  const navigation = useNavigation<TrainingScreenNavigationProp>();
 
   // Date picker handlers
   const showFromDatePicker = () => setFromDatePickerVisibility(true);
@@ -234,6 +237,9 @@ const ScheduleClassTraining = () => {
             toDate,
             setLoading,
             handleCancel,
+            (trainingRequestId: string) => {
+              navigation.navigate('TrainingDetails', { trainingRequestId });  // Navigate on success
+            }
           );
         }} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>

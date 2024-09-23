@@ -17,6 +17,7 @@ import UpdateIncidentsScreen from '../Screens/Admin/UpdateIncidentsScreen';
 import LinksScreen from '../Screens/Links/LinksScreen';
 import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
+import TrainingDetails from '../Screens/Training/TrainingDetails';
 import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/GlobalData';
 
 const Stack = createStackNavigator();
@@ -145,6 +146,16 @@ const HomeStack = () => (
       }} />
 
     <Stack.Screen name={SCREEN_NAME.updateIncidents} component={UpdateIncidentsScreen}
+      options={{
+        headerStyle: { backgroundColor: COLORS.appThemeBlue },
+        headerTintColor: COLORS.white,
+        headerBackTitleVisible: false,
+        headerTitleStyle: {
+          fontSize: 16
+        }
+      }} />
+
+    <Stack.Screen name={SCREEN_NAME.trainingDetails} component={TrainingDetails}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue },
         headerTintColor: COLORS.white,

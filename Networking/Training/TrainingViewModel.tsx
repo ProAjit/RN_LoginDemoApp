@@ -14,6 +14,7 @@ export const handleSubmit = async (
   toDate: Date | undefined,
   setLoading: (loading: boolean) => void,
   handleCancel: () => void,
+  onSuccess: (trainingRequestId: string) => void  // Add callback for success
 ) => {
   if (
     region.trim() === '' ||
@@ -53,6 +54,7 @@ export const handleSubmit = async (
     const responseData = await submitTraining(requestBody);
     if (responseData.TrainingRequestId) {
       Alert.alert('Success', `Training Request ID: ${responseData.TrainingRequestId}`);
+      onSuccess(responseData.TrainingRequestId);  // Call success callback
       handleCancel();
     } else {
       Alert.alert('Error', 'Failed to submit data.');
