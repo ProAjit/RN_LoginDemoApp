@@ -13,7 +13,7 @@ export const loginApi = async (userName: string, password: string) => {
     InFuture4: ' ',
     InFuture5: ' ',
   };
-  console.log('\nProfile REQUEST URL', `${API.Login_URL}`);
+  console.log('\Login REQUEST URL', `${API.Login_URL}`);
   console.log('\nLogin REQUEST BODY', requestBody);
   try {
     const response = await axios.post(`${API.Login_URL}`, requestBody, {
@@ -24,7 +24,6 @@ export const loginApi = async (userName: string, password: string) => {
     console.log('\nLOGIN RESPONSE:\n', response);
     return response;
   } catch (error) {
-    console.error('Error while submitting training data:', error);
     throw error;
   }
 };

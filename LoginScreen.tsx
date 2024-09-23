@@ -24,7 +24,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   const [show, setShow] = useState(false);
 
 const loginApiCall = async () => {
-  console.log('\nloginApiCall started');
 
   if (name.trim() === '' || password.trim() === '') {
     Alert.alert('Error', 'Please enter both username and password.');
@@ -66,7 +65,7 @@ const loginApiCall = async () => {
         console.error('Login failed', 'Please check your credentials.');
       }
     } catch (error) {
-      console.log('\nLogin Error', error);
+      console.error('Error while loginApi data:', JSON.stringify(error));
     } finally {
       setShow(false); // Hide loading indicator
     }
