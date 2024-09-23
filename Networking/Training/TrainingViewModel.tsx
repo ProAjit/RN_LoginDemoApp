@@ -13,7 +13,7 @@ export const handleSubmit = async (
   fromDate: Date | undefined,
   toDate: Date | undefined,
   setLoading: (loading: boolean) => void,
-  handleCancel: () => void,
+  goToTrainingList: () => void,
 ) => {
   if (
     region.trim() === '' ||
@@ -53,7 +53,7 @@ export const handleSubmit = async (
     const responseData = await submitTraining(requestBody);
     if (responseData.TrainingRequestId) {
       Alert.alert('Success', `Training Request ID: ${responseData.TrainingRequestId}`);
-      handleCancel();
+      goToTrainingList();
     } else {
       Alert.alert('Error', 'Failed to submit data.');
     }
