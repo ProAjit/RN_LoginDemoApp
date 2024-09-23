@@ -12,6 +12,7 @@ import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
 import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 
+
 const ScheduleClassTraining = () => {
   const [department, setDepartment] = useState('');
   const [supervisor, setSupervisor] = useState('');
@@ -232,7 +233,7 @@ const ScheduleClassTraining = () => {
             fromDate,
             toDate,
             setLoading,
-            goToTrainingList,
+            handleCancel,
           );
         }} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
@@ -245,13 +246,6 @@ const ScheduleClassTraining = () => {
     </KeyboardAvoidingView>
   );
 };
-
-const goToTrainingList = () => {
-  setSelectedIndex(1);
-  setTimeout(() => {
-    handleCancel()
-  }, 300);
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -386,10 +380,3 @@ const styles = StyleSheet.create({
 });
 
 export default ScheduleClassTraining;
-
-function setSelectedIndex(arg0: number) {
-  throw new Error('Function not implemented.');
-}
-function handleCancel() {
-  throw new Error('Function not implemented.');
-}
