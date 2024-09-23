@@ -62,16 +62,6 @@ export const DEVICE = {
  width: Dimensions.get('window').width,
 }
 
-// export const USER = {
-//   badgeId: singleton.badgeNumber,
-//   badgeNumber: singleton.badgeNumber,
-//   email: 'ajit.s@test.com',
-//   phone: singleton.mobileNumber,
-//   title: 'App developer',
-//   name: singleton.fullName,
-//   status: 'New',
-// }
-
 export const REGIONS = {
    data: ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Hessa']
 }
@@ -105,3 +95,13 @@ export const FormatDate = (dateString: string): string => {
   // Return the formatted date string
   return `${day}-${month}-${year} ${hours}:${minutesFormatted}${ampm}`;
 };
+
+// export const USER = {
+//   badgeId: singleton.badgeNumber,
+//   badgeNumber: singleton.badgeNumber,
+//   email: 'ajit.s@test.com',
+//   phone: singleton.mobileNumber,
+//   title: 'App developer',
+//   name: singleton.fullName,
+//   status: 'New',
+// }
