@@ -14,14 +14,13 @@ const TrainingDetails = ({ route }) => {
     const fetchTrainingDetails = async () => {
       try {
         const data = await getTrainingScheduleById(trainingRequestId);
-        setTrainingDetails(data);  // Set the fetched data
+        setTrainingDetails(data.TrainingSchedule);  // Set the fetched data
       } catch (err) {
         setError('Failed to load training details');
       } finally {
         setLoading(false);
       }
     };
-
     fetchTrainingDetails();
   }, [trainingRequestId]);
 
