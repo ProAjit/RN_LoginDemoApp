@@ -27,9 +27,6 @@ const E_TrainingScreen = () => {
         setTrainingData(responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
-        // const localData = require(jsonFilePath);
-        // setTrainingData(localData);
-        // console.log('\nE_TrainingList local');
         setTimeout(() => {
       }, 10);
       } finally {

@@ -43,8 +43,8 @@ export const handleSubmit = async (
     NumberOfTrainees: numTrainees,
     Location: location,
     Subject: subject,
-    FromDate: fromDate?.toISOString(),
-    ToDate: toDate?.toISOString(),
+    FromDate: fromDate?.toISOString().substring(0, fromDate?.toISOString().length - 1),
+    ToDate: toDate?.toISOString().substring(0, toDate?.toISOString().length - 1),
     Region: region,
   };
 
