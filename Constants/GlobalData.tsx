@@ -48,7 +48,8 @@ export const SCREEN_NAME = {
   dashboard: "Be Safe",
   updateTrainings: "Update Trainings",
   updateIncidents: "Update Incidents",
-  trainingDetails: "TrainingDetails"
+  trainingDetails: "Training Details",
+  queriesDetails: "Queries Details",
 };
 
 export const COLORS = {

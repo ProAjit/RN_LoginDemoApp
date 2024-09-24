@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import TrainingList from './TrainingList';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
-import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, REGIONS, SCREEN_NAME } from '../../Constants/GlobalData';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 type TrainingScreenNavigationProp = NavigationProp<{ TrainingDetailsScreen: undefined }>;
@@ -238,7 +238,7 @@ const ScheduleClassTraining = () => {
             setLoading,
             handleCancel,
             (trainingRequestId: string) => {
-              navigation.navigate('TrainingDetails', { trainingRequestId });  // Navigate on success
+              navigation.navigate(SCREEN_NAME.trainingDetails, { trainingRequestId });  // Navigate on success
             }
           );
         }} disabled={loading}>
