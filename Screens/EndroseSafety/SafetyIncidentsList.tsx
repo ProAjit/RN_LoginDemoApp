@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE, API, USER } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
 
@@ -43,32 +43,10 @@ const SafetyIncidentsList: React.FC = () => {
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('\nAPI call failed, loading local JSON:', error);
-      // const localData = require(jsonFilePath);
+      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
       setTimeout(() => {
-        // processIncidents(localData);
         setShow(false);  // Stop loading in case of an error
       }, 10);
-    }
-  };
-      
-  const processIncidents = (data: any) => {
-    if (data && data['Incidents'] && data['Incidents'].length > 0) {
-      // Parse the local JSON data to the DataItem format
-      const parsedData: DataItem[] = data['Incidents'].map((incident: any) => ({
-        badgeNumber: incident["Badgenumber"].trim(),
-        name: incident["Name"].trim(),
-        location: incident["Location"].trim(),
-        description: incident["Description"].trim(),
-        status: incident["incidentstatus"].trim(),
-        region: incident["Region"].trim(),
-        incidentdate: incident["incidentdate"].trim(),
-        incidentId: incident["incidentid"].trim(),
-      }));
-      // Set the parsed local data
-     setData(parsedData);
-    } else {
-      console.log('\nNo Incidents', 'No incidents found in the local JSON');
     }
   };
 

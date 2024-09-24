@@ -100,7 +100,7 @@ const UpdateTrainingScreen: React.FC = () => {
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('\nTrainingList Failed');
-      console.log('\nAPI call failed, loading local JSON:', error);
+      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
       setTimeout(() => {
         setShow(false);  // Stop loading in case of an error
       }, 10);

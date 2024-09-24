@@ -6,11 +6,12 @@ import { API } from '../../Constants/GlobalData';
 const API_BASE_URL = API.TestBaseURL
 
 export const submitTraining = async (requestBody: any) => {
+  const url = API_BASE_URL + '/submitTraining';
   try {
     console.log('\nsubmitTraining started')
-    console.log('\nsubmitTraining REQUEST URL', `${API.TestBaseURL}/submitEndorsement`);
+    console.log('\nsubmitTraining REQUEST URL', url);
     console.log('\nsubmitTraining REQUEST BODY', requestBody);  
-    const response = await axios.post(`${API_BASE_URL}/submitTraining`, requestBody, {
+    const response = await axios.post(url, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,13 +19,13 @@ export const submitTraining = async (requestBody: any) => {
     console.log('\nsubmitTraining resp data', response.data);  
     return response.data;
   } catch (error) {
-    console.error('Error while submitting training data:', error);
+    console.error('Error while submitting training data:', JSON.stringify(error));
     throw error;
   }
 };
 
 export const updateTrainingStatus = async (trainingData: any) => {
-  const url = API.TestBaseURL + '/updateScheduleStatus';
+  const url = API_BASE_URL + '/updateScheduleStatus';
   console.log('\nupdateTrainingStatus URL', url)
   console.log('\nupdateTrainingStatus body', trainingData)
   try {
@@ -40,7 +41,7 @@ export const updateTrainingStatus = async (trainingData: any) => {
 };
 
 export const getTrainingScheduleById = async (trainingId: string) => {
-  const url = API.TestBaseURL + '/getTrainingScheduleById';
+  const url = API_BASE_URL + '/getTrainingScheduleById';
   console.log('\nupdateTrainingStatus URL', url)
   try {
     const response = await axios.get(url, {

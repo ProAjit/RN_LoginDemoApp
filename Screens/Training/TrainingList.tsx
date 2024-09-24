@@ -57,35 +57,10 @@ const TrainingList: React.FC = () => {
     } catch (error) {
       // If the API call fails, load from local JSON file
       console.log('\nTrainingList Failed');
-      console.log('\nAPI call failed, loading local JSON:', error);
-      // const localData = require(jsonFilePath);
+      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
       setTimeout(() => {
-        // processTrainings(localData);
         setShow(false);  // Stop loading in case of an error
       }, 10);
-    }
-  };
-
-  const processTrainings = (data: any) => {
-    if (data && data['TrainingSchedules'] && data['TrainingSchedules'].length > 0) {
-      // Parse the local JSON data to the DataItem format
-      const parsedData: TrainingDataItem[] = data['TrainingSchedules'].map((training: any) => ({
-        noOfTrainees: Number(training["NumberOfTrainees"]),
-        badgeNumber: Number(training["Badgenumber"]),
-        department: training["Department"],
-        supervisor: training["Supervisor"],
-        location: training["Location"],
-        toDate: training["ToDate"],
-        fromDate: training["FromDate"],
-        status: training["Status"],
-        subject: training["Subject"],
-        region: training["Region"],
-        trainingId: training["TrainingId"],
-      }));
-      // Set the parsed local data
-      setData(parsedData);
-    } else {
-      Alert.alert('No Trainings', 'No trainings found in the local JSON');
     }
   };
 
