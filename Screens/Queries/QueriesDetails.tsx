@@ -43,7 +43,7 @@ const QueriesDetails = ({ route }) => {
           {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
               <Text style={styles.label}>{key}:</Text>
-              <Text style={styles.value}>{value.toString()}</Text>
+              <Text style={styles.value}>{value}</Text>
             </View>
           ))}
         </>

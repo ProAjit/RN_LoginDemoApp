@@ -39,7 +39,7 @@ export const getQueryById = async (queryId: string) => {
   console.log('\ngetQueryById URL', url)
   try {
     const response = await axios.get(url, {
-      params: { TrainingId: queryId },
+      params: { QueryId: queryId },
     });
     console.log('\ngetQueryById response', response.data)
     return response.data;
@@ -48,3 +48,5 @@ export const getQueryById = async (queryId: string) => {
     throw error;
   }
 };
+
+//http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getQueryById?QueryId=4
