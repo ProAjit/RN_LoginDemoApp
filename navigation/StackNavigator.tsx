@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../Screens/Dashboard/HomeScreen';
 import LoginScreen from '../LoginScreen';
 import AboutScreen from '../Screens/Dashboard/AboutScreen';
-import QueriesScreen from '../Screens/Queries/Queris';
+import QueriesScreen from '../Screens/Queries/QueriesScreen';
 import ManagementMessagesScreen from '../Screens/TopManagementMessages/ManagementMessages';
 import EndorseSafetyScreen from '../Screens/EndroseSafety/EndorseSafetyScreen';
 import E_TrainingScreen from '../Screens/E-Training/E_TrainingScreen';
@@ -18,6 +18,7 @@ import LinksScreen from '../Screens/Links/LinksScreen';
 import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
 import TrainingDetails from '../Screens/Training/TrainingDetails';
+import QueriesDetails from '../Screens/Queries/QueriesDetails';
 import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/GlobalData';
 
 const Stack = createStackNavigator();
@@ -65,9 +66,9 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name={CATEGORY.queries} component={QueriesScreen}
+    <Stack.Screen name={CATEGORY.queries} component={QueriesDetails}
       options={{
-        headerStyle: { backgroundColor: COLORS.appThemeBlue },
+        headerStyle: { backgroundColor: COLORS.appThemeBlue},
         headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
@@ -161,6 +162,16 @@ const HomeStack = () => (
         headerTintColor: COLORS.white,
         headerBackTitleVisible: false,
         headerTitleStyle: {
+          fontSize: 16
+        }
+      }} />
+
+    <Stack.Screen name={SCREEN_NAME.queriesDetails} component={QueriesDetails}
+        options={{
+          headerStyle: { backgroundColor: COLORS.appThemeBlue },
+          headerTintColor: COLORS.white,
+          headerBackTitleVisible: false,
+          headerTitleStyle: {
           fontSize: 16
         }
       }} />
