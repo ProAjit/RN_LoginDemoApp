@@ -74,7 +74,7 @@ const EndorseSafetyScreen = () => {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
     } catch (error) {
-      console.log('submitSafetyEndorsement Failed', error);
+      console.log('submitSafetyEndorsement Failed', JSON.stringify(error));
       Alert.alert('Error', 'Failed to submit data.');
     } finally {
       // Stop loading
