@@ -4,6 +4,7 @@ import { API } from '../Constants/GlobalData';
 export const submitQueriesData = async (name: string, email: string, phone: string,
   description: string, region: string, title: string, subject: string, badgeId: string) => {
 
+    const url = `${API.TestBaseURL}/createQuery`;
     const requestBody = {
       Name: String(name).toUpperCase(),
       Email: email,
@@ -16,11 +17,11 @@ export const submitQueriesData = async (name: string, email: string, phone: stri
       BadgeId: badgeId
     };
 
-    console.log('\submitQueriesData REQUEST URL', `${API.TestBaseURL}/createQuery`);
+    console.log('\submitQueriesData REQUEST URL', url);
     console.log('\submitQueriesData REQUEST BODY', requestBody);
   
   try {
-    const response = await axios.post(`${API.TestBaseURL}/createQuery`, requestBody, {
+    const response = await axios.post(url, requestBody, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,6 +30,21 @@ export const submitQueriesData = async (name: string, email: string, phone: stri
     return response.data;
   } catch (error) {
     console.error('API call error:', error);
+    throw error;
+  }
+};
+
+export const getQueryById = async (queryId: string) => {
+  const url = `${API.TestBaseURL}/getQueryById`;
+  console.log('\ngetQueryById URL', url)
+  try {
+    const response = await axios.get(url, {
+      params: { TrainingId: queryId },
+    });
+    console.log('\ngetQueryById response', response.data)
+    return response.data;
+  } catch (error) {
+    console.log('\ngetQueryById error', JSON.stringify(error))
     throw error;
   }
 };
