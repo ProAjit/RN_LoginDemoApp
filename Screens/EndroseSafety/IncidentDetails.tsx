@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { getIncidentsById } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 import { COLORS } from '../../Constants/GlobalData';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const IncidentDetails = ({ route }) => {
   const { incidentId } = route.params;  // Access the incidentId from route params
@@ -14,7 +15,8 @@ const IncidentDetails = ({ route }) => {
     const fetchIncidentDetails = async () => {
       try {
         const data = await getIncidentsById(incidentId);
-        setQueriesDetails(data.Incident);  // Set the fetched data
+        console.log('\n====', data.Incident[0])
+        setQueriesDetails(data.Incident[0]);  // Set the fetched data
       } catch (err) {
         setError('Failed to load training details');
       } finally {
@@ -39,13 +41,13 @@ const IncidentDetails = ({ route }) => {
   return (
     <View style={styles.container}>
       {queriesDetails ? (
-        <>
+        <ScrollView>
           {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
-              <Text style={styles.label}>{key}: {value.toString()}</Text>
+              <Text numberOfLines={2} style={styles.label}>{key}: {value}</Text>
             </View>
           ))}
-        </>
+        </ScrollView>
       ) : (
        <Text>No details found for Id#: {incidentId}</Text>
       )}
@@ -58,18 +60,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: COLORS.appBackground,
-    marginTop: 20,
+    marginTop: 10,
   },
   row: {
     marginVertical: 10,
   },
   label: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: 'regular',
   },
   value: {
     fontSize: 16,
     marginTop: 5,
+    fontWeight: 'bold',
   },
   error: {
     color: 'red',

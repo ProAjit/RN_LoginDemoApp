@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { getQueryById } from '../../Networking/QueriesServices';
 import { COLORS } from '../../Constants/GlobalData';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const QueriesDetails = ({ route }) => {
   const { queryId } = route.params;  // Access the queryId from route params
@@ -39,13 +40,13 @@ const QueriesDetails = ({ route }) => {
   return (
     <View style={styles.container}>
       {queriesDetails ? (
-        <>
+        <ScrollView>
           {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
               <Text style={styles.label}>{key}: {value}</Text>
             </View>
           ))}
-        </>
+        </ScrollView>
       ) : (
        <Text>No details found for Id#: {queryId}</Text>
       )}
@@ -58,14 +59,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: COLORS.appBackground,
-    marginTop: 20
+    marginTop: 10
   },
   row: {
     marginVertical: 10,
   },
   label: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: 'regular',
   },
   value: {
     fontSize: 16,

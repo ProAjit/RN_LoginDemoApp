@@ -50,6 +50,7 @@ export const SCREEN_NAME = {
   updateIncidents: "Update Incidents",
   trainingDetails: "Training Details",
   queriesDetails: "Queries Details",
+  incidentDetails: "Incident Details",
 };
 
 export const COLORS = {
