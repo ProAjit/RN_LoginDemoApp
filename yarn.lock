@@ -3084,6 +3084,7 @@ __metadata:
     "@react-navigation/stack": ^6.4.1
     "@types/react": ^18.2.6
     "@types/react-test-renderer": ^18.0.0
+    add: ^2.0.6
     axios: ^1.7.4
     babel-jest: ^29.6.3
     core-js: ^3.38.1
@@ -3103,6 +3104,7 @@ __metadata:
     react-native-image-picker: ^7.1.2
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-linking: ^0.0.0
+    react-native-modal-datetime-picker: ^18.0.0
     react-native-pdf: ^6.7.5
     react-native-privacy-snapshot: ^1.0.0
     react-native-safe-area-context: ^4.10.8
@@ -3112,6 +3114,7 @@ __metadata:
     send: ^0.19.0
     typescript: 5.0.4
     uuid: ^10.0.0
+    yarn: ^1.22.22
   languageName: unknown
   linkType: soft
 
@@ -3156,6 +3159,13 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 677880034aee5bdf7434cc2d25b641d7bedb0b5ef47868a78dadabedccf58e1c5457526d9d8249cd253f2df087e081c3fe7d903b448d8e19e5131a3065b83c07
+  languageName: node
+  linkType: hard
+
+"add@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "add@npm:2.0.6"
+  checksum: e2d23d40494565dfed4acd65e478570c444db5ac6c053551ed429c39ea0f2c99d83df63e7befec936df601827d2254d06a2fb6f7dcfd2022e810b25eab818b8c
   languageName: node
   linkType: hard
 
@@ -8585,6 +8595,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-modal-datetime-picker@npm:^18.0.0":
+  version: 18.0.0
+  resolution: "react-native-modal-datetime-picker@npm:18.0.0"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    "@react-native-community/datetimepicker": ">=6.7.0"
+    react-native: ">=0.65.0"
+  checksum: 30d28a8e599c7a36df4c3e93928aa246087edb95a82a98cb1162b045d18db47447c4e28a89190c83a8258f080066531b2b67805a9aeb007b135d62abfccf8c4c
+  languageName: node
+  linkType: hard
+
 "react-native-pdf@npm:^6.7.5":
   version: 6.7.5
   resolution: "react-native-pdf@npm:6.7.5"
@@ -10449,6 +10471,16 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.22":
+  version: 1.22.22
+  resolution: "yarn@npm:1.22.22"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: 59aeef5ccfd3347287f939448e6d3594f0a42f74025b9bdc2a277641c1d4070c07a38b6e7c35e695f77410b0269a5a43c78535786564f86f39c9f781e6efa311
   languageName: node
   linkType: hard
 

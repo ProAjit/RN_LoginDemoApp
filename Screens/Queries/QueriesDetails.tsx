@@ -42,8 +42,7 @@ const QueriesDetails = ({ route }) => {
         <>
           {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
-              <Text style={styles.label}>{key}:</Text>
-              <Text style={styles.value}>{value}</Text>
+              <Text style={styles.label}>{key}: {value}</Text>
             </View>
           ))}
         </>
@@ -57,9 +56,9 @@ const QueriesDetails = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     padding: 16,
     backgroundColor: COLORS.appBackground,
+    marginTop: 20
   },
   row: {
     marginVertical: 10,

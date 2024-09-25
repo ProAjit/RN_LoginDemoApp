@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { getTrainingScheduleById } from '../../Networking/Training/ClassTrainingServices'; 
+import { getIncidentsById } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 import { COLORS } from '../../Constants/GlobalData';
 
-const TrainingDetails = ({ route }) => {
-  const { trainingRequestId } = route.params;  // Access the TrainingRequestId from route params
-  const [trainingDetails, setTrainingDetails] = useState(null);
+const IncidentDetails = ({ route }) => {
+  const { incidentId } = route.params;  // Access the incidentId from route params
+  const [queriesDetails, setQueriesDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   // Fetch training details when the component mounts
   useEffect(() => {
-    const fetchTrainingDetails = async () => {
+    const fetchIncidentDetails = async () => {
       try {
-        const data = await getTrainingScheduleById(trainingRequestId);
-        setTrainingDetails(data.TrainingSchedule);  // Set the fetched data
+        const data = await getIncidentsById(incidentId);
+        setQueriesDetails(data.Incident);  // Set the fetched data
       } catch (err) {
         setError('Failed to load training details');
       } finally {
         setLoading(false);
       }
     };
-    fetchTrainingDetails();
-  }, [trainingRequestId]);
+    fetchIncidentDetails();
+  }, [incidentId]);
 
   if (loading) {
     return (
@@ -38,16 +38,16 @@ const TrainingDetails = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {trainingDetails ? (
+      {queriesDetails ? (
         <>
-          {Object.entries(trainingDetails).map(([key, value]) => (
+          {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
-              <Text style={styles.label}>{key}: {value}</Text>
+              <Text style={styles.label}>{key}: {value.toString()}</Text>
             </View>
           ))}
         </>
       ) : (
-       <Text>No details found for Id#: {trainingRequestId}</Text>
+       <Text>No details found for Id#: {incidentId}</Text>
       )}
     </View>
   );
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrainingDetails;
+export default IncidentDetails;

@@ -57,3 +57,18 @@ export const updateIncidentStatus = async (incidentData: any) => {
     return false;
   }
 };
+
+export const getIncidentsById = async (incidentId: string) => {
+  const url = `${API.TestBaseURL}/getIncidentById`;
+  console.log('\nupdateTrainingStatus URL', url)
+  try {
+    const response = await axios.get(url, {
+      params: { IncidentId: incidentId },
+    });
+    console.log('\ngetIncidentById response', response.data)
+    return response.data;
+  } catch (error) {
+    console.log('\ngetIncidentById error', JSON.stringify(error))
+    throw error;
+  }
+};
