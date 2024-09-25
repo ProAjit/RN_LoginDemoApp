@@ -19,6 +19,7 @@ import SafetyNewsScreen from '../Screens/SafetyNews/SafetyNewsScreen';
 import SafetyAlertsScreen from '../Screens/SafetyAlerts/SafetyAlertsScreen';
 import TrainingDetails from '../Screens/Training/TrainingDetails';
 import QueriesDetails from '../Screens/Queries/QueriesDetails';
+import IncidentDetails from '../Screens/EndroseSafety/IncidentDetails';
 import { CATEGORY, SCREEN_NAME, COLORS } from '../Constants/GlobalData';
 
 const Stack = createStackNavigator();
@@ -66,7 +67,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name={CATEGORY.queries} component={QueriesDetails}
+    <Stack.Screen name={CATEGORY.queries} component={QueriesScreen}
       options={{
         headerStyle: { backgroundColor: COLORS.appThemeBlue},
         headerTintColor: COLORS.white,
@@ -175,6 +176,16 @@ const HomeStack = () => (
           fontSize: 16
         }
       }} />
+
+  <Stack.Screen name={SCREEN_NAME.incidentDetails} component={IncidentDetails}
+          options={{
+            headerStyle: { backgroundColor: COLORS.appThemeBlue },
+            headerTintColor: COLORS.white,
+            headerBackTitleVisible: false,
+            headerTitleStyle: {
+            fontSize: 16
+          }
+        }} />
 
   </Stack.Navigator>
 );
