@@ -5,16 +5,16 @@ import { COLORS } from '../../Constants/GlobalData';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const QueriesDetails = ({ route }) => {
-  const { queryId } = route.params;  // Access the queryId from route params
   const [queriesDetails, setQueriesDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   // Fetch training details when the component mounts
   useEffect(() => {
+    console.log('\n=====QueriesDetails', route.params )
     const fetchQueryDetails = async () => {
       try {
-        const data = await getQueryById(queryId);
+        const data = await getQueryById(route.params);
         setQueriesDetails(data.Query);  // Set the fetched data
       } catch (err) {
         setError('Failed to load training details');
@@ -23,7 +23,7 @@ const QueriesDetails = ({ route }) => {
       }
     };
     fetchQueryDetails();
-  }, [queryId]);
+  }, []);
 
   if (loading) {
     return (
@@ -48,7 +48,7 @@ const QueriesDetails = ({ route }) => {
           ))}
         </ScrollView>
       ) : (
-       <Text>No details found for Id#: {queryId}</Text>
+       <Text>No details found for Id#: {route.params}</Text>
       )}
     </View>
   );
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: COLORS.appBackground,
-    marginTop: 10
   },
   row: {
     marginVertical: 10,

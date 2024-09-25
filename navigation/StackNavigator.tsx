@@ -167,7 +167,7 @@ const HomeStack = () => (
         }
       }} />
 
-    <Stack.Screen name={SCREEN_NAME.queriesDetails} component={QueriesDetails}
+    <Stack.Screen name={SCREEN_NAME.queryDetails} component={QueriesDetails}
         options={{
           headerStyle: { backgroundColor: COLORS.appThemeBlue },
           headerTintColor: COLORS.white,

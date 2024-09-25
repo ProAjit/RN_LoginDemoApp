@@ -49,7 +49,7 @@ export const SCREEN_NAME = {
   updateTrainings: "Update Trainings",
   updateIncidents: "Update Incidents",
   trainingDetails: "Training Details",
-  queriesDetails: "Queries Details",
+  queryDetails: "Query Details",
   incidentDetails: "Incident Details",
 };
 

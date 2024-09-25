@@ -17,8 +17,8 @@ export const submitQueriesData = async (name: string, email: string, phone: stri
       BadgeId: badgeId
     };
 
-    console.log('\submitQueriesData REQUEST URL', url);
-    console.log('\submitQueriesData REQUEST BODY', requestBody);
+    console.log('\nsubmitQueriesData REQUEST URL', url);
+    console.log('\nsubmitQueriesData REQUEST BODY', requestBody);
   
   try {
     const response = await axios.post(url, requestBody, {
@@ -26,10 +26,10 @@ export const submitQueriesData = async (name: string, email: string, phone: stri
         'Content-Type': 'application/json',
       },
     });
-    console.log('\submitQueriesData resp data', response.data);
+    console.log('\nsubmitQueriesData resp data', response.data);
     return response.data;
   } catch (error) {
-    console.error('API call error:', error);
+    console.error('API call error:', JSON.stringify(error));
     throw error;
   }
 };

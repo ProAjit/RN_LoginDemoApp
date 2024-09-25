@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: COLORS.appBackground,
-    marginTop: 10,
   },
   row: {
     marginVertical: 10,

@@ -11,6 +11,9 @@ import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
 import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
+import { SCREEN_NAME } from '../../Constants/GlobalData';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+type IncidentScreenNavigationProp = NavigationProp<{ IncidentDetailsScreen: undefined }>;
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -24,6 +27,7 @@ const EndorseSafetyScreen = () => {
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
   const singleton = AppSingleton.getInstance();
+  const navigation = useNavigation<IncidentScreenNavigationProp>();
 
   const openCamera = () => {
     const options: CameraOptions = {
@@ -63,16 +67,15 @@ const EndorseSafetyScreen = () => {
   
       // Call the API with the base64 image data
       const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image);
-      
       if (response.IncidentId) {
         Alert.alert('Success', `IncidentId: ${response.IncidentId}`);
-        setSelectedIndex(1);
-        setTimeout(() => {
-          handleCancel();
-        }, 300);
+        navigation.navigate(SCREEN_NAME.incidentDetails, response.IncidentId);  // Navigate on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
       }
+      setTimeout(() => {
+        handleCancel();
+      }, 300);
     } catch (error) {
       console.log('submitSafetyEndorsement Failed', JSON.stringify(error));
       Alert.alert('Error', 'Failed to submit data.');

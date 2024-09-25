@@ -12,7 +12,6 @@ import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import segmentStyle from '../../Styles/segmentStyle';
 import { COLORS, DEVICE, REGIONS, SCREEN_NAME } from '../../Constants/GlobalData';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-
 type TrainingScreenNavigationProp = NavigationProp<{ TrainingDetailsScreen: undefined }>;
 
 const ScheduleClassTraining = () => {

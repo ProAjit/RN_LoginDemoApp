@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, 
-  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,
+  KeyboardAvoidingView, FlatList, TouchableWithoutFeedback, ActivityIndicator
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { submitQueriesData } from '../../Networking/QueriesServices';
 import bottomButtonStyles from '../../Styles/bottomButtonStyles';
 import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
+import { SCREEN_NAME } from '../../Constants/GlobalData';
 const singleton = AppSingleton.getInstance();
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+type QueryScreenNavigationProp = NavigationProp<{ QueryDetailsScreen: undefined }>;
 
 const QueriesScreen = () => {
   const name = singleton.username;
@@ -19,27 +24,30 @@ const QueriesScreen = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [region, setRegion] = useState(''); // State for selected region
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // State for dropdown visibility
+  const navigation = useNavigation<QueryScreenNavigationProp>();
 
   const handleSubmit = async () => {
     if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
       Alert.alert('Error', 'Please fill mandatory fields.');
       return;
     }
-
     setLoading(true);
     try {
       const response = await submitQueriesData(name, email, phone, description, region, title, subject, badgeId)
-      console.log('\nsubmitQuery response', response.Status);
-      if (response.Status) {
-        Alert.alert('Success', `${response.Status}`);
-        handleCancel(); // Reset the form on success
+      const queryId = response.QueryId as String
+      console.log('\nsubmitQuery queryId', queryId);
+      if (queryId) {
+        Alert.alert('Success', `QueryId: ${queryId}`);
+        navigation.navigate(SCREEN_NAME.queryDetails, queryId);  // Navigate on success
       } else {
-        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
+        Alert.alert('Error', `Failed to submit data. Status code: ${response}`);
       }
       console.log('\nsubmitQuery SUCCESS');
-      handleCancel()
+      setTimeout(() => {
+        handleCancel();
+      }, 300); // Reset the form on success
     } catch (error) {
-      Alert.alert('Error', 'There was an error submitting safety issue. Please try again.');
+      Alert.alert('Error', 'There was an error submitting query. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -81,90 +89,90 @@ const QueriesScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={handleScreenPress}>
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground}} behavior="padding">
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled
-    >
-      {/* Region Dropdown */}
-      <Text style={styles.regionLabel}>Region</Text>
-      <TouchableOpacity
-        style={styles.dropdownInput}
-        onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
-        <TextInput
-          placeholder='Select a Region'
-          editable={false}
-          style={styles.regionText}>{region}
-        </TextInput>
-        {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
-      </TouchableOpacity>
-      {isDropdownVisible && renderRegionDropdown()}
+      <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground }} behavior="padding">
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled
+        >
+          {/* Region Dropdown */}
+          <Text style={styles.regionLabel}>Region</Text>
+          <TouchableOpacity
+            style={styles.dropdownInput}
+            onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
+            <TextInput
+              placeholder='Select a Region'
+              editable={false}
+              style={styles.regionText}>{region}
+            </TextInput>
+            {/* <Ionicons name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#000" /> */}
+          </TouchableOpacity>
+          {isDropdownVisible && renderRegionDropdown()}
 
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Name</Text>
-        <TextInput
-        style={styles.staticInput}
-        defaultValue={singleton.fullName}
-        editable={false}/>
-      </View>      
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Name</Text>
+            <TextInput
+              style={styles.staticInput}
+              defaultValue={singleton.fullName}
+              editable={false} />
+          </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-        style={styles.staticInput}
-        defaultValue={singleton.eMail}
-        editable={false}/>
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              style={styles.staticInput}
+              defaultValue={singleton.eMail}
+              editable={false} />
+          </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Phone number</Text>
-        <TextInput
-        style={styles.staticInput}
-        defaultValue={singleton.mobileNumber}
-        editable={false}/>
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Phone number</Text>
+            <TextInput
+              style={styles.staticInput}
+              defaultValue={singleton.mobileNumber}
+              editable={false} />
+          </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Title</Text>
-        <TextInput
-        style={styles.staticInput}
-        defaultValue={singleton.title}
-        editable={false}/>
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Title</Text>
+            <TextInput
+              style={styles.staticInput}
+              defaultValue={singleton.title}
+              editable={false} />
+          </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Subject</Text>
-        <TextInput 
-        style={styles.input} 
-        value={subject} 
-        onChangeText={setSubject} 
-        autoCorrect={false} 
-        spellCheck={false} 
-        placeholder="Enter Subject" 
-        maxLength={255}/>
-      </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Subject</Text>
+            <TextInput
+              style={styles.input}
+              value={subject}
+              onChangeText={setSubject}
+              autoCorrect={false}
+              spellCheck={false}
+              placeholder="Enter Subject"
+              maxLength={255} />
+          </View>
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Description</Text>
-        <TextInput
-          style={[styles.input, styles.multilineInput]}
-          value={description}
-          onChangeText={setDescription}
-          autoCorrect={false}
-          spellCheck={false}
-          placeholder="Enter Description" 
-          maxLength={255}
-          multiline
-        />
-      </View>
-      {loading && (
-        <View style={styles.loader}>
-        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
-        </View>)}
-      </KeyboardAwareScrollView>
-      <View style={bottomButtonStyles.buttonContainer}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Description</Text>
+            <TextInput
+              style={[styles.input, styles.multilineInput]}
+              value={description}
+              onChangeText={setDescription}
+              autoCorrect={false}
+              spellCheck={false}
+              placeholder="Enter Description"
+              maxLength={255}
+              multiline
+            />
+          </View>
+          {loading && (
+            <View style={styles.loader}>
+              <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+            </View>)}
+        </KeyboardAwareScrollView>
+        <View style={bottomButtonStyles.buttonContainer}>
           <TouchableOpacity style={bottomButtonStyles.button} onPress={handleSubmit} disabled={loading}>
             <Text style={bottomButtonStyles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
           </TouchableOpacity>
@@ -257,8 +265,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     position: 'absolute',
-    top: DEVICE.height/3,
-    left:  DEVICE.width/2,
+    top: DEVICE.height / 3,
+    left: DEVICE.width / 2,
     zIndex: 10,
   },
 });
