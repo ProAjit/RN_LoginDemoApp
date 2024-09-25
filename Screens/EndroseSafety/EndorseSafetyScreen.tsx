@@ -67,12 +67,15 @@ const EndorseSafetyScreen = () => {
   
       // Call the API with the base64 image data
       const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image);
-      if (response.IncidentId) {
-        Alert.alert('Success', `IncidentId: ${response.IncidentId}`);
-        navigation.navigate(SCREEN_NAME.incidentDetails, response.IncidentId);  // Navigate on success
+      const incidentId = response.IncidentId as String
+      console.log('\nsubmitIncident incidentId', incidentId);
+      if (incidentId) {
+        Alert.alert('Success', `IncidentId: ${incidentId}`);
+        navigation.navigate(SCREEN_NAME.incidentDetails, incidentId);  // Navigate on success
       } else {
-        Alert.alert('Error', `Failed to submit data. Status code: ${response.status}`);
+        Alert.alert('Error', `Failed to submit data. Status code: ${response}`);
       }
+      console.log('\nsubmitIncident SUCCESS');
       setTimeout(() => {
         handleCancel();
       }, 300);
