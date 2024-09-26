@@ -17,6 +17,7 @@ type IncidentScreenNavigationProp = NavigationProp<{ IncidentDetailsScreen: unde
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
+  const [imageName, setImageName] = useState<string | null>(null); // State for storing image name
   const [name, setName] = useState('');
   const [badgeNumber, setBadgeNumber] = useState('');
   const [location, setLocation] = useState('');
@@ -29,6 +30,7 @@ const EndorseSafetyScreen = () => {
   const singleton = AppSingleton.getInstance();
   const navigation = useNavigation<IncidentScreenNavigationProp>();
 
+  // Camera launch logic
   const openCamera = () => {
     const options: CameraOptions = {
       mediaType: 'photo',
@@ -44,8 +46,10 @@ const EndorseSafetyScreen = () => {
       } else if (response.errorCode) {
         Alert.alert('ImagePicker Error: camera_unavailable');
       } else if (response.assets) {
-        const uri = response.assets[0].uri;
+        const uri = response.assets[0].base64;
+        const fileName = response.assets[0].fileName;
         setImage(uri || null);
+        setImageName(fileName || null); // Save the image name
       }
     });
   };
@@ -55,50 +59,46 @@ const EndorseSafetyScreen = () => {
       Alert.alert('Error', 'Please fill mandatory fields.');
       return;
     }
-    console.log('\nsubmitTraining API call started')
+
     setLoading(true);
   
     try {
       // Prepare image data in base64 format if image is present
       let base64Image = null;
       if (image) {
-        base64Image = image.startsWith('data:image/') ? image : `data:image/jpeg;base64,${image}`;
+        base64Image = image.startsWith('data:image/') ? image : `${image}`;
       }
   
-      // Call the API with the base64 image data
-      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image);
-      const incidentId = response.IncidentId as String
-      console.log('\nsubmitIncident incidentId', incidentId);
+      // Call the API with the base64 image data and image name
+      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image, imageName);
+      const incidentId = response.IncidentId as String;
       if (incidentId) {
         Alert.alert('Success', `IncidentId: ${incidentId}`);
         navigation.navigate(SCREEN_NAME.incidentDetails, incidentId);  // Navigate on success
       } else {
         Alert.alert('Error', `Failed to submit data. Status code: ${response}`);
       }
-      console.log('\nsubmitIncident SUCCESS');
       setTimeout(() => {
         handleCancel();
       }, 300);
     } catch (error) {
-      console.log('submitSafetyEndorsement Failed', JSON.stringify(error));
       Alert.alert('Error', 'Failed to submit data.');
     } finally {
-      // Stop loading
       setLoading(false);
     }
-  };  
+  };
 
   const handleCancel = () => {
     setLocation('');
     setDescription('');
     setImage(null);
     setRegion('');
-    setIsDropdownVisible(false)
+    setIsDropdownVisible(false);
   };
 
   const handleScreenPress = () => {
     if (isDropdownVisible) {
-      setIsDropdownVisible(false)
+      setIsDropdownVisible(false);
     }
   };
 
@@ -139,12 +139,12 @@ const EndorseSafetyScreen = () => {
       </TouchableOpacity>
       {isDropdownVisible && renderRegionDropdown()}
 
-      <View style={styles.topView}>
-        {image && <Image source={{ uri: image }} style={styles.imageView} />}
-        <TouchableOpacity style={bottomButtonStyles.cameraButton} onPress={openCamera}>
+        <View style={styles.topView}>
+          {image && <Image source={{ uri: `data:image/jpeg;base64,${image}` }} style={styles.imageView} />}
+          <TouchableOpacity style={bottomButtonStyles.cameraButton} onPress={openCamera}>
             <Text style={bottomButtonStyles.buttonText}>Take A Picture</Text>
           </TouchableOpacity>
-      </View>
+        </View>
 
       {/* New Switch View */}
       <View style={styles.switchContainer}>
@@ -209,12 +209,6 @@ const EndorseSafetyScreen = () => {
     </TouchableWithoutFeedback>
   );
 
-  const renderHistoryRequestsContent = () => (
-    <View style={styles.historyContainer}>
-      <SafetyIncidentsList />
-    </View>
-  );
-
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground }} behavior="padding">
       <View style={segmentStyle.segmentedControlContainer}>
@@ -236,7 +230,7 @@ const EndorseSafetyScreen = () => {
         resetScrollToCoords={{ x: 0, y: 0 }}
         scrollEnabled >
         <View style={styles.container}>
-          {selectedIndex === 0 ? renderNewRequestContent() : renderHistoryRequestsContent()}
+          {selectedIndex === 0 ? renderNewRequestContent() : <SafetyIncidentsList />}
         </View>
       </KeyboardAwareScrollView>
       {selectedIndex === 0 && (
