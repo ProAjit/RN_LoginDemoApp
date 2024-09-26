@@ -47,13 +47,25 @@ const EndorseSafetyScreen = () => {
         Alert.alert('ImagePicker Error: camera_unavailable');
       } else if (response.assets) {
         const uri = response.assets[0].base64;
-        const fileName = response.assets[0].fileName;
+        const fileName = getRandomString();
         setImage(uri || null);
         setImageName(fileName || null); // Save the image name
       }
     });
   };
 
+  function getRandomString(): string {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const maxLength = 10;
+    let randomString = "Img_";
+    for (let i = 0; i < maxLength; i++) {
+      const randomIndex = Math.floor(Math.random() * alphabet.length);
+      randomString += alphabet[randomIndex];
+    }
+    return randomString;
+  }
+  
+  // Usage example
   const handleSubmit = async () => {
     if (region.trim() === '' || location.trim() === '' || description.trim() === '') {
       Alert.alert('Error', 'Please fill mandatory fields.');
