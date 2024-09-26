@@ -56,13 +56,13 @@ const EndorseSafetyScreen = () => {
 
   function getRandomString(): string {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    const maxLength = 10;
+    const maxLength = 5;
     let randomString = "Img_";
     for (let i = 0; i < maxLength; i++) {
       const randomIndex = Math.floor(Math.random() * alphabet.length);
       randomString += alphabet[randomIndex];
     }
-    return randomString;
+    return randomString + ".png";
   }
   
   // Usage example
