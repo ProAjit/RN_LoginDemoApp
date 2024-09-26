@@ -10,10 +10,6 @@ export const API = {
   Login_URL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
   TestBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7Service!1.0/api',
   TestTwoBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
-  // Profile_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServicesB4!1.0/getter/getempprofile',
-  // Login_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
-  // TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
-  // TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
 }
 
 export const HomeCategoriesArr: Item[] = [

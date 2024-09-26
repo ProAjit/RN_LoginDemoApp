@@ -48,5 +48,3 @@ export const getQueryById = async (queryId: string) => {
     throw error;
   }
 };
-
-//http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api/getQueryById?QueryId=4
