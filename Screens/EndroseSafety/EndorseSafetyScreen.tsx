@@ -66,7 +66,7 @@ const EndorseSafetyScreen = () => {
       // Prepare image data in base64 format if image is present
       let base64Image = null;
       if (image) {
-        base64Image = image.startsWith('data:image/') ? image : `${image}`;
+        base64Image = `${image}`;
       }
   
       // Call the API with the base64 image data and image name
