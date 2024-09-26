@@ -5,7 +5,6 @@ import { COLORS } from '../../Constants/GlobalData';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const IncidentDetails = ({ route }) => {
-  const { incidentId } = route.params;  // Access the incidentId from route params
   const [queriesDetails, setQueriesDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -14,7 +13,7 @@ const IncidentDetails = ({ route }) => {
   useEffect(() => {
     const fetchIncidentDetails = async () => {
       try {
-        const data = await getIncidentsById(incidentId);
+        const data = await getIncidentsById(route.params);
         console.log('\n====', data.Incident[0])
         setQueriesDetails(data.Incident[0]);  // Set the fetched data
       } catch (err) {
@@ -24,7 +23,7 @@ const IncidentDetails = ({ route }) => {
       }
     };
     fetchIncidentDetails();
-  }, [incidentId]);
+  }, [route.params]);
 
   if (loading) {
     return (
@@ -49,7 +48,7 @@ const IncidentDetails = ({ route }) => {
           ))}
         </ScrollView>
       ) : (
-       <Text>No details found for Id#: {incidentId}</Text>
+       <Text>No details found for Id#: {route.params}</Text>
       )}
     </View>
   );
