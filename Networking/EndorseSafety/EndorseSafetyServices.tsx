@@ -8,7 +8,8 @@ export const submitSafetyEndorsement = async (
   location: string,
   description: string, 
   region: string, 
-  image: string | null // Include image parameter
+  image: string | null, 
+  imageName: string | null, 
 ) => {
   const requestBody = {
     Name: name,
@@ -16,7 +17,8 @@ export const submitSafetyEndorsement = async (
     Location: location,
     Description: description,
     Imageuri: image,
-    Region: region
+    Region: region, 
+    ImageName: imageName,
   }
 
   console.log('\nsubmitEndorsement REQUEST URL', `${API.TestBaseURL}/submitEndorsement`);
