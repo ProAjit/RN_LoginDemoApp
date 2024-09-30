@@ -256,16 +256,16 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 14,
     marginTop: 10,
-    width: 200,
+    width: 180,
     color: 'gray',
   },
   statusButton: {
     borderRadius: 10,
-    height: 32,
-    width: 120,
+    height: 30,
+    width: 110,
   },
   statusText: {
-    fontSize: 15,
+    fontSize: 14,
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
