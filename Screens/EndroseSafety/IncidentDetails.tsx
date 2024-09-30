@@ -37,18 +37,27 @@ const IncidentDetails = ({ route }) => {
     return <Text style={styles.error}>{error}</Text>;
   }
 
+  const capitalizeFirstLetter = (text: string) => {
+    if (!text) return '';
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   return (
     <View style={styles.container}>
       {queriesDetails ? (
         <ScrollView>
           {Object.entries(queriesDetails).map(([key, value]) => (
-            <View key={key} style={styles.row}>
-              <Text numberOfLines={2} style={styles.label}>{key}: {value}</Text>
-            </View>
+            !(key.startsWith('attribute') || key.startsWith('Image')) && (
+              <View key={key} style={styles.row}>
+                <Text numberOfLines={2} style={styles.label}>
+                  <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}</Text>: {value}
+                </Text>
+              </View>
+            )
           ))}
         </ScrollView>
       ) : (
-       <Text>No details found for Id#: {route.params}</Text>
+        <Text>No details found for Id#: {route.params}</Text>
       )}
     </View>
   );

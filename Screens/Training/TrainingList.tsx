@@ -52,7 +52,8 @@ const TrainingList: React.FC = () => {
         region: training["Region"],
         trainingId: training["TrainingId"],
       }));
-      setData(parsedData);  // Set parsed data
+      const sortedData = parsedData.sort((a, b) => parseInt(a.trainingId) - parseInt(b.trainingId));
+      setData(sortedData);  // Set parsed data
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
@@ -63,6 +64,10 @@ const TrainingList: React.FC = () => {
       }, 10);
     }
   };
+
+  const sortedData = data.sort((a, b) => {
+    return parseInt(a.trainingId) - parseInt(b.trainingId);
+  });
 
   useEffect(() => {
     setShow(true)

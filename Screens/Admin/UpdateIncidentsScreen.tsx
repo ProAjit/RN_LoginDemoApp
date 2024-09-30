@@ -157,10 +157,11 @@ const UpdateIncidentsScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     backgroundColor: COLORS.appBackground,
   },
   container: {
+    flex: 1,
     marginTop: 15,
     height: 180,
     marginBottom: 15,
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
   statusButton: {
     borderRadius: 10,
     height: 32,
-    width: 120,
+    width: 90,
     marginTop: 10,
     paddingTop: 5,
     alignItems: 'center',

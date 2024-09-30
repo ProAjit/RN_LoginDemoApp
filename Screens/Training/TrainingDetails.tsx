@@ -37,13 +37,18 @@ const TrainingDetails = ({ route }) => {
     return <Text style={styles.error}>{error}</Text>;
   }
 
+  const capitalizeFirstLetter = (text: string) => {
+    if (!text) return '';
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   return (
     <View style={styles.container}>
       {trainingDetails ? (
         <ScrollView>
           {Object.entries(trainingDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
-              <Text style={styles.label}>{key}: {value}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}</Text>: {value}
             </View>
           ))}
         </ScrollView>

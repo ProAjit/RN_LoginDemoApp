@@ -19,7 +19,7 @@ export const submitTraining = async (requestBody: any) => {
     console.log('\nsubmitTraining resp data', response.data);  
     return response.data;
   } catch (error) {
-    console.error('\nError while submitting training data:', JSON.stringify(error));
+    console.error('Error while submitting training data:', JSON.stringify(error));
     throw error;
   }
 };

@@ -35,9 +35,9 @@ const getIcon = (title: string) => {
     case HomeCategoriesArr[5].title:
       return faLink;
     case HomeCategoriesArr[6].title:
-      return faNewspaper;
-    case HomeCategoriesArr[7].title:
       return faBellSlash;
+    case HomeCategoriesArr[7].title:
+      return faNewspaper;
     case HomeCategoriesArr[8].title:
       return faAddressBook;
     case HomeCategoriesArr[9].title:
