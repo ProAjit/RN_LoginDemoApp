@@ -50,7 +50,8 @@ const IncidentDetails = ({ route }) => {
             !(key.startsWith('attribute') || key.startsWith('Image')) && (
               <View key={key} style={styles.row}>
                 <Text numberOfLines={2} style={styles.label}>
-                  <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}</Text>: {value}
+                    <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}: </Text>
+                    <Text>{value}</Text>
                 </Text>
               </View>
             )

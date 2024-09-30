@@ -11,7 +11,7 @@ const QueriesDetails = ({ route }) => {
 
   // Fetch training details when the component mounts
   useEffect(() => {
-    console.log('\n=====QueriesDetails', route.params )
+    console.log('\n=====QueriesDetails', route.params)
     const fetchQueryDetails = async () => {
       try {
         const data = await getQueryById(route.params);
@@ -48,12 +48,15 @@ const QueriesDetails = ({ route }) => {
         <ScrollView>
           {Object.entries(queriesDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
-                  <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}</Text>: {value}
+              <Text numberOfLines={2} style={styles.label}>
+                <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}: </Text>
+                <Text>{value}</Text>
+              </Text>
             </View>
           ))}
         </ScrollView>
       ) : (
-       <Text>No details found for Id#: {route.params}</Text>
+        <Text>No details found for Id#: {route.params}</Text>
       )}
     </View>
   );
