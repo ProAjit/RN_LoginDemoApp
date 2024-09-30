@@ -11,6 +11,7 @@ const IncidentDetails = ({ route }) => {
 
   // Fetch training details when the component mounts
   useEffect(() => {
+    console.log('\n=====fetchIncidentDetails', route.params)
     const fetchIncidentDetails = async () => {
       try {
         const data = await getIncidentsById(route.params);
@@ -23,7 +24,7 @@ const IncidentDetails = ({ route }) => {
       }
     };
     fetchIncidentDetails();
-  }, [route.params]);
+  }, []);
 
   if (loading) {
     return (
