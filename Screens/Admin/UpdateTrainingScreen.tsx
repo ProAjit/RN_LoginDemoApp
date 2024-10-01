@@ -134,18 +134,9 @@ const UpdateTrainingScreen: React.FC = () => {
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>
+        <View style={[styles.innerContainer]}>
+            <Text style={styles.nameText}>
             Training Id: {item.trainingId}
-          </Text>
-          <Text style={styles.numberText}>
-            Department: {item.department}
-          </Text>
-          <Text style={styles.numberText}>
-            Supervisor: {item.supervisor}
-          </Text>
-          <View style={[styles.innerContainer]}>
-            <Text style={styles.numberText}>
-              No Of Trainees: {item.noOfTrainees}
             </Text>
             <TouchableOpacity
                onPress={() => handleStatusPress(item)}
@@ -155,6 +146,15 @@ const UpdateTrainingScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           </View>
+          <Text style={styles.numberText}>
+            Department: {item.department}
+          </Text>
+          <Text style={styles.numberText}>
+            Supervisor: {item.supervisor}
+          </Text>
+          <Text style={styles.numberText}>
+              No Of Trainees: {item.noOfTrainees}
+          </Text>
           <Text style={styles.numberText}>
             Subject: {item.subject}
           </Text>
@@ -263,13 +263,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 30,
     width: 110,
+    marginTop: 10,
   },
   statusText: {
     fontSize: 14,
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
-    marginTop: 7,
+    marginTop: 5,
   },
   approvedBackground: {
     backgroundColor: 'gray',
