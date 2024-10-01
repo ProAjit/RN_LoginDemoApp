@@ -113,12 +113,9 @@ const UpdateIncidentsScreen: React.FC = () => {
     return (
       <View style={[styles.container]}>
         <View style={styles.textContainer}>
+          <View style={[styles.innerContainer]}>
           <Text style={styles.incidentText}>
             Incident Id: {item.incidentId.toString()}
-            </Text>
-          <View style={[styles.innerContainer]}>
-            <Text style={styles.nameText}>
-              Name: {item.name}
             </Text>
             <TouchableOpacity
               onPress={() => handleStatusPress(item)}
@@ -128,6 +125,9 @@ const UpdateIncidentsScreen: React.FC = () => {
             <Text style={styles.statusText}> {item.status} </Text>
             </TouchableOpacity>
           </View>
+          <Text style={styles.nameText}>
+              Name: {item.name}
+          </Text>
           <Text style={styles.badgeNumberText}>
             Description: {item.description}
           </Text>
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   textContainer: {
