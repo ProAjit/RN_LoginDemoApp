@@ -45,5 +45,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  <key>NSDocumentDirectoryUsageDescription</key>
+  <string>We need access to your files to display PDFs and other documents.</string>
 </dict>
 </plist>

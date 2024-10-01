@@ -1,10 +1,11 @@
-// src/screens/SafetyNewsScreen.js
-
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, ActivityIndicator, Modal } from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 import { fetchSafetyNews } from '../../Networking/SafetyNews/NewsService';
+import { Platform } from 'react-native';
+import Pdf from 'react-native-pdf'; // Import react-native-pdf for in-app PDF viewing
+import FileViewer from 'react-native-file-viewer'; // Import to view the downloaded PDF
 
 interface NewsData {
   titleEn: string;
@@ -31,6 +32,9 @@ interface NewsData {
 const SafetyNewsScreen = () => {
   const [data, setData] = useState<NewsData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [downloading, setDownloading] = useState<boolean>(false);
+  const [pdfUri, setPdfUri] = useState<string | null>(null); // State to store PDF URI
+  const [isPdfVisible, setIsPdfVisible] = useState<boolean>(false); // State to control PDF visibility
 
   useEffect(() => {
     const getData = async () => {
@@ -41,8 +45,7 @@ const SafetyNewsScreen = () => {
         setData(responseData); // Set the fetched data
       } catch (error) {
         console.error('Error fetching data:', error);
-        setTimeout(() => {
-      }, 10);
+        setTimeout(() => {}, 10);
       } finally {
         setLoading(false);
       }
@@ -52,15 +55,20 @@ const SafetyNewsScreen = () => {
 
   // Handle download of PDF using RNFetchBlob
   const handleDownload = async (pdfUrl: string) => {
-    console.warn('Download started', pdfUrl);
-    const fileUri = RNFetchBlob.fs.dirs.DocumentDir + '/sample.pdf';
+    setDownloading(true); // Show loading indicator during download
+    const fileUri = `${RNFetchBlob.fs.dirs.DocumentDir}/safety_news.pdf`; // Define a file name
     try {
       const res = await RNFetchBlob.config({
         path: fileUri,
       }).fetch('GET', pdfUrl);
-      console.warn('Download completed');
+
+      setDownloading(false); // Hide loading indicator
+      setPdfUri(res.path()); // Set the PDF URI to view within the app
+      setIsPdfVisible(true); // Show PDF viewer modal
     } catch (error) {
-      console.warn('Download failed');
+      setDownloading(false); // Hide loading indicator in case of failure
+      console.warn('Download failed', error);
+      Alert.alert('Error', 'Failed to download the PDF. Please try again.');
     }
   };
 
@@ -81,6 +89,16 @@ const SafetyNewsScreen = () => {
     return (
       <View style={styles.loader}>
         <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        <Text style={{ alignItems: 'center', marginTop: 20 }}>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (downloading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        <Text style={{ alignItems: 'center', marginTop: 20 }}>Downloading file...</Text>
       </View>
     );
   }
@@ -93,6 +111,27 @@ const SafetyNewsScreen = () => {
         keyExtractor={(item) => item.msgId.toString()}
         contentContainerStyle={styles.notificationContainer}
       />
+
+      {/* Modal to show PDF viewer */}
+      {isPdfVisible && pdfUri && (
+        <Modal visible={isPdfVisible} onRequestClose={() => setIsPdfVisible(false)} animationType="slide">
+          <View style={styles.pdfContainer}>
+            <TouchableOpacity onPress={() => setIsPdfVisible(false)}>
+              <Text style={styles.closeButton}>Close</Text>
+            </TouchableOpacity>
+            <Pdf
+              source={{ uri: pdfUri, cache: true }}
+              style={styles.pdf}
+              onLoadComplete={(numberOfPages) => {
+                console.log(`Number of pages: ${numberOfPages}`);
+              }}
+              onError={(error) => {
+                console.log(error);
+              }}
+            />
+          </View>
+        </Modal>
+      )}
     </View>
   );
 };
@@ -113,9 +152,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  scrollView: {
-    paddingBottom: 20,
-  },
   newsItem: {
     marginBottom: 20,
     padding: 10,
@@ -126,11 +162,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
-  },
-  newsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
   },
   newsDetails: {
     fontSize: 16,
@@ -149,6 +180,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  pdfContainer: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center',
+  },
+  pdf: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  closeButton: {
+    color: COLORS.appThemeBlue,
+    fontSize: 18,
+    textAlign: 'left',
+    marginBottom: 10,
+    fontWeight: 'bold',
   },
 });
 
