@@ -52,7 +52,7 @@ const SafetyNewsScreen = () => {
 
   // Handle download of PDF using RNFetchBlob
   const handleDownload = async (pdfUrl: string) => {
-    console.warn('Download started');
+    console.warn('Download started', pdfUrl);
     const fileUri = RNFetchBlob.fs.dirs.DocumentDir + '/sample.pdf';
     try {
       const res = await RNFetchBlob.config({
