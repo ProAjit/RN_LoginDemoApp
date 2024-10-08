@@ -20,8 +20,11 @@ import { CATEGORY } from '../../Constants/GlobalData';
 const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string, params?: any) => void }; }) => {
   const shareInstance = AppSingleton.getInstance();
   const name = shareInstance.getUserName();
-
   const [alertsVisited, setAlertsVisited] = useState(false);
+  // Filtering data based on beSafeIsAdmin before passing to CollectionView
+  const filteredCategoriesData = shareInstance.beSafeIsAdmin
+    ? HomeCategoriesArr // If admin, show all categories including ADMIN
+    : HomeCategoriesArr.filter((item) => item.title !== 'ADMIN'); // Remove ADMIN if not admin
 
   const handleItemPress = (id: string, title: string) => {
     switch (id) {
@@ -41,7 +44,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         props.navigation.navigate(CATEGORY.eTraining, { E_TrainingScreen });
         break;
       case CATEGORY.links:
-       props.navigation.navigate(CATEGORY.links, { LinksScreen });
+        props.navigation.navigate(CATEGORY.links, { LinksScreen });
         break;
       case CATEGORY.safetyNews:
         props.navigation.navigate(CATEGORY.safetyNews, { SafetyNewsScreen });
@@ -67,14 +70,14 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={componentStyle.container}
       >
-     <View style={{ alignItems: 'center', marginTop: 10 }}>
-       <Text style={{ fontSize: 18 }}>Welcome {name} </Text> 
-        <View style={homeStyles.collectionContainer}>
-          <CollectionView 
-           data={HomeCategoriesArr} 
-           alertsVisited={alertsVisited}
-           onItemPress={(id: string) => handleItemPress(id, HomeCategoriesArr.find(item => item.id === id)?.title ?? '')} 
-          />
+        <View style={{ alignItems: 'center', marginTop: 10 }}>
+          <Text style={{ fontSize: 18 }}>Welcome {name} </Text>
+          <View style={homeStyles.collectionContainer}>
+            <CollectionView
+              data={filteredCategoriesData}
+              alertsVisited={alertsVisited}
+              onItemPress={(id: string) => handleItemPress(id, filteredCategoriesData.find(item => item.id === id)?.title ?? '')}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -88,6 +91,6 @@ const homeStyles = StyleSheet.create({
     marginTop: 10,
     marginBottom: -10,
   },
-}); 
+});
 
 export default HomeScreen;
