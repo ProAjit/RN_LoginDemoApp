@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, IMAGES } from '../../Constants/GlobalData';
 
 const AboutScreen = () => {
+
   return (
     <View style={styles.container}>
       {/* Top Image */}
       <Image
-        source={{ uri: '/Users/ajitsatarkar/Desktop/AwesomeProject/images/login/logo.png' }} // Replace with your image source
+        source={{ uri: IMAGES.logo }}
         style={styles.image}
+        resizeMode="cover" // You can change this to 'contain' or other options as needed
       />
 
       {/* Ministry Text */}
