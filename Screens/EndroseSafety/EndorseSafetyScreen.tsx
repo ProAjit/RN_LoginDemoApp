@@ -13,10 +13,13 @@ import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import { SCREEN_NAME } from '../../Constants/GlobalData';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import ImageResizer from 'react-native-image-resizer';
+
 type IncidentScreenNavigationProp = NavigationProp<{ IncidentDetailsScreen: undefined }>;
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
+  const [resizedImage, setResizedImage] = useState<any>(null); // To store the compressed image
   const [imageName, setImageName] = useState<string | null>(null); // State for storing image name
   const [name, setName] = useState('');
   const [badgeNumber, setBadgeNumber] = useState('');
@@ -31,28 +34,44 @@ const EndorseSafetyScreen = () => {
   const navigation = useNavigation<IncidentScreenNavigationProp>();
 
   // Camera launch logic
-  const openCamera = () => {
-    const options: CameraOptions = {
-      mediaType: 'photo',
-      cameraType: 'back',
-      quality: 1,
-      includeBase64: true,
-      saveToPhotos: false,
-    };
-
-    launchCamera(options, (response) => {
-      if (response.didCancel) {
-        Alert.alert('User cancelled image picker');
-      } else if (response.errorCode) {
-        Alert.alert('ImagePicker Error: camera_unavailable');
-      } else if (response.assets) {
-        const uri = response.assets[0].base64;
-        const fileName = getRandomString();
-        setImage(uri || null);
-        setImageName(fileName || null); // Save the image name
-      }
-    });
+const openCamera = () => {
+  const options: CameraOptions = {
+    mediaType: 'photo',
+    cameraType: 'back',
+    quality: 1,
+    includeBase64: true, // Ensure base64 encoding is included
+    saveToPhotos: false,
   };
+
+  launchCamera(options, (response) => {
+    if (response.didCancel) {
+      Alert.alert('User cancelled image picker');
+    } else if (response.errorCode) {
+      Alert.alert('ImagePicker Error: camera_unavailable');
+    } else if (response.assets) {
+      const asset = response.assets[0];
+      const uri = asset.uri;
+      const base64 = asset.base64;
+
+      if (uri && base64) {
+        // Compress the image
+        ImageResizer.createResizedImage(uri, 800, 600, 'JPEG', 70)
+          .then((resizedImage) => {
+            const fileName = getRandomString();
+            console.log("\nresizedImage", fileName);
+            // Update the image state with base64 data
+            setImage(base64); // Set the base64 image string for display
+            setResizedImage(resizedImage);
+            setImageName(fileName || null); // Save the image name
+          })
+          .catch((err) => {
+            console.log(err);
+            Alert.alert('Error resizing image');
+          });
+      }
+    }
+  });
+};
 
   function getRandomString(): string {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -77,8 +96,8 @@ const EndorseSafetyScreen = () => {
     try {
       // Prepare image data in base64 format if image is present
       let base64Image = null;
-      if (image) {
-        base64Image = `${image}`;
+      if (resizedImage) {
+        base64Image = `${resizedImage.base64}`;
       }
   
       // Call the API with the base64 image data and image name
@@ -104,6 +123,7 @@ const EndorseSafetyScreen = () => {
     setLocation('');
     setDescription('');
     setImage(null);
+    setResizedImage(null);
     setRegion('');
     setIsDropdownVisible(false);
   };
