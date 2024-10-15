@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { getTrainingScheduleById } from '../../Networking/Training/ClassTrainingServices';
-import { COLORS } from '../../Constants/GlobalData';
+import { COLORS, FormatDateUTC } from '../../Constants/GlobalData';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const TrainingDetails = ({ route }) => {
@@ -50,7 +50,11 @@ const TrainingDetails = ({ route }) => {
             <View key={key} style={styles.row}>
               <Text numberOfLines={2} style={styles.label}>
                 <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}: </Text>
+                (key.startsWith('FromDate') || key.startsWith('ToDate')) && (
+                <Text>{FormatDateUTC(value)}</Text>
+                ) else (
                 <Text>{value}</Text>
+                )
               </Text>
             </View>
           ))}
