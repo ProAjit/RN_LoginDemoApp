@@ -8,7 +8,8 @@ class AppSingleton {
   eMail: string = '';
   title: string = '';
   beSafeIsAdmin: boolean = false;
-  
+  region: string = ''
+
   // Private constructor to prevent direct class instantiation
   private constructor() { }
 
@@ -51,6 +52,14 @@ class AppSingleton {
     this.eMail = value;
   }
 
+  public setBeSafeIsAdmin(IsAdmin: boolean): void {
+    this.beSafeIsAdmin = IsAdmin
+  }
+
+  public setRegion(value: string): void {
+    this.region = value
+  }
+  
   public getUserName(): string {
     return this.username;
   }
@@ -65,10 +74,6 @@ class AppSingleton {
 
   public getMobileNumber(): string {
     return this.mobileNumber;
-  }
-
-  public isBeSafeIsAdmin(): boolean {
-    return this.beSafeIsAdmin;
   }
 
   // Method to set token

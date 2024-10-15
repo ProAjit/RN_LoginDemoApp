@@ -23,7 +23,7 @@ const UpdateIncidentsScreen: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
-      const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + singleton.badgeNumber
+      const getIncidentURL = API.TestAdminBaseURL + '/getIncidentByRegion?Region=' + singleton.region
       console.log('\nAPI call getIncidentURL', getIncidentURL);
       const response = await fetch(getIncidentURL);
       const json = await response.json();

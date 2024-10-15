@@ -75,7 +75,7 @@ const UpdateTrainingScreen: React.FC = () => {
   // Function to call API and fetch data
   const fetchData = async () => {
     try {
-      const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + singleton.badgeNumber
+      const getTrainingsURL = API.TestAdminBaseURL + '/getTrainingListByRegion?Region=' + singleton.region
       console.log('\nAPI call getTrainingsURL', getTrainingsURL);
       const response = await fetch(getTrainingsURL);
       const json = await response.json();

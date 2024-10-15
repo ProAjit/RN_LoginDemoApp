@@ -6,14 +6,17 @@ export interface Item {
 }
 
 export const API = {
-  Profile_URL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/NghaMobileRestServicesB4!1.0/getter/getempprofile',
-  Login_URL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
-  TestBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7Service!1.0/api',
-  TestTwoBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
-  // Profile_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServicesB4!1.0/getter/getempprofile',
-  // Login_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
-  // TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
-  // TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.0/api',
+  // Profile_URL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/NghaMobileRestServicesB4!1.0/getter/getempprofile',
+  // Login_URL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
+  // TestBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7Service!1.0/api',
+  // TestTwoBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7ServiceTwo!1.1/api',
+  // TestAdminBaseURL: 'https://jawal.ngha.med.sa/soa-infra/resources/default/Safety24By7Administrator!1.0/api'
+
+  TestBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Service!1.0/api',
+  TestTwoBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7ServiceTwo!1.1/api',
+  Profile_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServicesB4!1.0/getter/getempprofile',
+  Login_URL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/NghaMobileRestServices/api/validateuser',
+  TestAdminBaseURL: 'http://dvriylcm-002.kamc-rd.ngha.med:7003/soa-infra/resources/default/Safety24By7Administrator!1.0/api'
 }
 
 export const HomeCategoriesArr: Item[] = [
@@ -93,5 +96,32 @@ export const FormatDate = (dateString: string): string => {
   const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
 
   // Return the formatted date string
-  return `${day}-${month}-${year} ${hours}:${minutesFormatted}${ampm}`;
+  return `${day}-${month}-${year} ${hours}:${minutesFormatted} ${ampm}`;
 };
+
+
+export const FormatDateUTC = (inputDate: string): string => {
+  // Create a new Date object from the input string
+  const date = new Date(inputDate);
+
+  // Format the date part as DD-MMM-YYYY
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short', // 'MMM' format
+    year: 'numeric',
+  }).format(date);
+
+  // Format the time part with AM/PM
+  const formattedTime = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true, // To get AM/PM format
+  }).format(date);
+
+  // Combine both date and time parts
+  return `${formattedDate} ${formattedTime}`;
+};
+
+export const IMAGES = {
+  logo : 'https://ngha.med.sa/_catalogs/masterpage/NGHA-21/IMG/MNGHA-Logo-En.webp',
+}

@@ -50,3 +50,17 @@ export const profileApi = async (userName: string, sessionId: string, sessionTok
     throw error; // Re-throw the error to handle it in the calling function
   }
 };
+
+export const adminUserCheckAPI = async (userName: string, sessionId: string, sessionToken: string) => {
+
+  const UserName = String(userName).toUpperCase()
+  const API_URL : String =  `${API.TestAdminBaseURL}` + "/isAdmin?Username=" + UserName
+  console.log('\nadminUserCheckAPI REQUEST URL', API_URL);
+  try {
+    const response = await axios.get(`${API_URL}`);
+    return response.data.User;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    throw error; // Re-throw error to handle in component
+  }
+};

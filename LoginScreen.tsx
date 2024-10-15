@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import componentStyle from './Styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
 import { COLORS, IMAGES } from './Constants/GlobalData';
-import { loginApi, profileApi } from './Networking/Login/LoginService';
+import { loginApi, profileApi, adminUserCheckAPI } from './Networking/Login/LoginService';  // Import both APIs
 
 const NetworkComponent: React.FC = () => {
   const { isConnected } = useNetworkStatus();
@@ -18,14 +18,31 @@ const NetworkComponent: React.FC = () => {
   );
 };
 
+interface UserData {
+  Username: string;
+  IsAdmin: boolean;
+  RegionOne: string;
+  RegionTwo: string;
+  RegionThree: string;
+  RegionFour: string;
+  RegionFive: string;
+  RoleOne: string;
+  RoleTwo: string;
+  RoleThree: string;
+}
+
 const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any) => void; }; }) => {
   const [name, setName] = useState('IMRANM');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
+  const singleton = AppSingleton.getInstance();
+  const [data, setData] = useState<UserData[]>([]);
 
   const loginApiCall = async () => {
     console.log('\nloginApiCall');
-
+    props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+    return
+    
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
     } else {
@@ -36,32 +53,29 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
         console.log('\nLogin Only User Data', userResp.data);
 
         if (userResp.data.InFuture1 && userResp.data.Fullname) {
-          // Check for session_id and session_token
-          const onlyName = userResp.data.Fullname.split(/\d+/)[0].trim();  // Split by number and take the first part
+          const onlyName = userResp.data.Fullname.split(/\d+/)[0].trim();  // Extract name
           console.log('\nLogin Api onlyName', onlyName);
-          const [session_id, session_token] = userResp.data.InFuture1.split('~');
-          console.log('\nLogin Api session_id', session_id);
-          console.log('\nLogin Api session_token', session_token);
-
-          // On successful login, call the profileApi
-          console.log('\nProfile Api Call started');
-          const profileResp = await profileApi(name, session_id, session_token);
-          console.log('\nUser Only Profile Data', profileResp);
-          // // Handle employee profile response
-          console.log('\nEmployee Profile', `\nName: ${profileResp.employeeName}\nEmail: ${profileResp.empEmail}`);
-          const singleton = AppSingleton.getInstance();
 
           // Set values to AppSingleton
           singleton.setUserName(onlyName);
           singleton.setFullName(onlyName);
           singleton.setBadgeNumber(userResp.data.Fullname);
           singleton.setMobileNumber(userResp.data.MobileNumber);
-          //singleton.setToken(userResp.data.InFuture4);
-          singleton.setTitle(profileResp.position)
-          singleton.setEmail(profileResp.empEmail)
-          // Navigate to Home screen with params
-          console.log('\nEmp Badge number', singleton.badgeNumber);
-          props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+
+          const [session_id, session_token] = userResp.data.InFuture1.split('~');
+          console.log('\nLogin Api session_id', session_id);
+          console.log('\nLogin Api session_token', session_token);
+
+          // On successful login, call both profileApiCall and adminUserCheckApiCall concurrently
+          Promise.all([
+            profileApiCall(session_id, session_token),
+            adminUserCheckApiCall(session_id, session_token)
+          ]).then(() => {
+            // After both APIs complete, navigate to Home
+            props.navigation.navigate("Main", { screen: 'Home', params: { name } });
+          }).catch(error => {
+            console.error('Error in one of the API calls:', error);
+          });
         } else {
           console.error('Login failed', 'Please check your credentials.');
         }
@@ -72,6 +86,25 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
       }
     }
   };
+
+  const profileApiCall = async (session_id: string, session_token: string) => {
+    console.log('\nProfile Api Call started');
+    const profileResp = await profileApi(name, session_id, session_token);
+    console.log('\nUser Only Profile Data', profileResp);
+
+    singleton.setTitle(profileResp.position);
+    singleton.setEmail(profileResp.empEmail);
+  }
+
+  const adminUserCheckApiCall = async (session_id: string, session_token: string) => {
+    console.log('\nAdmin User Check API Call started');
+    const adminCheckRespData = await adminUserCheckAPI(name, session_id, session_token);
+    console.log('\nAdmin User Check API response', adminCheckRespData);
+    setData(adminCheckRespData); // Set the fetched data
+    // You can store any necessary data from this API in singleton or handle it as needed
+    singleton.setBeSafeIsAdmin(adminCheckRespData.IsAdmin); 
+    singleton.setRegion(adminCheckRespData.region); 
+  }
 
   const forgotPasswordPressed = () => {
     setShow(true);
@@ -91,11 +124,11 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
           <View style={componentStyle.container}>
             <View style={logoStyles.outerContainer}>
               <View style={logoStyles.innerContainer}>
-              <Image
-              source={{ uri: IMAGES.logo }}
-              style={logoStyles.logo}
-              resizeMode="cover" // You can change this to 'contain' or other options as needed
-              />
+                <Image
+                  source={{ uri: IMAGES.logo }}
+                  style={logoStyles.logo}
+                  resizeMode="cover"
+                />
               </View>
             </View>
             <View style={componentStyle.innerView}>

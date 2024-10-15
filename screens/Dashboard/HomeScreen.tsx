@@ -24,7 +24,7 @@ const HomeScreen = (props: { route: any; navigation: { navigate: (screen: string
   // Filtering data based on beSafeIsAdmin before passing to CollectionView
   const filteredCategoriesData = shareInstance.beSafeIsAdmin
     ? HomeCategoriesArr // If admin, show all categories including ADMIN
-    : HomeCategoriesArr.filter((item) => item.title !== 'ADMIN'); // Remove ADMIN if not admin
+    : HomeCategoriesArr.filter((item) => item.title !== CATEGORY.admin); // Remove ADMIN if user not admin
 
   const handleItemPress = (id: string, title: string) => {
     switch (id) {
