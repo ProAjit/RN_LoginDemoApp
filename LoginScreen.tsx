@@ -40,8 +40,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
 
   const loginApiCall = async () => {
     console.log('\nloginApiCall');
-    props.navigation.navigate("Main", { screen: 'Home', params: { name } });
-    return
     
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
