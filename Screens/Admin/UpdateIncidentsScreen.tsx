@@ -59,7 +59,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       console.error('Incident not found');
       return;
     }
-
+    setShow(true)
     // Create the request body for the API
     const incidentData = {
       incidentid: item.incidentId.toString(),
@@ -81,6 +81,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       // Refresh the incident list on success
       fetchData();
     } else {
+      setShow(false)
       Alert.alert('Failed to update the incident status');
     }
   };
