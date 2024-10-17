@@ -13,13 +13,13 @@ import { COLORS, DEVICE, REGIONS } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 import { SCREEN_NAME } from '../../Constants/GlobalData';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import ImageResizer from 'react-native-image-resizer';
+// import ImageResizer from 'react-native-image-resizer';
 
 type IncidentScreenNavigationProp = NavigationProp<{ IncidentDetailsScreen: undefined }>;
 
 const EndorseSafetyScreen = () => {
   const [image, setImage] = useState<string | null>(null);
-  const [resizedImage, setResizedImage] = useState<any>(null); // To store the compressed image
+  // const [resizedImage, setResizedImage] = useState<any>(null); // To store the compressed image
   const [imageName, setImageName] = useState<string | null>(null); // State for storing image name
   const [name, setName] = useState('');
   const [badgeNumber, setBadgeNumber] = useState('');
@@ -49,26 +49,10 @@ const openCamera = () => {
     } else if (response.errorCode) {
       Alert.alert('ImagePicker Error: camera_unavailable');
     } else if (response.assets) {
-      const asset = response.assets[0];
-      const uri = asset.uri;
-      const base64 = asset.base64;
-
-      if (uri && base64) {
-        // Compress the image
-        ImageResizer.createResizedImage(uri, 800, 600, 'JPEG', 70)
-          .then((resizedImage) => {
-            const fileName = getRandomString();
-            console.log("\nresizedImage", fileName);
-            // Update the image state with base64 data
-            setImage(base64); // Set the base64 image string for display
-            setResizedImage(resizedImage);
-            setImageName(fileName || null); // Save the image name
-          })
-          .catch((err) => {
-            console.log(err);
-            Alert.alert('Error resizing image');
-          });
-      }
+      const uri = response.assets[0].base64;
+      const fileName = getRandomString();
+      setImage(uri || null);
+      setImageName(fileName || null); // Save the image name
     }
   });
 };
@@ -95,25 +79,21 @@ const openCamera = () => {
   
     try {
       // Prepare image data in base64 format if image is present
-      let base64Image = null;
-      if (resizedImage) {
-        base64Image = `${resizedImage.base64}`;
-      }
-  
       // Call the API with the base64 image data and image name
-      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, base64Image, imageName);
+      const response = await submitSafetyEndorsement(singleton.username, singleton.badgeNumber, location, description, region, image, imageName);
       const incidentId = response.IncidentId as String;
       if (incidentId) {
         Alert.alert('Success', `IncidentId: ${incidentId}`);
         navigation.navigate(SCREEN_NAME.incidentDetails, incidentId);  // Navigate on success
       } else {
-        Alert.alert('Error', `Failed to submit data. Status code: ${response}`);
+        Alert.alert('Error', `Unable to submit data. Status code: ${response}`);
       }
       setTimeout(() => {
         handleCancel();
-      }, 300);
+      }, 100);
     } catch (error) {
-      Alert.alert('Error', 'Failed to submit data.');
+      Alert.alert('Error', 'Unable to submit data.');
+      console.log(JSON.stringify(error))
     } finally {
       setLoading(false);
     }
@@ -123,7 +103,6 @@ const openCamera = () => {
     setLocation('');
     setDescription('');
     setImage(null);
-    setResizedImage(null);
     setRegion('');
     setIsDropdownVisible(false);
   };

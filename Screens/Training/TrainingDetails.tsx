@@ -17,7 +17,7 @@ const TrainingDetails = ({ route }) => {
         const data = await getTrainingScheduleById(trainingRequestId);
         setTrainingDetails(data.TrainingSchedule);  // Set the fetched data
       } catch (err) {
-        setError('Failed to load training details');
+        setError('Unable to load training details');
       } finally {
         setLoading(false);
       }
@@ -49,15 +49,11 @@ const TrainingDetails = ({ route }) => {
           {Object.entries(trainingDetails).map(([key, value]) => (
             <View key={key} style={styles.row}>
               <Text numberOfLines={2} style={styles.label}>
-                <Text style={{ fontWeight: 'bold' }}>{capitalizeFirstLetter(key)}: </Text>
-                (key.startsWith('FromDate') || key.startsWith('ToDate')) && (
-                <Text>{FormatDateUTC(value)}</Text>
-                ) else (
-                <Text>{value}</Text>
-                )
+              <Text style={{ fontWeight: 'bold' }}> {capitalizeFirstLetter(key)}: </Text>
+              <Text>{value}</Text>
               </Text>
             </View>
-          ))}
+          ))} 
         </ScrollView>
       ) : (
         <Text>No details found for Id#: {trainingRequestId}</Text>
