@@ -17,7 +17,7 @@ const QueriesDetails = ({ route }) => {
         const data = await getQueryById(route.params);
         setQueriesDetails(data.Query);  // Set the fetched data
       } catch (err) {
-        setError('Failed to load training details');
+        setError('Unable to load training details');
       } finally {
         setLoading(false);
       }

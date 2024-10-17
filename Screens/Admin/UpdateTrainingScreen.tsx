@@ -62,7 +62,7 @@ const UpdateTrainingScreen: React.FC = () => {
           // Refresh the data list by calling fetchData
           await fetchData();
         } else {
-          Alert.alert('Error', 'Failed to update training status.');
+          Alert.alert('Error', 'Unable to update training status.');
         }
         setShow(false)
       } catch (error) {
@@ -99,7 +99,7 @@ const UpdateTrainingScreen: React.FC = () => {
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
-      Alert.alert('Error In Fetching Training List');
+      Alert.alert('Unable to Fetch Training List');
       console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
       setTimeout(() => {
         setShow(false);  // Stop loading in case of an error

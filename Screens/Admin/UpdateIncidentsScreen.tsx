@@ -42,6 +42,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       setShow(false);
     } catch (error) {
       console.log('\nAPI call failed, loading local JSON:', error);
+      Alert.alert('Unable to fetch incidents list')
       setTimeout(() => {
         setShow(false);
       }, 10);
@@ -82,7 +83,7 @@ const UpdateIncidentsScreen: React.FC = () => {
       fetchData();
     } else {
       setShow(false)
-      Alert.alert('Failed to update the incident status');
+      Alert.alert('Unable to update the incident status');
     }
   };
 

@@ -41,7 +41,7 @@ const E_TrainingScreen = () => {
     if (!attachment) return;
     if (attachment.includes('youtube') || attachment.includes('http')) {
       // Open video link in browser
-      Linking.openURL(attachment).catch((err) => Alert.alert('Error', 'Failed to open link.'));
+      Linking.openURL(attachment).catch((err) => Alert.alert('Error', 'Unable to open link.'));
     } else {
       // Download file
       RNFetchBlob.config({
@@ -53,7 +53,8 @@ const E_TrainingScreen = () => {
           console.warn('File Download complete', `File saved to ${res.path()}`);
         })
         .catch((err) => {
-          console.warn('File Download error', 'Failed to download file.');
+          console.warn('File Download error', 'Unable to download file.');
+          Alert.alert('File Download error', 'Unable to download file.')
         });
     }
   };

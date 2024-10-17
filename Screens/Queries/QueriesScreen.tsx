@@ -40,7 +40,7 @@ const QueriesScreen = () => {
         Alert.alert('Success', `QueryId: ${queryId}`);
         navigation.navigate(SCREEN_NAME.queryDetails, queryId);  // Navigate on success
       } else {
-        Alert.alert('Error', `Failed to submit data. Status code: ${response}`);
+        Alert.alert('Error', `Unable to submit data. Status code: ${response}`);
       }
       console.log('\nsubmitQuery SUCCESS');
       setTimeout(() => {

@@ -57,11 +57,11 @@ export const handleSubmit = async (
       onSuccess(responseData.TrainingRequestId);  // Call success callback
       handleCancel();
     } else {
-      Alert.alert('Error', 'Failed to submit data.');
+      Alert.alert('Error', 'Unable to submit data.');
     }
     console.log('\nsubmitTraining SUCCESS', responseData);
   } catch (error) {
-    Alert.alert('Error in Submit Training');
+    Alert.alert('Unable to Submit Training');
     console.error('\n', JSON.stringify(error));
   } finally {
     setLoading(false);

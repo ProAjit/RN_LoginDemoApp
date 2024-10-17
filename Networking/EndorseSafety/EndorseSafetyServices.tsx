@@ -51,7 +51,7 @@ export const updateIncidentStatus = async (incidentData: any) => {
       Alert.alert('Success', response.data.Status);
       return true;
     } else {
-      console.error('Failed to update incident status:', response.data);
+      console.error('Unable to update incident status:', response.data);
       return false;
     }
   } catch (error) {

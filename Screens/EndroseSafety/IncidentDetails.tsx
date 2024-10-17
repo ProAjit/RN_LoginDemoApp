@@ -18,7 +18,7 @@ const IncidentDetails = ({ route }) => {
         console.log('\n====', data.Incident[0])
         setQueriesDetails(data.Incident[0]);  // Set the fetched data
       } catch (err) {
-        setError('Failed to load training details');
+        setError('Unable to load training details');
       } finally {
         setLoading(false);
       }

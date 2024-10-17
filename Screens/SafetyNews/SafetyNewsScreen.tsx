@@ -69,7 +69,7 @@ const SafetyNewsScreen = () => {
     } catch (error) {
       setDownloading(false); // Hide loading indicator in case of failure
       console.warn('Download failed', error);
-      Alert.alert('Error', 'Failed to download the PDF. Please try again.');
+      Alert.alert('Error', 'Unable to download the PDF. Please try again.');
     }
   };
 

@@ -43,7 +43,7 @@ const SafetyIncidentsList: React.FC = () => {
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
-      Alert.alert('Error in fetching incident list');
+      Alert.alert('Unable to fetch incident list');
       console.error('\n', JSON.stringify(error));
       setTimeout(() => {
         setShow(false);  // Stop loading in case of an error
