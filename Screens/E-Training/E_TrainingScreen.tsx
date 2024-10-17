@@ -26,7 +26,7 @@ const E_TrainingScreen = () => {
         console.log('\nE_TrainingList JSON:', responseData);  
         setTrainingData(responseData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        Alert.alert('Error fetching e-training data:', JSON.stringify(error));
         setTimeout(() => {
       }, 10);
       } finally {

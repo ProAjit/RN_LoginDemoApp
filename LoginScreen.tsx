@@ -72,13 +72,13 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
             // After both APIs complete, navigate to Home
             props.navigation.navigate("Main", { screen: 'Home', params: { name } });
           }).catch(error => {
-            console.error('Error in one of the API calls:', error);
+            Alert.alert('Error in one of the API calls:', JSON.stringify(error));
           });
         } else {
-          console.error('Login failed', 'Please check your credentials.');
+          Alert.alert('Login failed', 'Please check your credentials.');
         }
       } catch (error) {
-        console.error('Error while loginApi data:', JSON.stringify(error));
+        Alert.alert('Error while loginApi data:', JSON.stringify(error));
       } finally {
         setShow(false); // Hide loading indicator
       }
@@ -108,7 +108,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     setShow(true);
     setTimeout(() => {
       setShow(false);
-    }, 300);
+    }, 100);
   };
 
   return (

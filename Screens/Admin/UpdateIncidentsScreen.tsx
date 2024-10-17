@@ -38,7 +38,7 @@ const UpdateIncidentsScreen: React.FC = () => {
         incidentId: Number(incident["incidentid"].trim()),
       }));
       setData(parsedData);
-      console.log('\nDATA set', data);
+      console.log('\nDATA set', parsedData);
       setShow(false);
     } catch (error) {
       console.log('\nAPI call failed, loading local JSON:', error);
@@ -56,7 +56,7 @@ const UpdateIncidentsScreen: React.FC = () => {
   const updateStatus = async (item: DataItem) => {
 
     if (!item.incidentId) {
-      console.error('Incident not found');
+      Alert.alert('Incident Id not found');
       return;
     }
     setShow(true)

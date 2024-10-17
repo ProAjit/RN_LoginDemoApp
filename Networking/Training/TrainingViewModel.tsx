@@ -61,7 +61,7 @@ export const handleSubmit = async (
     }
     console.log('\nsubmitTraining SUCCESS', responseData);
   } catch (error) {
-    console.log('\nsubmitTraining Failed');
+    Alert.alert('\nsubmitTraining Failed', JSON.stringify(error));
   } finally {
     setLoading(false);
   }

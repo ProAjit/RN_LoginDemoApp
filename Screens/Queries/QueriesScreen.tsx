@@ -45,9 +45,10 @@ const QueriesScreen = () => {
       console.log('\nsubmitQuery SUCCESS');
       setTimeout(() => {
         handleCancel();
-      }, 300); // Reset the form on success
+      }, 100); // Reset the form on success
     } catch (error) {
       Alert.alert('Error', 'There was an error submitting query. Please try again.');
+      console.log(JSON.stringify(error))
     } finally {
       setLoading(false);
     }

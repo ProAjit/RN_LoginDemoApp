@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { Linking } from 'react-native';
 import { fetchLinksData } from '../../Networking/Links/LinksServices';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
@@ -42,7 +42,7 @@ const LinksScreen: React.FC = () => {
         console.log('\nLinksList JSON:', responseData);
         setData(responseData.Links); // Set the fetched data
       } catch (error) {
-        console.error('Error fetching data:', error);
+        Alert.alert('Error fetching links data:', JSON.stringify(error));
         setTimeout(() => {
         }, 10);
       } finally {
@@ -54,7 +54,7 @@ const LinksScreen: React.FC = () => {
 
   // Handle opening links
   const openLink = (url: string) => {
-    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+    Linking.openURL(url).catch(err => Alert.alert("Couldn't load page", JSON.stringify(err)));
   };
 
   // Render each item in FlatList

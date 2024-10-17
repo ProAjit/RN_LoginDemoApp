@@ -6,8 +6,10 @@ const count_url = API.TestTwoBaseURL + '/getActiveAlertCount';
 
 // Function to fetch alerts data from the API
 export const fetchAlertsData = async () => {
+  console.log('fetchAlertsData alert_url', alert_url);
   try {
     const response = await axios.get(alert_url);
+    console.log('fetchAlertsData response', response);
     return response.data;
   } catch (error) {
     console.error('Error fetching alerts data:', error);

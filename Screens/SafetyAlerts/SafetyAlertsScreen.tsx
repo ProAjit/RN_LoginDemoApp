@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { fetchAlertsData } from '../../Networking/SafetyAlerts/AlertsServices'; 
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 
@@ -30,7 +30,7 @@ const SafetyAlertsScreen: React.FC = () => {
         console.log('\nAlertList JSON:', responseData);  
         setData(responseData.Alerts); // Set the fetched data
       } catch (error) {
-        console.error('Error fetching data:', error);
+        Alert.alert('Error fetching data:', JSON.stringify(error));
         setTimeout(() => {
       }, 10);
       } finally {

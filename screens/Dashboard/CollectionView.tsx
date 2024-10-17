@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, Animated, Alert } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressCard, faMessage, faPersonShelter, faGraduationCap, faClipboardQuestion, faBlog, faLink, faNewspaper, faBellSlash, faAddressBook, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { COLORS, HomeCategoriesArr } from '../../Constants/GlobalData';
@@ -60,7 +60,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
         console.log('\nAlert Count', response)
         setAlertCount(response.ActiveAlertCount); // Update state with the alert count
       } catch (error) {
-        console.error('Failed to fetch alert count:', error);
+        Alert.alert('Failed to fetch alert count:', JSON.stringify(error));
         setAlertCount('0');
       }
     };
@@ -96,7 +96,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
     if (title === 'SAFETY ALERTS') {
       setTimeout(() => {
         setAlertCount('0'); // Set alert count to zero  
-      }, 300);
+      }, 100);
     }
   };
 
