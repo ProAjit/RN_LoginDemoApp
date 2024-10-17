@@ -19,8 +19,10 @@ export const fetchAlertsData = async () => {
 
 
 export const getActiveAlertCount = async () => {
+  console.log('\ngetActiveAlertCount count_url', count_url);
   try {
     const response = await axios.get(count_url);
+    console.log('\ngetActiveAlertCount response', response);
     return response.data;
   } catch (error) {
     console.error('Error fetching active alert count:', JSON.stringify(error));

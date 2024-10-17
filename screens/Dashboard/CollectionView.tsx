@@ -60,7 +60,8 @@ const CollectionView: React.FC<CollectionViewProps> = ({ data, alertsVisited, on
         console.log('\nAlert Count', response)
         setAlertCount(response.ActiveAlertCount); // Update state with the alert count
       } catch (error) {
-        Alert.alert('Failed to fetch alert count:', JSON.stringify(error));
+        Alert.alert('Failed to fetch alert count');
+        console.error('\n', JSON.stringify(error));
         setAlertCount('0');
       }
     };

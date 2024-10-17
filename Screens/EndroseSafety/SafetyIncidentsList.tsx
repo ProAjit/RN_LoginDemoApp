@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
 import AppSingleton from '../../AppSingleton/AppSingleton';
 const singleton = AppSingleton.getInstance();
@@ -43,7 +43,8 @@ const SafetyIncidentsList: React.FC = () => {
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
+      Alert.alert('Error in fetching incident list');
+      console.error('\n', JSON.stringify(error));
       setTimeout(() => {
         setShow(false);  // Stop loading in case of an error
       }, 10);

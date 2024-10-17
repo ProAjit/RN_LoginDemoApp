@@ -57,7 +57,7 @@ const TrainingList: React.FC = () => {
       setShow(false);    // Set loading to false after data is fetched
     } catch (error) {
       // If the API call fails, load from local JSON file
-      console.log('\nTrainingList Failed');
+      Alert.alert('Fetching Training List Failed');
       console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
       setTimeout(() => {
         setShow(false);  // Stop loading in case of an error

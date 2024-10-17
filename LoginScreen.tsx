@@ -72,13 +72,15 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
             // After both APIs complete, navigate to Home
             props.navigation.navigate("Main", { screen: 'Home', params: { name } });
           }).catch(error => {
-            Alert.alert('Error in one of the API calls:', JSON.stringify(error));
+            Alert.alert('Error in one of the API call');
+            console.log('\n', JSON.stringify(error));
           });
         } else {
           Alert.alert('Login failed', 'Please check your credentials.');
         }
       } catch (error) {
-        Alert.alert('Error while loginApi data:', JSON.stringify(error));
+        Alert.alert('Network error in login');
+        console.error('\n', JSON.stringify(error));
       } finally {
         setShow(false); // Hide loading indicator
       }

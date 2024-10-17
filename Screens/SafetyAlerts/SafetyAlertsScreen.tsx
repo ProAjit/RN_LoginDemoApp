@@ -30,7 +30,8 @@ const SafetyAlertsScreen: React.FC = () => {
         console.log('\nAlertList JSON:', responseData);  
         setData(responseData.Alerts); // Set the fetched data
       } catch (error) {
-        Alert.alert('Error fetching data:', JSON.stringify(error));
+        Alert.alert('Error fetching safety alerts data');
+        console.error('\n', JSON.stringify(error));
         setTimeout(() => {
       }, 10);
       } finally {
