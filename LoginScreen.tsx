@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet, Alert, } from 'react-native';
 import componentStyle from './Styles/componentStyle';
 import { NetworkStatusProvider, useNetworkStatus } from './Reachability/NetworkStatusContext';
 import OverlayActivityIndicator from './Utilities/OverlayActivityIndicator';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppSingleton from './AppSingleton/AppSingleton';
 import { COLORS, IMAGES } from './Constants/GlobalData';
+import { Buffer } from 'buffer';
+import * as Keychain from 'react-native-keychain';
 import { loginApi, profileApi, adminUserCheckAPI } from './Networking/Login/LoginService';  // Import both APIs
 
 const NetworkComponent: React.FC = () => {
@@ -13,7 +15,7 @@ const NetworkComponent: React.FC = () => {
   return (
     <View>
       <Text />
-      {/* <Text>Network status: {isConnected ? 'Online' : 'Offline'}</Text> */}
+       <Text>Network status: {isConnected ? 'Online' : 'Offline'}</Text> 
     </View>
   );
 };
@@ -40,29 +42,36 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
 
   const loginApiCall = async () => {
     console.log('\nloginApiCall');
-    
+
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
     } else {
       setShow(true); // Show loading indicator
       try {
         console.log('\nLogin Api Call started');
-        const userResp = await loginApi(name, password); // Call the login API
-        console.log('\nLogin Only User Data', userResp.data);
+        const loginResponse = await loginApi(name, password); // Call the login API
+        console.log('\nLogin Only User Data', loginResponse.data);
 
-        if (userResp.data.InFuture1 && userResp.data.Fullname) {
-          const onlyName = userResp.data.Fullname.split(/\d+/)[0].trim();  // Extract name
+        if (loginResponse.data.InFuture1 && loginResponse.data.Fullname) {
+          const onlyName = loginResponse.data.Fullname.split(/\d+/)[0].trim();  // Extract name
           console.log('\nLogin Api onlyName', onlyName);
 
           // Set values to AppSingleton
           singleton.setUserName(onlyName);
           singleton.setFullName(onlyName);
-          singleton.setBadgeNumber(userResp.data.Fullname);
-          singleton.setMobileNumber(userResp.data.MobileNumber);
+          singleton.setBadgeNumber(loginResponse.data.Fullname);
+          singleton.setMobileNumber(loginResponse.data.MobileNumber);
 
-          const [session_id, session_token] = userResp.data.InFuture1.split('~');
+          const [session_id, session_token] = loginResponse.data.InFuture1.split('~');
           console.log('\nLogin Api session_id', session_id);
           console.log('\nLogin Api session_token', session_token);
+          // save auth key in encypted secured storage
+          const credentials = `${name}:${password}`;
+          const encodedCredentials = Buffer.from(credentials).toString('base64');
+          console.log('\n ===== ')
+          console.log('Authorization: Basic', encodedCredentials)
+          console.log('\n ===== ')
+          saveCredentials(encodedCredentials)
 
           // On successful login, call both profileApiCall and adminUserCheckApiCall concurrently
           Promise.all([
@@ -87,11 +96,20 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     }
   };
 
+  const saveCredentials = async (encodedCredentials: string) => {
+    try {
+      // Save the credentials to the keychain
+      await Keychain.setGenericPassword('auth', encodedCredentials);
+      console.log('Credentials saved successfully');
+    } catch (error) {
+      console.error('Could not save credentials', error);
+    }
+  };
+
   const profileApiCall = async (session_id: string, session_token: string) => {
     console.log('\nProfile Api Call started');
     const profileResp = await profileApi(name, session_id, session_token);
     console.log('\nUser Only Profile Data', profileResp);
-
     singleton.setTitle(profileResp.position);
     singleton.setEmail(profileResp.empEmail);
   }
@@ -102,8 +120,8 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     console.log('\nAdmin User Check API response', adminCheckRespData);
     setData(adminCheckRespData); // Set the fetched data
     // You can store any necessary data from this API in singleton or handle it as needed
-    singleton.setBeSafeIsAdmin(adminCheckRespData.IsAdmin); 
-    singleton.setRegion(adminCheckRespData.region); 
+    singleton.setBeSafeIsAdmin(adminCheckRespData.IsAdmin);
+    singleton.setRegion(adminCheckRespData.region);
   }
 
   const forgotPasswordPressed = () => {
@@ -151,9 +169,9 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
               <TouchableOpacity style={componentStyle.loginButton} onPress={loginApiCall}>
                 <Text style={componentStyle.buttonText}>Login</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
+              {/* <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
                 <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </NetworkStatusProvider>

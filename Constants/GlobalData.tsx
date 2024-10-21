@@ -1,4 +1,5 @@
 import { Dimensions } from "react-native";
+var CryptoJS = require('crypto-js'); 
 
 export interface Item {
   id: string;
@@ -125,3 +126,14 @@ export const FormatDateUTC = (inputDate: string): string => {
 export const IMAGES = {
   logo : 'https://ngha.med.sa/_catalogs/masterpage/NGHA-21/IMG/MNGHA-Logo-En.webp',
 }
+
+export const getEncryptedData = (value: string) => {
+  var key = CryptoJS.enc.Utf8.parse('NGHAMobileAp2015');
+  let iv = CryptoJS.lib.WordArray.create(key.words.slice(4, 16));
+  var cipherText = CryptoJS.AES.encrypt(value, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  return cipherText.toString();
+};
