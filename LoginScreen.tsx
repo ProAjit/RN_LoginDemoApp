@@ -42,20 +42,25 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   // const [name, setName] = useState('safety_mobile_user');
   // const [password, setPassword] = useState('xSur3!eLzP');
 
+  useEffect(() => {
+    // Save auth key in encypted secured storage
+    const clinetName = 'safety_mobile_user'
+    const clinetPassword = 'xSur3!eLzP'
+    const credentials = `${clinetName}:${clinetPassword}`;
+    const encodedCredentials = Buffer.from(credentials).toString('base64');
+    console.log('\n ===== ')
+    console.log('Authorization: Basic', encodedCredentials)
+    console.log('\n ===== ')
+    saveCredentials(encodedCredentials) 
+  });
+
   const loginApiCall = async () => {
+    console.log('\nloginApiCall');
 
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
     } else {
       setShow(true); // Show loading indicator
-      console.log('\nloginApiCall');
-    // Save auth key in encypted secured storage
-    const credentials = `${name}:${password}`;
-    const encodedCredentials = Buffer.from(credentials).toString('base64');
-    console.log('\n ===== ')
-    console.log('Authorization: Basic', encodedCredentials)
-    console.log('\n ===== ')
-    saveCredentials(encodedCredentials)
       try {
         console.log('\nLogin Api Call started');
         const loginResponse = await loginApi(name, password); // Call the login API
