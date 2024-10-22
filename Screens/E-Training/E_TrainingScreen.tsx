@@ -26,7 +26,7 @@ const E_TrainingScreen = () => {
         console.log('\nE_TrainingList JSON:', responseData);  
         setTrainingData(responseData);
       } catch (error) {
-        Alert.alert('Error fetching e-training data');
+        Alert.alert('Unable to fetch e-training data');
         console.error('\n', JSON.stringify(error));
         setTimeout(() => {
       }, 10);
@@ -54,7 +54,7 @@ const E_TrainingScreen = () => {
         })
         .catch((err) => {
           console.warn('File Download error', 'Unable to download file.');
-          Alert.alert('File Download error', 'Unable to download file.')
+          Alert.alert('Error', 'Unable to download file.')
         });
     }
   };

@@ -44,7 +44,7 @@ const SafetyNewsScreen = () => {
         console.log('\nNewsList JSON:', responseData);  
         setData(responseData); // Set the fetched data
       } catch (error) {
-        Alert.alert('Error fetching safety news data');
+        Alert.alert('Unable to fetch safety news data');
         console.error('\n', JSON.stringify(error));
         setTimeout(() => {}, 10);
       } finally {

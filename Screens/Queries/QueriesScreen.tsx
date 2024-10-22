@@ -28,7 +28,7 @@ const QueriesScreen = () => {
 
   const handleSubmit = async () => {
     if (region.trim() === '' || subject.trim() === '' || description.trim() === '') {
-      Alert.alert('Error', 'Please fill mandatory fields.');
+      Alert.alert('Error', 'Please fill all mandatory fields.');
       return;
     }
     setLoading(true);

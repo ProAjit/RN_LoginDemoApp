@@ -39,14 +39,23 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   const [show, setShow] = useState(false);
   const singleton = AppSingleton.getInstance();
   const [data, setData] = useState<UserData[]>([]);
+  // const [name, setName] = useState('safety_mobile_user');
+  // const [password, setPassword] = useState('xSur3!eLzP');
 
   const loginApiCall = async () => {
-    console.log('\nloginApiCall');
 
     if (name.trim() === '' || password.trim() === '') {
       Alert.alert('Error', 'Please enter both username and password.');
     } else {
       setShow(true); // Show loading indicator
+      console.log('\nloginApiCall');
+    // Save auth key in encypted secured storage
+    const credentials = `${name}:${password}`;
+    const encodedCredentials = Buffer.from(credentials).toString('base64');
+    console.log('\n ===== ')
+    console.log('Authorization: Basic', encodedCredentials)
+    console.log('\n ===== ')
+    saveCredentials(encodedCredentials)
       try {
         console.log('\nLogin Api Call started');
         const loginResponse = await loginApi(name, password); // Call the login API
@@ -65,13 +74,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
           const [session_id, session_token] = loginResponse.data.InFuture1.split('~');
           console.log('\nLogin Api session_id', session_id);
           console.log('\nLogin Api session_token', session_token);
-          // save auth key in encypted secured storage
-          const credentials = `${name}:${password}`;
-          const encodedCredentials = Buffer.from(credentials).toString('base64');
-          console.log('\n ===== ')
-          console.log('Authorization: Basic', encodedCredentials)
-          console.log('\n ===== ')
-          saveCredentials(encodedCredentials)
 
           // On successful login, call both profileApiCall and adminUserCheckApiCall concurrently
           Promise.all([
@@ -88,7 +90,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
           Alert.alert('Login failed', 'Please check your credentials.');
         }
       } catch (error) {
-        Alert.alert('Network error in login');
+        Alert.alert('Network error');
         console.error('\n', JSON.stringify(error));
       } finally {
         setShow(false); // Hide loading indicator

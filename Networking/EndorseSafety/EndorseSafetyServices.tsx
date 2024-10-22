@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 import { Alert } from 'react-native';
+import * as Keychain from 'react-native-keychain';
 
 export const submitSafetyEndorsement = async (
-  name: string, 
-  badgeNumber: string, 
+  name: string,
+  badgeNumber: string,
   location: string,
-  description: string, 
-  region: string, 
-  image: string | null, 
-  imageName: string | null, 
+  description: string,
+  region: string,
+  image: string | null,
+  imageName: string | null,
 ) => {
   const requestBody = {
     Name: name,
@@ -17,7 +18,7 @@ export const submitSafetyEndorsement = async (
     Location: location,
     Description: description,
     Imageuri: image,
-    Region: region, 
+    Region: region,
     ImageName: imageName,
   }
 
@@ -25,13 +26,20 @@ export const submitSafetyEndorsement = async (
   console.log('\nsubmitEndorsement REQUEST BODY', requestBody);
 
   try {
-    const response = await axios.post(`${API.TestBaseURL}/submitEndorsement`, requestBody, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('\nsubmitEndorsement resp data', response.data);
-    return response.data;
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+      const { password: storedEncodedCredentials } = credentials;
+      const response = await axios.post(`${API.TestBaseURL}/submitEndorsement`, requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${storedEncodedCredentials}`,
+        },
+      });
+      console.log('\nsubmitEndorsement resp data', response.data);
+      return response.data;
+    } else {
+      console.log('No credentials stored');
+    }
   } catch (error) {
     console.error('API call error:', error);
     throw error;
@@ -41,18 +49,29 @@ export const submitSafetyEndorsement = async (
 // Import the new API function
 export const updateIncidentStatus = async (incidentData: any) => {
   try {
-    const apiURL = `${API.TestBaseURL}/updateIncident`
-    console.log('updateIncident URL', apiURL)
-    console.log('updateIncident request body', incidentData)
-    const response = await axios.post(`${API.TestBaseURL}/updateIncident`, incidentData);
-    console.log('updateIncident response', response.data.Status)
-    if (response.data.Status) {
-      console.log('Success in updating incident status:', response.data.Status);
-      Alert.alert('Success', response.data.Status);
-      return true;
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+      const { password: storedEncodedCredentials } = credentials;
+      const apiURL = `${API.TestBaseURL}/updateIncident`
+      console.log('updateIncident URL', apiURL)
+      console.log('updateIncident request body', incidentData)
+      const response = await axios.post(`${API.TestBaseURL}/updateIncident`, incidentData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${storedEncodedCredentials}`,
+        },
+      });
+      console.log('updateIncident response', response.data.Status)
+      if (response.data.Status) {
+        console.log('Success in updating incident status:', response.data.Status);
+        Alert.alert('Success', response.data.Status);
+        return true;
+      } else {
+        console.error('Unable to update incident status:', response.data);
+        return false;
+      }
     } else {
-      console.error('Unable to update incident status:', response.data);
-      return false;
+      console.log('No credentials stored');
     }
   } catch (error) {
     console.error('Error while updating incident status:', error);
@@ -64,11 +83,21 @@ export const getIncidentsById = async (incidentId: string) => {
   const url = `${API.TestBaseURL}/getIncidentById`;
   console.log('\getIncidentsById URL', url)
   try {
-    const response = await axios.get(url, {
-      params: { IncidentId: incidentId },
-    });
-    console.log('\ngetIncidentById response', response.data.Incident[0])
-    return response.data;
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+      const { password: storedEncodedCredentials } = credentials;
+      const response = await axios.get(`${url}`, {
+        params: { IncidentId: incidentId },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${storedEncodedCredentials}`,
+        },
+      });
+      console.log('\ngetIncidentById response', response.data.Incident[0])
+      return response.data;
+    } else {
+      console.log('No credentials stored');
+    }
   } catch (error) {
     console.log('\ngetIncidentById error', JSON.stringify(error))
     throw error;

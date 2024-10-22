@@ -42,7 +42,7 @@ const LinksScreen: React.FC = () => {
         console.log('\nLinksList JSON:', responseData);
         setData(responseData.Links); // Set the fetched data
       } catch (error) {
-        Alert.alert('Error fetching links data');
+        Alert.alert('Unable to fetch links data');
         console.error('\n', JSON.stringify(error));
         setTimeout(() => {
         }, 10);
