@@ -3,9 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, ActivityIndi
 import RNFetchBlob from 'react-native-blob-util';
 import { COLORS, FormatDate } from '../../Constants/GlobalData';
 import { fetchSafetyNews } from '../../Networking/SafetyNews/NewsService';
-import { Platform } from 'react-native';
 import Pdf from 'react-native-pdf'; // Import react-native-pdf for in-app PDF viewing
-import FileViewer from 'react-native-file-viewer'; // Import to view the downloaded PDF
 
 interface NewsData {
   titleEn: string;
