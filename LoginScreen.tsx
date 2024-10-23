@@ -131,13 +131,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
     singleton.setRegion(adminCheckRespData.region);
   }
 
-  const forgotPasswordPressed = () => {
-    setShow(true);
-    setTimeout(() => {
-      setShow(false);
-    }, 100);
-  };
-
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.appBackground }} behavior="padding">
       <KeyboardAwareScrollView
@@ -176,9 +169,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
               <TouchableOpacity style={componentStyle.loginButton} onPress={loginApiCall}>
                 <Text style={componentStyle.buttonText}>Login</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity style={componentStyle.forgotButton} onPress={forgotPasswordPressed}>
-                <Text style={componentStyle.forgotButtonText}>Forgot Password</Text>
-              </TouchableOpacity> */}
             </View>
           </View>
         </NetworkStatusProvider>
