@@ -43,7 +43,6 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
   // const [password, setPassword] = useState('xSur3!eLzP');
 
   useEffect(() => {
-    // Save auth key in encypted secured storage
     const clinetName = 'safety_mobile_user'
     const clinetPassword = 'xSur3!eLzP'
     const credentials = `${clinetName}:${clinetPassword}`;
@@ -82,7 +81,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
 
           // On successful login, call both profileApiCall and adminUserCheckApiCall concurrently
           Promise.all([
-            profileApiCall(session_id, session_token),
+             profileApiCall(session_id, session_token),
             adminUserCheckApiCall(session_id, session_token)
           ]).then(() => {
             // After both APIs complete, navigate to Home
@@ -96,7 +95,7 @@ const LoginScreen = (props: { navigation: { navigate: (arg0: string, arg1?: any)
         }
       } catch (error) {
         Alert.alert('Network error');
-        console.error('\n', JSON.stringify(error));
+        console.error('\nLogin API Error', JSON.stringify(error));
       } finally {
         setShow(false); // Hide loading indicator
       }
