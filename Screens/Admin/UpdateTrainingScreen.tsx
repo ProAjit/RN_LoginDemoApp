@@ -1,8 +1,11 @@
+// UpdateTrainingScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE, API, FormatDate } from '../../Constants/GlobalData';
+import { COLORS, DEVICE, FormatDate } from '../../Constants/GlobalData';
 import { updateTrainingStatus } from '../../Networking/Training/ClassTrainingServices';
 import AppSingleton from '../../AppSingleton/AppSingleton';
+import fetchTrainingData from '../../Networking/Updates/UpdateTrainingService';
+
 const singleton = AppSingleton.getInstance();
 
 interface TrainingDataItem {
@@ -39,50 +42,38 @@ const UpdateTrainingScreen: React.FC = () => {
   };
 
   const handleStatusSelect = async (newStatus: string) => {
-    setModalVisible(false)
-    console.log('\nhandleStatusfor', selectedItem?.trainingId)
+    setModalVisible(false);
     if (selectedItem) {
-      setShow(true)
-      // Create the request body for the API call
+      setShow(true);
       const requestBody = {
         TrainingId: selectedItem.trainingId,
-        NewStatus: newStatus,   // New status selected
+        NewStatus: newStatus,
       };
-  
+
       try {
-        // Call the POST API
         const response = await updateTrainingStatus(requestBody);
-        // Check if the response is successful
         if (response.TrainingSchedule.Status) {
-          const msg = `Training# ` + selectedItem.trainingId + ` has been updated to ` + response.TrainingSchedule.Status
+          const msg = `Training# ${selectedItem.trainingId} has been updated to ${response.TrainingSchedule.Status}`;
           Alert.alert('Success', msg);
-          // Close the modal and reset the selected item
-          setModalVisible(false);
           setSelectedItem(null);
-          // Refresh the data list by calling fetchData
           await fetchData();
         } else {
           Alert.alert('Error', 'Unable to update training status.');
         }
-        setShow(false)
       } catch (error) {
         Alert.alert('Error', 'An error occurred while updating the training status.');
-        setShow(false)
+      } finally {
+        setShow(false);
       }
     }
   };
 
-  // Function to call API and fetch data
+  // Refactored fetchData to use the new service
   const fetchData = async () => {
+    setShow(true);
     try {
-      const getTrainingsURL = API.TestAdminBaseURL + '/getTrainingListByRegion?Region=' + singleton.region
-      console.log('\nAPI call getTrainingsURL', getTrainingsURL);
-      const response = await fetch(getTrainingsURL);
-      const json = await response.json();
-      console.log('\nTrainingList SUCCESS');
-      console.log('\ngetTrainingList SUCCESS', json);
-      // Parse the response to map to DataItem format
-      const parsedData: TrainingDataItem[] = json["TrainingSchedules"].map((training: any) => ({
+      const response = await fetchTrainingData(singleton.region);
+      const parsedData: TrainingDataItem[] = response["TrainingSchedules"].map((training: any) => ({
         noOfTrainees: Number(training["NumberOfTrainees"]),
         badgeNumber: Number(training["Badgenumber"]),
         department: training["Department"],
@@ -95,22 +86,16 @@ const UpdateTrainingScreen: React.FC = () => {
         region: training["Region"],
         trainingId: Number(training["TrainingId"]),
       }));
-      setData(parsedData);  // Set parsed data
-      setShow(false);    // Set loading to false after data is fetched
+      setData(parsedData);
     } catch (error) {
-      // If the API call fails, load from local JSON file
       Alert.alert('Unable to fetch training list');
-      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
-      setTimeout(() => {
-        setShow(false);  // Stop loading in case of an error
-      }, 10);
+    } finally {
+      setShow(false);
     }
   };
 
-
   useEffect(() => {
-    setShow(true)
-    fetchData();  // Call the API when the component mounts
+    fetchData();
   }, []);
 
   const renderItem = ({ item }: { item: TrainingDataItem }) => {
@@ -139,11 +124,9 @@ const UpdateTrainingScreen: React.FC = () => {
             Training Id: {item.trainingId}
             </Text>
             <TouchableOpacity
-               onPress={() => handleStatusPress(item)}
+              onPress={() => handleStatusPress(item)}
               style={[styles.statusButton, getStatusBackgroundColor(item.status)]}>
-              <Text style={styles.statusText}>
-                {item.status}
-              </Text>
+              <Text style={styles.statusText}>{item.status}</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.numberText}>
@@ -165,9 +148,7 @@ const UpdateTrainingScreen: React.FC = () => {
             From: {FormatDate(item.fromDate)}
           </Text>
           <View style={styles.rowContainer}>
-            <Text style={styles.dateText}>
-              To: {FormatDate(item.toDate)}
-            </Text>
+            <Text style={styles.dateText}>To: {FormatDate(item.toDate)}</Text>
           </View>
         </View>
       </View>
@@ -190,8 +171,7 @@ const UpdateTrainingScreen: React.FC = () => {
       <Modal
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
+        onRequestClose={() => setModalVisible(false)} >
         <TouchableOpacity style={styles.modalBackground} onPress={() => setModalVisible(false)}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Change the status of Training to -</Text>

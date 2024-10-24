@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
-import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
 import { updateIncidentStatus } from '../../Networking/EndorseSafety/EndorseSafetyServices';
-import AppSingleton from '../../AppSingleton/AppSingleton';
-const singleton = AppSingleton.getInstance();
+import { fetchIncidents } from '../../Networking/Updates/UpdateIncidentService';
 
 interface DataItem {
-  incidentId: Number
+  incidentId: number;
   name: string;
   location: string;
   description: string;
   status: string;
   incidentdate: string;
-  region: String
+  region: string;
   badgeNumber: string;
 }
 
@@ -20,69 +19,49 @@ const UpdateIncidentsScreen: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [show, setShow] = useState(false);
 
-  // Function to call API and fetch data
-  const fetchData = async () => {
+  const loadIncidents = async () => {
+    setShow(true);
     try {
-      const getIncidentURL = API.TestAdminBaseURL + '/getIncidentByRegion?Region=' + singleton.region
-      console.log('\nAPI call getIncidentURL', getIncidentURL);
-      const response = await fetch(getIncidentURL);
-      const json = await response.json();
-      const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
-        badgeNumber: incident["Badgenumber"].trim(),
-        name: incident["Name"].trim(),
-        location: incident["Location"].trim(),
-        description: incident["Description"].trim(),
-        status: incident["incidentstatus"].trim(),
-        region: incident["Region"].trim(),
-        incidentdate: incident["incidentdate"].trim(),
-        incidentId: Number(incident["incidentid"].trim()),
-      }));
-      setData(parsedData);
-      console.log('\nDATA set', parsedData);
+      const incidentData = await fetchIncidents();  // Fetch data using the service
+      setData(incidentData);
       setShow(false);
     } catch (error) {
-      console.log('\nAPI call failed, loading local JSON:', error);
-      Alert.alert('Unable to fetch incidents list')
-      setTimeout(() => {
-        setShow(false);
-      }, 10);
+      console.log('Error fetching incidents:', error);
+      Alert.alert('Unable to fetch incidents list');
+      setShow(false);
     }
   };
 
   useEffect(() => {
-    setShow(true)
-    fetchData();  // Call the API when the component mounts
+    loadIncidents();  // Call the function to load incidents
   }, []);
 
   const updateStatus = async (item: DataItem) => {
-
     if (!item.incidentId) {
       Alert.alert('Incident Id not found');
       return;
     }
-    setShow(true)
-    // Create the request body for the API
+
+    setShow(true);
     const incidentData = {
       incidentid: item.incidentId.toString(),
       Name: item.name,
       Badgenumber: item.badgeNumber,
       Location: item.location,
       Description: item.description,
-      incidentstatus: 'Closed', // Status being updated here
-      assignedto: 8, // Example value, you can adjust this
+      incidentstatus: 'Closed',
+      assignedto: 8,
       actiontaken: 'testing an update',
       remarks: 'testing an update',
-      Imageuri: ' ', // Assuming no image for now
+      Imageuri: ' ',
       Region: item.region,
     };
 
-    // Call the API to update the status
     const success = await updateIncidentStatus(incidentData);
     if (success) {
-      // Refresh the incident list on success
-      fetchData();
+      loadIncidents();  // Refresh the list after updating
     } else {
-      setShow(false)
+      setShow(false);
       Alert.alert('Unable to update the incident status');
     }
   };
