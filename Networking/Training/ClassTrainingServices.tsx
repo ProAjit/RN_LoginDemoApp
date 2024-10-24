@@ -3,6 +3,8 @@
 import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 import * as Keychain from 'react-native-keychain';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 const API_BASE_URL = API.TestBaseURL
 
@@ -81,5 +83,29 @@ export const getTrainingScheduleById = async (trainingId: string) => {
   } catch (error) {
     console.log('\ngetTrainingScheduleById error', JSON.stringify(error))
     throw error;
+  }
+};
+
+export const fetchTrainingList = async () => {
+  try {
+    const getTrainingsURL = `${API.TestBaseURL}/getTrainingList?BadgeNumber=${singleton.badgeNumber}`;
+    console.log('TrainingList getTrainingsURL:', getTrainingsURL);
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+      const { password: storedEncodedCredentials } = credentials;
+      const response = await axios.get(getTrainingsURL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${storedEncodedCredentials}`,
+        },
+      });
+      console.log('\ngetTrainingScheduleById response', response.data)
+      return response.data;
+    } else {
+      console.log('No credentials stored');
+    }
+  } catch (error) {
+    console.error('API call failed:', error);
+    throw error;  // Throw error to be caught in the calling function
   }
 };

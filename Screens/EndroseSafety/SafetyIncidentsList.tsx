@@ -1,59 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
-import { COLORS, DEVICE, API } from '../../Constants/GlobalData';
-import AppSingleton from '../../AppSingleton/AppSingleton';
-const singleton = AppSingleton.getInstance();
-
-interface DataItem {
-  incidentId: string
-  name: string;
-  location: string;
-  description: string;
-  status: string;
-  incidentdate: string;
-  region: String
-  badgeNumber: string;
-}
+import { COLORS, DEVICE } from '../../Constants/GlobalData';
+import { fetchIncidentList, DataItem } from '../../Networking/EndorseSafety/EndorseSafetyServices';
 
 const SafetyIncidentsList: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [show, setShow] = useState(false);
 
-  // Function to call API and fetch data
-  const fetchData = async () => {
+  // Function to fetch data using the service
+  const loadData = async () => {
     try {
-      const getIncidentURL = API.TestBaseURL + '/getIncidentList?BadgeNumber=' + singleton.badgeNumber
-      console.log('\nAPI call getIncidentURL', getIncidentURL);
-      const response = await fetch(getIncidentURL);
-      const json = await response.json();
-      console.log('\nIncidentList SUCCESS');
-      console.log('\nIncidentList JSON:', json);
-      // Parse the response to map to DataItem format
-      const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
-        badgeNumber: incident["Badgenumber"].trim(),
-        name: incident["Name"].trim(),
-        location: incident["Location"].trim(),
-        description: incident["Description"].trim(),
-        status: incident["incidentstatus"].trim(),
-        region: incident["Region"].trim(),
-        incidentdate: incident["incidentdate"].trim(),
-        incidentId: incident["incidentid"].trim(),
-      }));
-      setData(parsedData);  // Set parsed data
-      setShow(false);    // Set loading to false after data is fetched
+      setShow(true);  // Start loading
+      const fetchedData = await fetchIncidentList();
+      setData(fetchedData);  // Set fetched data
+      setShow(false);  // Stop loading
     } catch (error) {
-      // If the API call fails, load from local JSON file
       Alert.alert('Unable to fetch incident list');
-      console.error('\n', JSON.stringify(error));
-      setTimeout(() => {
-        setShow(false);  // Stop loading in case of an error
-      }, 10);
+      console.error('Error:', error);
+      setShow(false);  // Stop loading in case of an error
     }
   };
 
   useEffect(() => {
-    setShow(true)
-    fetchData();  // Call the API when the component mounts
+    loadData();  // Fetch data when component mounts
   }, []);
 
   const renderItem = ({ item }: { item: DataItem }) => {
@@ -79,10 +48,9 @@ const SafetyIncidentsList: React.FC = () => {
               Incident Id: {item.incidentId}
             </Text>
             <TouchableOpacity
-              style={[styles.statusButton,
-              getStatusBackgroundColor(item.status)]}
+              style={[styles.statusButton, getStatusBackgroundColor(item.status)]}
             >
-            <Text style={styles.statusText}> {item.status} </Text>
+              <Text style={styles.statusText}> {item.status} </Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.badgeNumberText}>
@@ -98,16 +66,17 @@ const SafetyIncidentsList: React.FC = () => {
 
   return (
     <>
-    {show && (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
-      </View>
-    )}
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.incidentId.toString()}
-      contentContainerStyle={styles.listContainer} />
+      {show && (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.appThemeBlue} />
+        </View>
+      )}
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.incidentId.toString()}
+        contentContainerStyle={styles.listContainer}
+      />
     </>
   );
 };

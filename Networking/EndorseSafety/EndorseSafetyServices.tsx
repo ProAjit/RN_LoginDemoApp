@@ -2,6 +2,8 @@ import axios from 'axios';
 import { API } from '../../Constants/GlobalData';
 import { Alert } from 'react-native';
 import * as Keychain from 'react-native-keychain';
+import AppSingleton from '../../AppSingleton/AppSingleton';
+const singleton = AppSingleton.getInstance();
 
 export const submitSafetyEndorsement = async (
   name: string,
@@ -101,5 +103,59 @@ export const getIncidentsById = async (incidentId: string) => {
   } catch (error) {
     console.log('\ngetIncidentById error', JSON.stringify(error))
     throw error;
+  }
+};
+
+// Define the DataItem interface here if necessary
+export interface DataItem {
+  incidentId: string;
+  name: string;
+  location: string;
+  description: string;
+  status: string;
+  incidentdate: string;
+  region: string;
+  badgeNumber: string;
+}
+
+export const fetchIncidentList = async () => {
+  try {
+    const getIncidentURL = `${API.TestBaseURL}/getIncidentList?BadgeNumber=${singleton.badgeNumber}`;
+    console.log('API call getIncidentURL', getIncidentURL);
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+      const { password: storedEncodedCredentials } = credentials;
+      const response = await axios.get(getIncidentURL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${storedEncodedCredentials}`,
+        },
+      });
+
+      // Make GET request using axios
+      const json = response.data;
+
+      console.log('IncidentList SUCCESS');
+      console.log('IncidentList JSON:', json);
+
+      // Parse and return the data in the format of DataItem[]
+      // Parse the response to map to DataItem format
+      const parsedData: DataItem[] = json["Incidents"].map((incident: any) => ({
+        badgeNumber: incident["Badgenumber"].trim(),
+        name: incident["Name"].trim(),
+        location: incident["Location"].trim(),
+        description: incident["Description"].trim(),
+        status: incident["incidentstatus"].trim(),
+        region: incident["Region"].trim(),
+        incidentdate: incident["incidentdate"].trim(),
+        incidentId: incident["incidentid"].trim(),
+      }));
+      return parsedData
+    } else {
+      console.log('No credentials stored');
+    }
+  } catch (error) {
+    console.error('Error fetching incident list', error);
+    throw error;  // Re-throw the error to handle it in the main file
   }
 };

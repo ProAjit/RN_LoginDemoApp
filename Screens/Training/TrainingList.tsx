@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Alert, ActivityIndicator } from 'react-native';
-import { COLORS, DEVICE, API, FormatDate } from '../../Constants/GlobalData';
-import AppSingleton from '../../AppSingleton/AppSingleton';
-const singleton = AppSingleton.getInstance();
+import { COLORS, DEVICE, FormatDate } from '../../Constants/GlobalData';
+import { fetchTrainingList } from '../../Networking/Training/ClassTrainingServices';
 
 interface TrainingDataItem {
   noOfTrainees: number;
@@ -18,11 +17,6 @@ interface TrainingDataItem {
   region: string;
 }
 
-interface TrainingListProps {
-  data: TrainingDataItem[];
-  updateStatus: (noOfTrainees: number, newStatus: string) => void;
-}
-
 const TrainingList: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<TrainingDataItem | null>(null);
@@ -30,16 +24,12 @@ const TrainingList: React.FC = () => {
   const [show, setShow] = useState(false);
   const statusOptions = ['Rescheduled', 'OnHold', 'Approved', 'Rejected', 'Under Review'];
 
-  // Function to call API and fetch data
+  // Function to fetch data from the API
   const fetchData = async () => {
     try {
-      const getTrainingsURL = API.TestBaseURL + '/getTrainingList?BadgeNumber=' + singleton.badgeNumber
-      console.log('\nTrainingList getTrainingsURL', getTrainingsURL);
-      const response = await fetch(getTrainingsURL);
-      const json = await response.json();
-      console.log('\nTrainingList SUCCESS', json);
-      // Parse the response to map to DataItem format
-      const parsedData: TrainingDataItem[] = json["TrainingSchedules"].map((training: any) => ({
+      setShow(true);  // Show the loader
+      const result = await fetchTrainingList();  // Call the external API function
+      const parsedData: TrainingDataItem[] = result["TrainingSchedules"].map((training: any) => ({
         noOfTrainees: Number(training["NumberOfTrainees"]),
         badgeNumber: Number(training["Badgenumber"]),
         department: training["Department"],
@@ -52,26 +42,16 @@ const TrainingList: React.FC = () => {
         region: training["Region"],
         trainingId: training["TrainingId"],
       }));
-      const sortedData = parsedData.sort((a, b) => parseInt(a.trainingId) - parseInt(b.trainingId));
-      setData(sortedData);  // Set parsed data
-      setShow(false);    // Set loading to false after data is fetched
+      setData(parsedData.sort((a, b) => parseInt(a.trainingId) - parseInt(b.trainingId)));  // Sort and set data
+      setShow(false);  // Hide the loader
     } catch (error) {
-      // If the API call fails, load from local JSON file
       Alert.alert('Unable to fetch training list.');
-      console.log('\nAPI call failed, loading local JSON:', JSON.stringify(error));
-      setTimeout(() => {
-        setShow(false);  // Stop loading in case of an error
-      }, 10);
+      setShow(false);  // Hide the loader in case of an error
     }
   };
 
-  const sortedData = data.sort((a, b) => {
-    return parseInt(a.trainingId) - parseInt(b.trainingId);
-  });
-
   useEffect(() => {
-    setShow(true)
-    fetchData();  // Call the API when the component mounts
+    fetchData();  // Fetch data when the component mounts
   }, []);
 
   const renderItem = ({ item }: { item: TrainingDataItem }) => {
@@ -109,7 +89,6 @@ const TrainingList: React.FC = () => {
               No Of Trainees: {item.noOfTrainees}
             </Text>
             <TouchableOpacity
-              // onPress={() => handleStatusPress(item)}
               style={[styles.statusButton, getStatusBackgroundColor(item.status)]}>
               <Text style={styles.statusText}>
                 {item.status}
@@ -288,43 +267,3 @@ const styles = StyleSheet.create({
 });
 
 export default TrainingList;
-
-/*
-const convertToISO = (dateString: string): string => {
-  // Split the input into date and time parts
-  const [datePart, timePart] = dateString.split(' ');
-
-  // Split the date part into day, month, and year
-  const [day, month, year] = datePart.split('-');
-
-  // Map the month abbreviations to their corresponding numeric values
-  const monthNames: { [key: string]: number } = {
-    Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-    Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
-  };
-
-  const monthIndex = monthNames[month];  // Get month index (0-11)
-
-  // Split the time part into hours, minutes, and AM/PM
-  let [time, ampm] = timePart.split(/(AM|PM)/i);
-  let [hours, minutes] = time.split(':').map(Number);
-
-  // Convert 12-hour format to 24-hour format
-  if (ampm.toUpperCase() === 'PM' && hours < 12) {
-    hours += 12;
-  } else if (ampm.toUpperCase() === 'AM' && hours === 12) {
-    hours = 0; // Handle midnight case
-  }
-
-  // Create a new date object with the parsed values
-  const parsedDate = new Date(Number(year), monthIndex, Number(day), hours, minutes);
-
-  // Convert the date to ISO format
-  return parsedDate.toISOString();
-};
-
-const inputDate = '27-Aug-2024 1:26PM';
-const isoDate = convertToISO(inputDate);
-console.log(isoDate); // Output: 2024-08-27T10:26:00.000Z (depending on timezone)
-
- */
