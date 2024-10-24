@@ -106,7 +106,7 @@ export const getIncidentsById = async (incidentId: string) => {
   }
 };
 
-// Define the DataItem interface here if necessary
+// Defined the DataItem interface
 export interface DataItem {
   incidentId: string;
   name: string;
@@ -125,6 +125,8 @@ export const fetchIncidentList = async () => {
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
       const { password: storedEncodedCredentials } = credentials;
+        
+      // Make GET request using axios
       const response = await axios.get(getIncidentURL, {
         headers: {
           'Content-Type': 'application/json',
@@ -132,9 +134,7 @@ export const fetchIncidentList = async () => {
         },
       });
 
-      // Make GET request using axios
       const json = response.data;
-
       console.log('IncidentList SUCCESS');
       console.log('IncidentList JSON:', json);
 
